@@ -14,6 +14,11 @@ class ConfigServiceProvider extends ServiceProvider
     /**
      * @var string
      */
+    private $prefix;
+
+    /**
+     * @var string
+     */
     private $separator;
 
     /**
@@ -22,11 +27,12 @@ class ConfigServiceProvider extends ServiceProvider
      */
     public function __construct(array $config, $prefix = 'config', $separator = '.')
     {
+        $this->prefix    = $prefix;
         $this->separator = $separator;
 
         $config = $this->expandSubGroups($config);
 
-        $this->provides = $this->addPrefix($config, $prefix);
+        $this->provides = $this->getKeys($config);
 
         $this->config = array_combine($this->provides, array_values($config));
     }
@@ -78,17 +84,27 @@ class ConfigServiceProvider extends ServiceProvider
      *
      * @return array
      */
-    private function addPrefix(array $config, $prefix)
+    private function getKeys(array $config)
     {
-        if (!empty($prefix)) {
-            $prefix .= $this->separator;
+        $keys = array_keys($config);
+
+        if (!empty($this->prefix)) {
+            $keys = $this->addPrefix($keys);
         }
 
+        return $keys;
+    }
+
+    /**
+     * @return array
+     */
+    private function addPrefix(array $keys)
+    {
         return array_map(
-            function ($key) use ($prefix) {
-                return "$prefix$key";
+            function ($key) {
+                return $this->prefix . $this->separator . $key;
             },
-            array_keys($config)
+            $keys
         );
     }
 }
