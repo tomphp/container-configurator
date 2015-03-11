@@ -1,6 +1,8 @@
 Config Service Provider
 =======================
 
+[![Build Status](https://api.travis-ci.org/tomphp/config-service-provider.svg)](https://api.travis-ci.org/tomphp/config-service-provider)
+
 This package contains a simple service provider for the League Of Extraordinary
 Packages' [Container](https://github.com/thephpleague/container) package.
 
