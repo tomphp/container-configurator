@@ -1,6 +1,17 @@
 {
     "name": "tomphp/config-service-provider",
     "description": "A service provider for the League of Extraordinary Packages' Container which easily allows you to add config values to your DI.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": ["di", "dependency injection", "container", "league"],
+    "authors": [
+        {
+            "name": "Tom Oram",
+            "email": "tom@x2k.co.uk",
+            "homepage": "https://github.com/tomphp",
+            "role": "Developer"
+        }
+    ],
     "require-dev": {
         "phpunit/phpunit": "~4.5",
         "squizlabs/php_codesniffer": "*"
