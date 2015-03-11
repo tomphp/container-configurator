@@ -1,0 +1,94 @@
+<?php
+
+namespace TomPHP\ConfigServiceProvider;
+
+use League\Container\ServiceProvider;
+
+class ConfigServiceProvider extends ServiceProvider
+{
+    /**
+     * @var array
+     */
+    private $config;
+
+    /**
+     * @var string
+     */
+    private $separator;
+
+    /**
+     * @param string $prefix
+     * @param string $separator
+     */
+    public function __construct(array $config, $prefix = 'config', $separator = '.')
+    {
+        $this->separator = $separator;
+
+        $config = $this->expandSubGroups($config);
+
+        $this->provides = $this->addPrefix($config, $prefix);
+
+        $this->config = array_combine($this->provides, array_values($config));
+    }
+
+    public function register()
+    {
+        foreach ($this->config as $key => $value) {
+            $this->getContainer()->add($key, $value);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    private function expandSubGroups(array $config)
+    {
+        $expanded = [];
+
+        foreach ($config as $key => $value) {
+            $expanded += $this->expandSubGroup($key, $value);
+        }
+
+        return $expanded;
+    }
+
+    /**
+     * @return array
+     */
+    private function expandSubGroup($key, $value)
+    {
+        if (!is_array($value)) {
+            return [$key => $value];
+        }
+
+        $expanded = [];
+
+        foreach ($value as $subkey => $subvalue) {
+            $expanded += $this->expandSubGroup(
+                $key. $this->separator . $subkey,
+                $subvalue
+            );
+        }
+
+        return $expanded;
+    }
+
+    /**
+     * @param string $prefix
+     *
+     * @return array
+     */
+    private function addPrefix(array $config, $prefix)
+    {
+        if (!empty($prefix)) {
+            $prefix .= $this->separator;
+        }
+
+        return array_map(
+            function ($key) use ($prefix) {
+                return "$prefix$key";
+            },
+            array_keys($config)
+        );
+    }
+}
