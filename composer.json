@@ -14,7 +14,7 @@
         }
     ],
     "require-dev": {
-        "phpunit/phpunit": "~4.5",
+        "phpunit/phpunit": "^4.6.4",
         "squizlabs/php_codesniffer": "*"
     },
     "require": {
@@ -24,5 +24,8 @@
         "psr-4": {
             "TomPHP\\ConfigServiceProvider\\": "src/"
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpcs --standard=psr2 src tests && vendor/bin/phpunit --colors=always"
     }
 }
