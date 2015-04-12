@@ -3,6 +3,7 @@
     "description": "A service provider for the League of Extraordinary Packages' Container which easily allows you to add config values to your DI.",
     "license": "MIT",
     "type": "library",
+    "homepage": "https://github.com/tomphp/config-service-provider",
     "keywords": ["di", "dependency injection", "container", "league"],
     "authors": [
         {
