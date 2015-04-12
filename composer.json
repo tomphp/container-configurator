@@ -14,15 +14,18 @@
         }
     ],
     "require-dev": {
-        "phpunit/phpunit": "~4.5",
+        "phpunit/phpunit": "^4.6.4",
         "squizlabs/php_codesniffer": "*"
     },
     "require": {
-        "league/container": ">=1.3"
+        "league/container": "^1.3"
     },
     "autoload": {
         "psr-4": {
             "TomPHP\\ConfigServiceProvider\\": "src/"
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpcs --standard=psr2 src tests && vendor/bin/phpunit --colors=always"
     }
 }

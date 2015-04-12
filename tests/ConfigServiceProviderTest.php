@@ -78,6 +78,24 @@ class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testItMakesSubGroupsAvailableAsArrays()
+    {
+        $config = [
+            'test_group' => [
+                'sub_group' => [
+                    'test_setting' => 'test value'
+                ]
+            ]
+        ];
+
+        $this->container->addServiceProvider(new ConfigServiceProvider($config));
+
+        $this->assertEquals(
+            ['test_setting' => 'test value'],
+            $this->container->get('config.test_group.sub_group')
+        );
+    }
+
     public function testItCanUseACustomSeperator()
     {
         $config = [
