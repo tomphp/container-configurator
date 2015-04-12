@@ -67,7 +67,7 @@ class ConfigServiceProvider extends ServiceProvider
             return [$key => $value];
         }
 
-        $expanded = [];
+        $expanded = [$key => $value];
 
         foreach ($value as $subkey => $subvalue) {
             $expanded += $this->expandSubGroup(
