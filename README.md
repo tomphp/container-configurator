@@ -40,7 +40,7 @@ $diConfig = [
     'database_connection' => [
         'class'     => DatabaseConnection::class,
         'arguments' => [
-            'config.db.example_db',
+            'config.db.name',
             'config.db.username',
             'config.db.password'
         ]
