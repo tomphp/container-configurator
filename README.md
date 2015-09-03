@@ -16,7 +16,7 @@ Installation
 Installation can be done easily using composer:
 
 ```
-$ composer require "tomphp/config-service-provider:*"
+$ composer require tomphp/config-service-provider
 ```
 
 Example Usage
