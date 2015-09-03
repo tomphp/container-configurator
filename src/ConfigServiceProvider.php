@@ -22,6 +22,7 @@ class ConfigServiceProvider extends AbstractServiceProvider
     private $separator;
 
     /**
+     * @param array  $config
      * @param string $prefix
      * @param string $separator
      */
@@ -45,6 +46,7 @@ class ConfigServiceProvider extends AbstractServiceProvider
     }
 
     /**
+     * @param array $config
      * @return array
      */
     private function expandSubGroups(array $config)
@@ -59,6 +61,8 @@ class ConfigServiceProvider extends AbstractServiceProvider
     }
 
     /**
+     * @param string $key
+     * @param mixed $value
      * @return array
      */
     private function expandSubGroup($key, $value)
@@ -80,8 +84,7 @@ class ConfigServiceProvider extends AbstractServiceProvider
     }
 
     /**
-     * @param string $prefix
-     *
+     * @param array $config
      * @return array
      */
     private function getKeys(array $config)
@@ -96,6 +99,7 @@ class ConfigServiceProvider extends AbstractServiceProvider
     }
 
     /**
+     * @param array $keys
      * @return array
      */
     private function addPrefix(array $keys)
