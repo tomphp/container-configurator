@@ -2,9 +2,9 @@
 
 namespace TomPHP\ConfigServiceProvider;
 
-use League\Container\ServiceProvider;
+use League\Container\ServiceProvider\AbstractServiceProvider;
 
-class ConfigServiceProvider extends ServiceProvider
+class ConfigServiceProvider extends AbstractServiceProvider
 {
     /**
      * @var array
