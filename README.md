@@ -25,7 +25,7 @@ $ composer require tomphp/config-service-provider
 
 use League\Container\Container;
 use League\Container\ServiceProvider\AbstractServiceProvider;
-use TomPHP\ConfigServiceProvider\ConfigServiceProvider;
+use TomPHP\ConfigServiceProvider\Config;
 
 class DatabaseConnectionProvider extends AbstractServiceProvider
 {
@@ -55,7 +55,7 @@ $appConfig = [
 
 $container = new Container();
 
-$container->addServiceProvider(new ConfigServiceProvider($appConfig));
+Config::addToContainer($container, $appConfig);
 $container->addServiceProvider(new DatabaseConnectionProvider());
 
 $db = $container->get('database_connection');
@@ -68,7 +68,7 @@ $db = $container->get('database_connection');
   with a name made up of the first array key, followed by a separator (defaults
   to `.`) followed by the key from the second array.
 
-## Accessing A Whole Sub-Array
+### Accessing A Whole Sub-Array
 
 Whole sub-arrays are also made available for cases where you want them instead
 of individual values. Altering the previous example, this is also possible
@@ -97,20 +97,40 @@ class DatabaseConnectionProvider extends AbstractServiceProvider
 }
 ```
 
-## Changing the Prefix and the Separator
+### Configuring Inflectors
 
-These can be altered via the constructor parameters for the
-`TomPHP\ConfigServiceProvider\ConfigServiceProvider` class:
+It is also possible to set up
+[Inflectors](http://container.thephpleague.com/inflectors/) by adding an
+`inflectors` key to the config.
+
+```php
+$appConfig = [
+    'inflectors' => [
+        LoggerAwareInterface::class => [
+            'setLogger' => ['Some\Logger']
+        ]
+    ]
+];
+```
+
+## Advanced Usage
+
+`Config::addToContainer` makes some assumptions about how your config is
+arranged. If you need to customise this then you can create the service
+providers directly.
+
+### The Config Service Provider
+
+You can change the config root name and the separator by creating an instance
+of `TomPHP\ConfigServiceProvider\ConfigServiceProvider` directly.
 
 ```php
 ConfigServiceProvider::__construct(array $config, $prefix = 'config', $separator = '.')
 ```
 
-## Configuring Inflectors
+### Inflector Config Service Provider
 
-This package also allows the setup of
-[Inflectors](http://container.thephpleague.com/inflectors/) via a configuration
-array.
+The configuring of inflectors is done using a separate service provider:
 
 ```php
 $inflectorConfig = [

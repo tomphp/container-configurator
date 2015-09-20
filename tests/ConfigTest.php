@@ -4,11 +4,11 @@ namespace tests\TomPHP\ConfigServiceProvider;
 
 use League\Container\Container;
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\InflectorConfigServiceProvider;
+use TomPHP\ConfigServiceProvider\Config;
 use tests\mocks\ExampleClass;
 use tests\mocks\ExampleInterface;
 
-class InflectorConfigServiceProviderTest extends PHPUnit_Framework_TestCase
+class ConfigTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Container
@@ -18,21 +18,26 @@ class InflectorConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->container = new Container();
-    }
 
-    public function testSetsUpAnInflector()
-    {
         $config = [
-            'tests\mocks\ExampleInterface' => [
-                'setValue' => ['test_value']
+            'test_key' => 'test value',
+
+            'inflectors' => [
+                'tests\mocks\ExampleInterface' => [
+                    'setValue' => ['config.test_key']
+                ]
             ]
         ];
 
-        $this->container->addServiceProvider(new InflectorConfigServiceProvider($config));
-        $this->container->add('example', 'tests\mocks\ExampleClass');
+        Config::addToContainer($this->container, $config);
 
+        $this->container->add('example', 'tests\mocks\ExampleClass');
+    }
+
+    public function testItCanAUseCustomPrefix()
+    {
         $this->assertEquals(
-            'test_value',
+            'test value',
             $this->container->get('example')->getValue()
         );
     }
