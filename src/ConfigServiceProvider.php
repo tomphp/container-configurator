@@ -22,6 +22,8 @@ class ConfigServiceProvider extends AbstractServiceProvider
     private $separator;
 
     /**
+     * @api
+     *
      * @param array  $config
      * @param string $prefix
      * @param string $separator
