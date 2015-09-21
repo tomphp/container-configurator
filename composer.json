@@ -18,11 +18,17 @@
         "squizlabs/php_codesniffer": "*"
     },
     "require": {
+        "php": ">=5.4",
         "league/container": "^2.0.2"
     },
     "autoload": {
         "psr-4": {
             "TomPHP\\ConfigServiceProvider\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "tests\\mocks\\": "tests/mocks/"
         }
     },
     "scripts": {
