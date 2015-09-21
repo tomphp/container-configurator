@@ -1,3 +1,9 @@
+### 0.2.1 (2051-09-21)
+
+ * Added: Support to set up inflectors via configuration
+ * Added: `TomPHP\ConfigServiceProvider\Config` - a static class to enable easy
+   setup.
+
 ### 0.2.0 (2015-09-03)
 
  * Update: Now depends on League Container `^2.0.2`
