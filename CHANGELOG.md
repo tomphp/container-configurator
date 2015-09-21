@@ -1,4 +1,4 @@
-### 0.2.1 (2051-09-21)
+### 0.2.1 (2015-09-21)
 
  * Added: Support to set up inflectors via configuration
  * Added: `TomPHP\ConfigServiceProvider\Config` - a static class to enable easy
