@@ -1,3 +1,7 @@
+### 0.3.1 (2015-09-23)
+
+ * Added: Reading config files (PHP and JSON)
+
 ### 0.3.0 (2015-09-23)
 
  * Added: `ConfigServiceProvider::fromConfig()` factory method

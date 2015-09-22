@@ -28,10 +28,11 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "tests\\TomPHP\\ConfigServiceProvider\\": "tests/",
             "tests\\mocks\\": "tests/mocks/"
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpcs --standard=psr2 src tests && vendor/bin/phpunit --colors=always"
+        "test": "vendor/bin/phpcs --standard=psr2 src tests/* && vendor/bin/phpunit --colors=always"
     }
 }

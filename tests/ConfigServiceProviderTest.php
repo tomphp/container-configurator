@@ -9,6 +9,8 @@ use Prophecy\Argument;
 
 final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 {
+    use TestFileCreator;
+
     /**
      * @var Container
      */
@@ -237,7 +239,7 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     /**
      * @group from_config_factory
      */
-    public function testItCanOverrideDefaultSettings()
+    public function testItCanOverrideFromConfigDefaults()
     {
         $config = [
             'test_key' => 'test value',
@@ -262,5 +264,100 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
             'test value',
             $this->container->get('example')->getValue()
         );
+    }
+
+    /**
+     * @group from_files_factory
+     */
+    public function testItCreatesFromParsingFiles()
+    {
+        $this->deleteTestFiles();
+
+        $config = [
+            'test_key' => 'test value',
+
+            'inflectors' => [
+                'tests\mocks\ExampleInterface' => [
+                    'setValue' => ['config.test_key']
+                ]
+            ]
+        ];
+
+        $this->createPHPConfigFile('config.php', $config);
+
+        $this->container->addServiceProvider(ConfigServiceProvider::fromFiles([
+            $this->getTestPath('*')
+        ]));
+
+        $this->container->add('example', 'tests\mocks\ExampleClass');
+
+        $this->assertEquals(
+            'test value',
+            $this->container->get('example')->getValue()
+        );
+    }
+
+    /**
+     * @group from_files_factory
+     */
+    public function testItCanOverrideFromFilesDefaults()
+    {
+        $this->deleteTestFiles();
+
+        $config = [
+            'test_key' => 'test value',
+
+            'inflectors' => [
+                'tests\mocks\ExampleInterface' => [
+                    'setValue' => ['settings/test_key']
+                ]
+            ]
+        ];
+
+        $this->createPHPConfigFile('config.php', $config);
+
+        $this->container->addServiceProvider(ConfigServiceProvider::fromFiles(
+            [ $this->getTestPath('*') ],
+            [
+                'prefix' => 'settings',
+                'separator' => '/'
+            ]
+        ));
+
+        $this->container->add('example', 'tests\mocks\ExampleClass');
+
+        $this->assertEquals(
+            'test value',
+            $this->container->get('example')->getValue()
+        );
+    }
+
+    /**
+     * @group from_files_factory
+     */
+    public function testItMergesConfigsFromFiles()
+    {
+        $this->deleteTestFiles();
+
+        $config1 = ['a' => 1, 'b' => 5];
+        $config2 = ['b' => 2, 'c' => 3];
+
+        $this->createPHPConfigFile('config1.php', $config1);
+        $this->createPHPConfigFile('config2.php', $config2);
+
+        $this->container->addServiceProvider(ConfigServiceProvider::fromFiles(
+            [ $this->getTestPath('*') ]
+        ));
+
+        $this->assertEquals(1, $this->container->get('config.a'));
+        $this->assertEquals(2, $this->container->get('config.b'));
+        $this->assertEquals(3, $this->container->get('config.c'));
+    }
+
+    private function createPHPConfigFile($filename, array $config)
+    {
+        $code = '<?php return ' . var_export($config, true) . ';';
+
+        $this->createTestFile($filename, $code);
     }
 }

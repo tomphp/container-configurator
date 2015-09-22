@@ -57,6 +57,36 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     /**
      * @api
      *
+     * @param string[] $patterns
+     * @param array    $settings
+     *
+     * @return ConfigServiceProvider
+     */
+    public static function fromFiles(array $patterns, array $settings = [])
+    {
+        $locator = new FileLocator();
+        $files = $locator->locate($patterns);
+
+        $factory = new ReaderFactory([
+            '.php' => 'TomPHP\ConfigServiceProvider\PHPFileReader',
+        ]);
+
+        $configs = array_map(
+            function ($filename) use ($factory) {
+                $reader = $factory->create($filename);
+                return $reader->read($filename);
+            },
+            $files
+        );
+
+        $config = call_user_func_array('array_replace_recursive', $configs);
+
+        return self::fromConfig($config, $settings);
+    }
+
+    /**
+     * @api
+     *
      * @param array                         $config
      * @param string                        $prefix
      * @param string                        $separator

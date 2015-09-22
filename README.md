@@ -68,6 +68,29 @@ $db = $container->get('database_connection');
   with a name made up of the first array key, followed by a separator (defaults
   to `.`) followed by the key from the second array.
 
+### Reading Files From Disk
+
+Instead of providing the config as an array, you can also provide a list of 
+file matching patterns to the `fromFiles` constructor.
+
+```php
+$container->addServiceProvider(ConfigServiceProvider::fromFiles([
+    'config_dir/*.global.php',
+    'json_dir/*.json',
+    'config_dir/*.local.php',
+]));
+```
+
+#### Merging
+
+Patterns will be matched in the order the appear in the array. As files are
+read their config will be merged in, overwriting any matching keys.
+
+#### Supported Formats
+
+Current `.php` and `.json` files are supported. PHP config files **must**
+return a PHP array.
+
 ### Accessing A Whole Sub-Array
 
 Whole sub-arrays are also made available for cases where you want them instead
