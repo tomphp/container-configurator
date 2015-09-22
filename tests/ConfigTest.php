@@ -5,8 +5,6 @@ namespace tests\TomPHP\ConfigServiceProvider;
 use League\Container\Container;
 use PHPUnit_Framework_TestCase;
 use TomPHP\ConfigServiceProvider\Config;
-use tests\mocks\ExampleClass;
-use tests\mocks\ExampleInterface;
 
 class ConfigTest extends PHPUnit_Framework_TestCase
 {
