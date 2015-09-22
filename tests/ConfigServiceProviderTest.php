@@ -96,7 +96,7 @@ class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testItCanUseACustomSeperator()
+    public function testItCanUseACustomSeparator()
     {
         $config = [
             'test_group' => [
