@@ -71,7 +71,7 @@ $db = $container->get('database_connection');
 ### Reading Files From Disk
 
 Instead of providing the config as an array, you can also provide a list of 
-file matching patterns to the `fromFiles` constructor.
+file filesystem pattern matches to the `fromFiles` constructor.
 
 ```php
 $container->addServiceProvider(ConfigServiceProvider::fromFiles([
