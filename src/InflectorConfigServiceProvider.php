@@ -5,7 +5,7 @@ namespace TomPHP\ConfigServiceProvider;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
 
-class InflectorConfigServiceProvider extends AbstractServiceProvider implements
+final class InflectorConfigServiceProvider extends AbstractServiceProvider implements
     BootableServiceProviderInterface,
     ConfigurableServiceProvider
 {

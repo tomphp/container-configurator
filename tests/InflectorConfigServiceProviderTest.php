@@ -6,7 +6,7 @@ use League\Container\Container;
 use PHPUnit_Framework_TestCase;
 use TomPHP\ConfigServiceProvider\InflectorConfigServiceProvider;
 
-class InflectorConfigServiceProviderTest extends PHPUnit_Framework_TestCase
+final class InflectorConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Container

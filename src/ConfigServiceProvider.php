@@ -6,7 +6,7 @@ use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use TomPHP\ConfigServiceProvider\InflectorConfigServiceProvider;
 
-class ConfigServiceProvider extends AbstractServiceProvider implements
+final class ConfigServiceProvider extends AbstractServiceProvider implements
     BootableServiceProviderInterface
 {
     const DEFAULT_PREFIX         = 'config';

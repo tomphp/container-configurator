@@ -7,7 +7,7 @@ use PHPUnit_Framework_TestCase;
 use TomPHP\ConfigServiceProvider\ConfigServiceProvider;
 use Prophecy\Argument;
 
-class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
+final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Container

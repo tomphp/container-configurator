@@ -4,6 +4,7 @@
  * Added: Sub providers
  * Updated: `TomPHP\ConfigServiceProvider\InflectorConfigServiceProvider` is
    now a sub provider
+ * Update: Provider classes are marked as final
  * Removed: `TomPHP\ConfigServiceProvider\Config` static factory
 
 ### 0.2.1 (2015-09-21)
