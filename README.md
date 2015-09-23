@@ -25,7 +25,7 @@ $ composer require tomphp/config-service-provider
 
 use League\Container\Container;
 use League\Container\ServiceProvider\AbstractServiceProvider;
-use TomPHP\ConfigServiceProvider\Config;
+use TomPHP\ConfigServiceProvider\ConfigServiceProvider;
 
 class DatabaseConnectionProvider extends AbstractServiceProvider
 {
@@ -55,7 +55,7 @@ $appConfig = [
 
 $container = new Container();
 
-Config::addToContainer($container, $appConfig);
+$container->addServiceProvider(ConfigServiceProvider::fromConfig($appConfig));
 $container->addServiceProvider(new DatabaseConnectionProvider());
 
 $db = $container->get('database_connection');
@@ -113,31 +113,23 @@ $appConfig = [
 ];
 ```
 
-## Advanced Usage
+### Extra Settings
 
-`Config::addToContainer` makes some assumptions about how your config is
-arranged. If you need to customise this then you can create the service
-providers directly.
+You can provide an array of extra settings as a second parameter to
+`TomPHP\ConfigServiceProvider\ConfigServiceProvider::fromConfig()`.
 
-### The Config Service Provider
+Current valid keys are:
 
-You can change the config root name and the separator by creating an instance
-of `TomPHP\ConfigServiceProvider\ConfigServiceProvider` directly.
+| Name        | Effect                                        |
+|-------------|-----------------------------------------------|
+| `prefix`    | Changes `config` prefix given to config keys. |
+| `separator` | Changes `.` separator in config keys.         |
 
-```php
-ConfigServiceProvider::__construct(array $config, $prefix = 'config', $separator = '.')
-```
-
-### Inflector Config Service Provider
-
-The configuring of inflectors is done using a separate service provider:
+Example:
 
 ```php
-$inflectorConfig = [
-    LoggerAwareInterface::class => [
-        'setLogger' => ['Some\Logger']
-    ]
-];
-
-$container->addServiceProvider(new InflectorConfigServiceProvider($inflectorConfig));
+$provider = ConfigServiceProvider::fromConfig($appConfig, [
+    'prefix'    => 'settings',
+    'separator' => '/'
+]);
 ```

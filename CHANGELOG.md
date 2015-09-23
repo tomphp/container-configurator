@@ -1,3 +1,11 @@
+### 0.3.0 (2015-09-23)
+
+ * Added: `ConfigServiceProvider::fromConfig()` factory method
+ * Added: Sub providers
+ * Updated: `TomPHP\ConfigServiceProvider\InflectorConfigServiceProvider` is
+   now a sub provider
+ * Removed: `TomPHP\ConfigServiceProvider\Config` static factory
+
 ### 0.2.1 (2015-09-21)
 
  * Added: Support to set up inflectors via configuration

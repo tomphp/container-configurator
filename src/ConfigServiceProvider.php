@@ -3,9 +3,19 @@
 namespace TomPHP\ConfigServiceProvider;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
+use League\Container\ServiceProvider\BootableServiceProviderInterface;
+use TomPHP\ConfigServiceProvider\InflectorConfigServiceProvider;
 
-class ConfigServiceProvider extends AbstractServiceProvider
+class ConfigServiceProvider extends AbstractServiceProvider implements
+    BootableServiceProviderInterface
 {
+    const DEFAULT_PREFIX         = 'config';
+    const DEFAULT_SEPARATOR      = '.';
+    const DEFAULT_INFLECTORS_KEY = 'inflectors';
+
+    const SETTING_PREFIX    = 'prefix';
+    const SETTING_SEPARATOR = 'separator';
+
     /**
      * @var array
      */
@@ -22,28 +32,78 @@ class ConfigServiceProvider extends AbstractServiceProvider
     private $separator;
 
     /**
+     * @var ConfigurableServiceProvider[]
+     */
+    private $subProviders;
+
+    /**
      * @api
      *
-     * @param array  $config
-     * @param string $prefix
-     * @param string $separator
+     * @param array $config
+     * @param array $settings
+     *
+     * @return ConfigServiceProvider
      */
-    public function __construct(array $config, $prefix = 'config', $separator = '.')
+    public static function fromConfig(array $config, array $settings = [])
     {
-        $this->prefix    = $prefix;
-        $this->separator = $separator;
+        return new self(
+            $config,
+            self::getSettingOrDefault(self::SETTING_PREFIX, $settings, self::DEFAULT_PREFIX),
+            self::getSettingOrDefault(self::SETTING_SEPARATOR, $settings, self::DEFAULT_SEPARATOR),
+            [self::DEFAULT_INFLECTORS_KEY => new InflectorConfigServiceProvider([])]
+        );
+    }
+
+    /**
+     * @api
+     *
+     * @param array                         $config
+     * @param string                        $prefix
+     * @param string                        $separator
+     * @param ConfigurableServiceProvider[] $subProviders
+     */
+    public function __construct(
+        array $config,
+        $prefix = self::DEFAULT_PREFIX,
+        $separator = self::DEFAULT_SEPARATOR,
+        array $subProviders = []
+    ) {
+        $this->prefix       = $prefix;
+        $this->separator    = $separator;
+        $this->subProviders = $subProviders;
 
         $config = $this->expandSubGroups($config);
 
         $this->provides = $this->getKeys($config);
 
         $this->config = array_combine($this->provides, array_values($config));
+
+        foreach ($this->subProviders as $key => $provider) {
+            $this->configureSubProvider($key, $config, $provider);
+        }
     }
 
     public function register()
     {
         foreach ($this->config as $key => $value) {
             $this->getContainer()->add($key, $value);
+        }
+
+        foreach ($this->subProviders as $provider) {
+            $provider->setContainer($this->getContainer());
+            $provider->register();
+        }
+    }
+
+    public function boot()
+    {
+        foreach ($this->subProviders as $provider) {
+            if (!$provider instanceof BootableServiceProviderInterface) {
+                continue;
+            }
+
+            $provider->setContainer($this->getContainer());
+            $provider->boot();
         }
     }
 
@@ -112,5 +172,31 @@ class ConfigServiceProvider extends AbstractServiceProvider
             },
             $keys
         );
+    }
+
+    /**
+     * @param string $key
+     */
+    private function configureSubProvider($key, $config, ConfigurableServiceProvider $provider)
+    {
+        if (!array_key_exists($key, $config)) {
+            return;
+        }
+
+        $provider->configure($config[$key]);
+
+        $this->provides = array_merge($this->provides, $provider->provides());
+    }
+
+    /**
+     * @param string $name
+     * @param array  $settings
+     * @param mixed  $default
+     *
+     * @return mixed
+     */
+    private static function getSettingOrDefault($name, array $settings, $default)
+    {
+        return isset($settings[$name]) ? $settings[$name] : $default;
     }
 }
