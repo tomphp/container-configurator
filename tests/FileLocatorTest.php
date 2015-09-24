@@ -16,8 +16,6 @@ final class FileLocatorTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->deleteTestFiles();
-
         $this->locator = new FileLocator();
     }
 

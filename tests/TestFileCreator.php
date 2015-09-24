@@ -9,6 +9,11 @@ trait TestFileCreator
      */
     private $configFilePath;
 
+    protected function tearDown()
+    {
+        $this->deleteTestFiles();
+    }
+
     /**
      * @param string $name
      *

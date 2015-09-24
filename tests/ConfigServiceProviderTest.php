@@ -278,8 +278,6 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
      */
     public function testItCreatesFromParsingFiles()
     {
-        $this->deleteTestFiles();
-
         $config = [
             'test_key' => 'test value',
 
@@ -309,8 +307,6 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
      */
     public function testItCanOverrideFromFilesDefaults()
     {
-        $this->deleteTestFiles();
-
         $config = [
             'test_key' => 'test value',
 
@@ -344,8 +340,6 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
      */
     public function testItMergesConfigsFromFiles()
     {
-        $this->deleteTestFiles();
-
         $config1 = ['a' => 1, 'b' => 5];
         $config2 = ['b' => 2, 'c' => 3];
 
