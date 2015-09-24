@@ -1,3 +1,8 @@
+### 0.3.2 (2015-09-24)
+
+ * Added: Reading JSON config files via the `fromFiles` constructor
+ * Added: Support from braces in file globbing patterns
+
 ### 0.3.1 (2015-09-23)
 
  * Added: Reading config files (PHP and JSON)
