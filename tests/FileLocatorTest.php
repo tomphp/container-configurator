@@ -32,4 +32,19 @@ final class FileLocatorTest extends PHPUnit_Framework_TestCase
             $this->getTestPath('config2.php'),
         ], $files);
     }
+
+    public function testItFindsFindsFilesByGlobbingWithBraces()
+    {
+        $this->createTestFile('global.php');
+        $this->createTestFile('database.local.php');
+        $this->createTestFile('nothing.php');
+        $this->createTestFile('nothing.php.dist');
+
+        $files = $this->locator->locate([$this->getTestPath('{,*.}{global,local}.php')]);
+
+        $this->assertEquals([
+            $this->getTestPath('global.php'),
+            $this->getTestPath('database.local.php'),
+        ], $files);
+    }
 }

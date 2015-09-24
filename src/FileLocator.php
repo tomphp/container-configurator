@@ -16,7 +16,7 @@ final class FileLocator
         $files = [];
 
         foreach ($patterns as $pattern) {
-            $files = array_merge($files, glob($pattern));
+            $files = array_merge($files, glob($pattern, GLOB_BRACE));
         }
 
         return $files;
