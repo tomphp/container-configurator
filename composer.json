@@ -14,6 +14,7 @@
         }
     ],
     "require-dev": {
+        "fabpot/php-cs-fixer": "^1.10",
         "phpunit/phpunit": "^4.6.4",
         "squizlabs/php_codesniffer": "*"
     },
@@ -33,6 +34,7 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpcs --standard=psr2 src tests/* && vendor/bin/phpunit --colors=always"
+        "cs": "vendor/bin/phpcbf --standard=psr2 src tests && vendor/bin/php-cs-fixer fix --verbose",
+        "test": "vendor/bin/phpcs --standard=psr2 src tests && vendor/bin/php-cs-fixer fix --verbose --dry-run && vendor/bin/phpunit --colors=always"
     }
 }
