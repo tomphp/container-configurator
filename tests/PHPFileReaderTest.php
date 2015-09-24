@@ -20,11 +20,6 @@ final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
         $this->reader = new PHPFileReader();
     }
 
-    protected function tearDown()
-    {
-        $this->deleteTestFiles();
-    }
-
     public function testItIsAFileReader()
     {
         $this->assertInstanceOf('TomPHP\ConfigServiceProvider\FileReader', $this->reader);

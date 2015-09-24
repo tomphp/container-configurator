@@ -20,11 +20,6 @@ final class JSONFileReaderTest extends PHPUnit_Framework_TestCase
         $this->reader = new JSONFileReader();
     }
 
-    protected function tearDown()
-    {
-        $this->deleteTestFiles();
-    }
-
     public function testItIsAFileReader()
     {
         $this->assertInstanceOf('TomPHP\ConfigServiceProvider\FileReader', $this->reader);

@@ -28,11 +28,6 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
         $this->subProvider->register()->willReturn();
     }
 
-    protected function tearDown()
-    {
-        $this->deleteTestFiles();
-    }
-
     public function testItProvidesConfigValuesViaTheDI()
     {
         $config = [

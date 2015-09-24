@@ -19,11 +19,6 @@ final class FileLocatorTest extends PHPUnit_Framework_TestCase
         $this->locator = new FileLocator();
     }
 
-    protected function tearDown()
-    {
-        $this->deleteTestFiles();
-    }
-
     public function testItFindsFilesByGlobbing()
     {
         $this->createTestFile('config1.php');
