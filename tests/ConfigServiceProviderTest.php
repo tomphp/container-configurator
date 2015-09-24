@@ -148,7 +148,7 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     /**
      * @group sub_providers
      */
-    public function testItSkipsConfiguringASubProvderWithNoConfig()
+    public function testItSkipsConfiguringASubProviderWithNoConfig()
     {
         new ConfigServiceProvider([], 'config', '.', [
             'sub_provider' => $this->subProvider->reveal(),
