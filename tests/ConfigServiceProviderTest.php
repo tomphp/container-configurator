@@ -4,8 +4,10 @@ namespace tests\TomPHP\ConfigServiceProvider;
 
 use League\Container\Container;
 use PHPUnit_Framework_TestCase;
+use Prophecy\Prophecy\ObjectProphecy;
 use TomPHP\ConfigServiceProvider\ConfigServiceProvider;
 use Prophecy\Argument;
+use TomPHP\ConfigServiceProvider\ConfigurableServiceProvider;
 
 final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 {
@@ -13,6 +15,11 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
      * @var Container
      */
     private $container;
+
+    /**
+     * @var ConfigurableServiceProvider|ObjectProphecy
+     */
+    private $subProvider;
 
     protected function setUp()
     {
