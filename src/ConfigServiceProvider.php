@@ -67,6 +67,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
         $files = $locator->locate($patterns);
 
         $factory = new ReaderFactory([
+            '.json' => 'TomPHP\ConfigServiceProvider\JSONFileReader',
             '.php' => 'TomPHP\ConfigServiceProvider\PHPFileReader',
         ]);
 
