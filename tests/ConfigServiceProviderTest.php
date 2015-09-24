@@ -340,10 +340,12 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
         $this->deleteTestFiles();
 
         $config1 = ['a' => 1, 'b' => 5];
-        $config2 = ['b' => 2, 'c' => 3];
+        $config2 = ['b' => 2, 'c' => 7];
+        $config3 = ['c' => 3, 'd' => 4];
 
         $this->createPHPConfigFile('config1.php', $config1);
         $this->createPHPConfigFile('config2.php', $config2);
+        $this->createJSONConfigFile('config3.json', $config3);
 
         $this->container->addServiceProvider(ConfigServiceProvider::fromFiles(
             [ $this->getTestPath('*') ]
@@ -352,11 +354,19 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $this->container->get('config.a'));
         $this->assertEquals(2, $this->container->get('config.b'));
         $this->assertEquals(3, $this->container->get('config.c'));
+        $this->assertEquals(4, $this->container->get('config.d'));
     }
 
     private function createPHPConfigFile($filename, array $config)
     {
         $code = '<?php return ' . var_export($config, true) . ';';
+
+        $this->createTestFile($filename, $code);
+    }
+
+    private function createJSONConfigFile($filename, array $config)
+    {
+        $code = json_encode($config);
 
         $this->createTestFile($filename, $code);
     }
