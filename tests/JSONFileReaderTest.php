@@ -17,9 +17,12 @@ final class JSONFileReaderTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->deleteTestFiles();
-
         $this->reader = new JSONFileReader();
+    }
+
+    protected function tearDown()
+    {
+        $this->deleteTestFiles();
     }
 
     public function testItIsAFileReader()

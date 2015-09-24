@@ -17,9 +17,12 @@ final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->deleteTestFiles();
-
         $this->reader = new PHPFileReader();
+    }
+
+    protected function tearDown()
+    {
+        $this->deleteTestFiles();
     }
 
     public function testItIsAFileReader()
