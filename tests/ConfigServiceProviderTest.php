@@ -274,6 +274,29 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group from_config_factory
+     */
+    public function testItCanConfigureDI()
+    {
+        $config = [
+            'test_key' => 'test value',
+
+            'di' => [
+                'example_class' => [
+                    'class' => 'tests\mocks\ExampleClass',
+                ]
+            ]
+        ];
+
+        $this->container->addServiceProvider(ConfigServiceProvider::fromConfig($config));
+
+        $this->assertInstanceOf(
+            'tests\mocks\ExampleClass',
+            $this->container->get('example_class')
+        );
+    }
+
+    /**
      * @group from_files_factory
      */
     public function testItCreatesFromParsingFiles()

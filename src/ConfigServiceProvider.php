@@ -11,6 +11,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     const DEFAULT_PREFIX         = 'config';
     const DEFAULT_SEPARATOR      = '.';
     const DEFAULT_INFLECTORS_KEY = 'inflectors';
+    const DEFAULT_DI_KEY         = 'di';
 
     const SETTING_PREFIX    = 'prefix';
     const SETTING_SEPARATOR = 'separator';
@@ -49,7 +50,10 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
             $config,
             self::getSettingOrDefault(self::SETTING_PREFIX, $settings, self::DEFAULT_PREFIX),
             self::getSettingOrDefault(self::SETTING_SEPARATOR, $settings, self::DEFAULT_SEPARATOR),
-            [self::DEFAULT_INFLECTORS_KEY => new InflectorConfigServiceProvider([])]
+            [
+                self::DEFAULT_INFLECTORS_KEY => new InflectorConfigServiceProvider([]),
+                self::DEFAULT_DI_KEY         => new DIConfigServiceProvider([]),
+            ]
         );
     }
 

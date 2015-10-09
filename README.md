@@ -120,6 +120,33 @@ class DatabaseConnectionProvider extends AbstractServiceProvider
 }
 ```
 
+### Configuring DI
+
+Another feature is the ability to add services to your container via the config.
+This is done by adding a `di` key to the config and using the following format:
+
+```php
+$appConfig = [
+    'di' => [
+        'logger' => [
+            'class'     => Logger::class,
+            'singleton' => true,
+            'arguments' => [
+                StdoutLogger::class
+            ],
+            'methods'   => [
+                'setMinLogLevel' => [ 'info' ]
+            ],
+        ],
+
+        StdoutLogger::class => [
+            'class' => StdoutLogger::class
+        ]
+    ]
+];
+
+```
+
 ### Configuring Inflectors
 
 It is also possible to set up
