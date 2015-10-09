@@ -47,20 +47,21 @@ final class ReaderFactory
      */
     private function getReaderClass($filename)
     {
-        $found = false;
+        $readerClass = null;
 
-        foreach ($this->config as $extension => $readerClass) {
+        foreach ($this->config as $extension => $className) {
             if ($this->endsWith($filename, $extension)) {
-                $found = true;
+                $readerClass = $className;
                 break;
             }
         }
 
-        if (!$found) {
-            throw new UnknownFileTypeException(
-                "Not reader class found for $filename; configured exceptions are "
-                . implode(', ', array_keys($this->config))
-            );
+        if ($readerClass === null) {
+            throw new UnknownFileTypeException(sprintf(
+                'No reader class found for %s; configured exceptions are %s',
+                $filename,
+                implode(', ', array_keys($this->config))
+            ));
         }
 
         return $readerClass;

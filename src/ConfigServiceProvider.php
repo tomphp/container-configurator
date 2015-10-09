@@ -68,11 +68,11 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     public static function fromFiles(array $patterns, array $settings = [])
     {
         $locator = new FileLocator();
-        $files = $locator->locate($patterns);
+        $files   = $locator->locate($patterns);
 
         $factory = new ReaderFactory([
             '.json' => 'TomPHP\ConfigServiceProvider\JSONFileReader',
-            '.php' => 'TomPHP\ConfigServiceProvider\PHPFileReader',
+            '.php'  => 'TomPHP\ConfigServiceProvider\PHPFileReader',
         ]);
 
         $configs = array_map(
@@ -171,7 +171,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
 
         foreach ($value as $subkey => $subvalue) {
             $expanded += $this->expandSubGroup(
-                $key. $this->separator . $subkey,
+                $key . $this->separator . $subkey,
                 $subvalue
             );
         }

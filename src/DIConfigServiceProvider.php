@@ -2,9 +2,10 @@
 
 namespace TomPHP\ConfigServiceProvider;
 
-use League\Container\Definition\DefinitionInterface;
+use League\Container\Definition\ClassDefinition;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
+use TomPHP\ConfigServiceProvider\Exception\NotClassDefinitionException;
 
 final class DIConfigServiceProvider extends AbstractServiceProvider implements
     BootableServiceProviderInterface,
@@ -31,7 +32,7 @@ final class DIConfigServiceProvider extends AbstractServiceProvider implements
     public function configure(array $config)
     {
         $this->provides = array_keys($config);
-        $this->config = $config;
+        $this->config   = $config;
     }
 
     public function register()
@@ -55,8 +56,11 @@ final class DIConfigServiceProvider extends AbstractServiceProvider implements
 
         $service = $this->getContainer()->add($name, $config['class'], $singleton);
 
-        if (!$service) {
-            return;
+        if (!$service instanceof ClassDefinition) {
+            throw new NotClassDefinitionException(sprintf(
+                'DI config for %s does not create a class definition',
+                $name
+            ));
         }
 
         $this->addConstuctorArguments($service, $config);
@@ -66,7 +70,7 @@ final class DIConfigServiceProvider extends AbstractServiceProvider implements
     /**
      * @param array $config
      */
-    private function addConstuctorArguments(DefinitionInterface $service, array $config)
+    private function addConstuctorArguments(ClassDefinition $service, array $config)
     {
         if (!isset($config['arguments']) || !is_array($config['arguments'])) {
             return;
@@ -78,7 +82,7 @@ final class DIConfigServiceProvider extends AbstractServiceProvider implements
     /**
      * @param array $config
      */
-    private function addMethodCalls(DefinitionInterface $service, array $config)
+    private function addMethodCalls(ClassDefinition $service, array $config)
     {
         if (!isset($config['methods']) || !is_array($config['methods'])) {
             return;

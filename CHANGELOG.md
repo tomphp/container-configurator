@@ -1,4 +1,4 @@
-### 0.3.3 (2015-10-09)
+### 0.3.3 (2015-10-10)
 
  * Added: Configuring DI via the config
 

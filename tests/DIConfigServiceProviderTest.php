@@ -5,6 +5,7 @@ namespace tests\TomPHP\ConfigServiceProvider;
 use League\Container\Container;
 use PHPUnit_Framework_TestCase;
 use TomPHP\ConfigServiceProvider\DIConfigServiceProvider;
+use TomPHP\ConfigServiceProvider\Exception\NotClassDefinitionException;
 
 final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 {
@@ -76,7 +77,7 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
         $this->assertNotSame($instance1, $instance2);
     }
 
-    public function testItDefaultsToCreatingUniqueInstances()
+    public function testItCreatesUniqueInstancesIfSingletonIsNotSpecified()
     {
         $config = [
             'example_class' => [
@@ -127,6 +128,22 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
         $instance = $this->container->get('example_class');
 
         $this->assertEquals('the value', $instance->getValue());
+    }
+
+    public function testItThrowsIfAClassDefinitionIsNotCreated()
+    {
+        $config = [
+            'example_class' => [
+                'class' => function () {
+                }
+            ]
+        ];
+
+        $this->container->addServiceProvider(new DIConfigServiceProvider($config));
+
+        $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\NotClassDefinitionException');
+
+        $instance = $this->container->get('example_class');
     }
 
     public function testCanBeReconfigured()
