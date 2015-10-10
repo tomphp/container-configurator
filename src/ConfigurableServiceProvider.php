@@ -8,6 +8,8 @@ interface ConfigurableServiceProvider extends ServiceProviderInterface
 {
     /**
      * @param array $config
+     *
+     * @return void
      */
     public function configure(array $config);
 }

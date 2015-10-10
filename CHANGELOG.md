@@ -1,3 +1,7 @@
+### 0.3.3 (2015-10-10)
+
+ * Added: Configuring DI via the config
+
 ### 0.3.2 (2015-09-24)
 
  * Added: Reading JSON config files via the `fromFiles` constructor
