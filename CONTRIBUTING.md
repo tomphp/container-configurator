@@ -4,8 +4,7 @@ Thank you for considering to contribute to this project.
 
 ## Submitting Pull Requests
 
-Please submit your pull requests to the `develop` branch. That way I can deal
-with it quickly and it will be scheduled for the following release.
+Please submit your pull requests to the `master` branch.
 
 ## Tests
 
