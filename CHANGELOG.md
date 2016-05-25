@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.0]
+### Added
+ * Exception thrown when no files are found when using the `fromFiles`
+   constructor
+
+### Changed
+ * Config containing class names will remain as strings and not be converted to
+   instances
+
 ## [0.3.3] - 2015-10-10
 ### Added
  * Configuring DI via the config
