@@ -120,7 +120,9 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     public function register()
     {
         foreach ($this->config as $key => $value) {
-            $this->getContainer()->add($key, $value);
+            $this->getContainer()->add($key, function () use ($value) {
+                return $value;
+            });
         }
 
         foreach ($this->subProviders as $provider) {
