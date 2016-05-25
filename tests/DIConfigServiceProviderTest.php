@@ -5,7 +5,6 @@ namespace tests\TomPHP\ConfigServiceProvider;
 use League\Container\Container;
 use PHPUnit_Framework_TestCase;
 use TomPHP\ConfigServiceProvider\DIConfigServiceProvider;
-use TomPHP\ConfigServiceProvider\Exception\NotClassDefinitionException;
 
 final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 {
