@@ -381,6 +381,20 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(4, $this->container->get('config.d'));
     }
 
+    /**
+     * @link https://github.com/thephpleague/container/issues/106
+     */
+    public function testFetchingConfigValueWhereValueIsAClassNameReturnsValue()
+    {
+        $value = 'stdClass';
+
+        $this->container->addServiceProvider(ConfigServiceProvider::fromConfig([
+            'foo' => $value,
+        ]));
+
+        $this->assertSame($value, $this->container->get('config.foo'));
+    }
+
     private function createPHPConfigFile($filename, array $config)
     {
         $code = '<?php return ' . var_export($config, true) . ';';
