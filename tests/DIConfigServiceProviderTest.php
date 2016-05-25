@@ -143,7 +143,7 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\NotClassDefinitionException');
 
-        $instance = $this->container->get('example_class');
+        $this->container->get('example_class');
     }
 
     public function testCanBeReconfigured()
