@@ -213,7 +213,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     /**
      * @param string $key
      */
-    private function configureSubProvider($key, $config, ConfigurableServiceProvider $provider)
+    private function configureSubProvider($key, array $config, ConfigurableServiceProvider $provider)
     {
         if (!array_key_exists($key, $config)) {
             return;
