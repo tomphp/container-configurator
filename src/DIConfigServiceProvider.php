@@ -68,6 +68,7 @@ final class DIConfigServiceProvider extends AbstractServiceProvider implements
     }
 
     /**
+     * @param ClassDefinition $service
      * @param array $config
      */
     private function addConstuctorArguments(ClassDefinition $service, array $config)
@@ -80,6 +81,7 @@ final class DIConfigServiceProvider extends AbstractServiceProvider implements
     }
 
     /**
+     * @param ClassDefinition $service
      * @param array $config
      */
     private function addMethodCalls(ClassDefinition $service, array $config)
