@@ -3,7 +3,6 @@
 namespace tests\TomPHP\ConfigServiceProvider;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\FileLocator;
 use TomPHP\ConfigServiceProvider\JSONFileReader;
 
 final class JSONFileReaderTest extends PHPUnit_Framework_TestCase

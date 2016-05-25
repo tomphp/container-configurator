@@ -2,8 +2,6 @@
 
 namespace TomPHP\ConfigServiceProvider;
 
-use GlobIterator;
-
 final class FileLocator
 {
     /**
