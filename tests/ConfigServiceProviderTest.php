@@ -382,6 +382,20 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group from_files_factory
+     */
+    public function testItThrowsWhenCreatingFromFilesAndNoConfigFilesAreFound()
+    {
+        $this->setExpectedException(
+            'TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException'
+        );
+
+        $this->container->addServiceProvider(ConfigServiceProvider::fromFiles([
+            $this->getTestPath('*')
+        ]));
+    }
+
+    /**
      * @link https://github.com/thephpleague/container/issues/106
      */
     public function testFetchingConfigValueWhereValueIsAClassNameReturnsValue()

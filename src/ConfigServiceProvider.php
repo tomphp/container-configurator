@@ -4,6 +4,7 @@ namespace TomPHP\ConfigServiceProvider;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
+use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
 
 final class ConfigServiceProvider extends AbstractServiceProvider implements
     BootableServiceProviderInterface
@@ -69,6 +70,12 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     {
         $locator = new FileLocator();
         $files   = $locator->locate($patterns);
+
+        if (empty($files)) {
+            throw new NoMatchingFilesException(
+                'No files found matching patterns: ' . implode(', ', $patterns)
+            );
+        }
 
         $factory = new ReaderFactory([
             '.json' => 'TomPHP\ConfigServiceProvider\JSONFileReader',
