@@ -408,18 +408,4 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame($value, $this->container->get('config.foo'));
     }
-
-    private function createPHPConfigFile($filename, array $config)
-    {
-        $code = '<?php return ' . var_export($config, true) . ';';
-
-        $this->createTestFile($filename, $code);
-    }
-
-    private function createJSONConfigFile($filename, array $config)
-    {
-        $code = json_encode($config);
-
-        $this->createTestFile($filename, $code);
-    }
 }

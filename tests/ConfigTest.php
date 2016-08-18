@@ -7,6 +7,8 @@ use TomPHP\ConfigServiceProvider\Config;
 
 final class ConfigTest extends PHPUnit_Framework_TestCase
 {
+    use TestFileCreator;
+
     /**
      * @var Config
      */
@@ -89,5 +91,82 @@ final class ConfigTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\ReadOnlyException');
 
         unset($this->config['keyA']);
+    }
+
+    /**
+     * @group from_files_factory
+     */
+    public function testItCreatesFromParsingFiles()
+    {
+        $configData = [
+            'keyA' => 'valueA',
+            'keyB' => 'valueB',
+        ];
+
+        $this->createPHPConfigFile('config.php', $configData);
+
+        $config = Config::fromFiles([
+            $this->getTestPath('*')
+        ]);
+
+        $this->assertEquals($configData, $config->asArray());
+    }
+
+    /**
+     * @group from_files_factory
+     */
+    public function testItCanOverrideFromFilesDefaults()
+    {
+        $configData = [
+            'group' => [
+                'key' => 'value',
+            ]
+        ];
+
+        $this->createPHPConfigFile('config.php', $configData);
+
+        $config = Config::fromFiles([ $this->getTestPath('*') ], '/');
+
+        $this->assertEquals(
+            [
+                'group'     => ['key' => 'value'],
+            ],
+            $config->asArray()
+        );
+    }
+
+    /**
+     * @group from_files_factory
+     */
+    public function testItMergesConfigsFromFiles()
+    {
+        $config1 = ['a' => 1, 'b' => 5];
+        $config2 = ['b' => 2, 'c' => 7];
+        $config3 = ['c' => 3, 'd' => 4];
+
+        $this->createPHPConfigFile('config1.php', $config1);
+        $this->createPHPConfigFile('config2.php', $config2);
+        $this->createJSONConfigFile('config3.json', $config3);
+
+        $config = Config::fromFiles(
+            [ $this->getTestPath('*') ]
+        );
+
+        $this->assertEquals(
+            ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4],
+            $config->asArray()
+        );
+    }
+
+    /**
+     * @group from_files_factory
+     */
+    public function testItThrowsWhenCreatingFromFilesAndNoConfigFilesAreFound()
+    {
+        $this->setExpectedException(
+            'TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException'
+        );
+
+        Config::fromFiles([$this->getTestPath('*')]);
     }
 }

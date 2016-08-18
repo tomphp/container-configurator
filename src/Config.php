@@ -4,6 +4,7 @@ namespace TomPHP\ConfigServiceProvider;
 
 use ArrayAccess;
 use TomPHP\ConfigServiceProvider\Exception\EntryDoesNotExistException;
+use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
 use TomPHP\ConfigServiceProvider\Exception\ReadOnlyException;
 
 final class Config implements ArrayAccess
@@ -19,6 +20,46 @@ final class Config implements ArrayAccess
     private $separator;
 
     /**
+     * @api
+     *
+     * @param array  $patterns
+     * @param string $separator
+     *
+     * @return self
+     */
+    public static function fromFiles(array $patterns, $separator = '.')
+    {
+        $locator = new FileLocator();
+        $files   = $locator->locate($patterns);
+
+        if (empty($files)) {
+            throw new NoMatchingFilesException(
+                'No files found matching patterns: ' . implode(', ', $patterns)
+            );
+        }
+
+        $factory = new ReaderFactory([
+            '.json' => 'TomPHP\ConfigServiceProvider\JSONFileReader',
+            '.php'  => 'TomPHP\ConfigServiceProvider\PHPFileReader',
+        ]);
+
+        $configs = array_map(
+            function ($filename) use ($factory) {
+                $reader = $factory->create($filename);
+                return $reader->read($filename);
+            },
+            $files
+        );
+
+        $config = call_user_func_array('array_replace_recursive', $configs);
+
+        return new self($config, $separator);
+    }
+
+    /**
+     * @api
+     *
+     * @param array  $config
      * @param string $separator
      */
     public function __construct(array $config, $separator = '.')

@@ -28,6 +28,28 @@ trait TestFileCreator
 
     /**
      * @param string $name
+     * @param array $content
+     */
+    protected function createPHPConfigFile($filename, array $config)
+    {
+        $code = '<?php return ' . var_export($config, true) . ';';
+
+        $this->createTestFile($filename, $code);
+    }
+
+    /**
+     * @param string $name
+     * @param array $content
+     */
+    protected function createJSONConfigFile($filename, array $config)
+    {
+        $code = json_encode($config);
+
+        $this->createTestFile($filename, $code);
+    }
+
+    /**
+     * @param string $name
      * @param string $content
      */
     protected function createTestFile($name, $content = 'test content')

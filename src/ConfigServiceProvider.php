@@ -4,7 +4,6 @@ namespace TomPHP\ConfigServiceProvider;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
-use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
 
 final class ConfigServiceProvider extends AbstractServiceProvider implements
     BootableServiceProviderInterface
@@ -30,12 +29,12 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     /**
      * @api
      *
-     * @param array $config
-     * @param array $settings
+     * @param array|Config $config
+     * @param array        $settings
      *
      * @return ConfigServiceProvider
      */
-    public static function fromConfig(array $config, array $settings = [])
+    public static function fromConfig($config, array $settings = [])
     {
         return new self(
             $config,
@@ -58,50 +57,30 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
      */
     public static function fromFiles(array $patterns, array $settings = [])
     {
-        $locator = new FileLocator();
-        $files   = $locator->locate($patterns);
+        $separator = self::getSettingOrDefault(self::SETTING_PREFIX, $settings, self::DEFAULT_PREFIX);
 
-        if (empty($files)) {
-            throw new NoMatchingFilesException(
-                'No files found matching patterns: ' . implode(', ', $patterns)
-            );
-        }
-
-        $factory = new ReaderFactory([
-            '.json' => 'TomPHP\ConfigServiceProvider\JSONFileReader',
-            '.php'  => 'TomPHP\ConfigServiceProvider\PHPFileReader',
-        ]);
-
-        $configs = array_map(
-            function ($filename) use ($factory) {
-                $reader = $factory->create($filename);
-                return $reader->read($filename);
-            },
-            $files
-        );
-
-        $config = call_user_func_array('array_replace_recursive', $configs);
-
-        return self::fromConfig($config, $settings);
+        return self::fromConfig(Config::fromFiles($patterns, $separator), $settings);
     }
 
     /**
      * @api
      *
-     * @param array                         $config
+     * @param array|Config                  $config
      * @param string                        $prefix
      * @param string                        $separator
      * @param ConfigurableServiceProvider[] $subProviders
      */
     public function __construct(
-        array $config,
+        $config,
         $prefix = self::DEFAULT_PREFIX,
         $separator = self::DEFAULT_SEPARATOR,
         array $subProviders = []
     ) {
         $this->config = [];
 
-        $iterator = new ConfigIterator(new Config($config, $separator), $separator);
+        $config = ($config instanceof Config) ? $config : new Config($config, $separator);
+
+        $iterator = new ConfigIterator($config, $separator);
         $prefix = $prefix ? $prefix . $separator : '';
 
         foreach ($iterator as $key => $value) {
@@ -113,7 +92,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
         $this->provides = array_keys($this->config);
 
         foreach ($this->subProviders as $key => $provider) {
-            $this->configureSubProvider($key, $config, $provider);
+            $this->configureSubProvider($key, $config->asArray(), $provider);
         }
     }
 
