@@ -50,6 +50,35 @@ final class ConfigIteratorTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testItGoesMultipleLevels()
+    {
+        $iterator = new ConfigIterator(new Config([
+            'group1' => [
+                'keyA'   => 'valueA',
+                'group2' => [
+                    'keyB'   => 'valueB',
+                ],
+            ],
+        ]));
+
+        $this->assertEquals(
+            [
+                'group1' => [
+                    'keyA' => 'valueA',
+                    'group2' => [
+                        'keyB'   => 'valueB',
+                    ],
+                ],
+                'group1.keyA' => 'valueA',
+                'group1.group2' => [
+                    'keyB' => 'valueB',
+                ],
+                'group1.group2.keyB' => 'valueB',
+            ],
+            iterator_to_array($iterator)
+        );
+    }
+
     public function testItRewinds()
     {
         $iterator = new ConfigIterator(new Config([

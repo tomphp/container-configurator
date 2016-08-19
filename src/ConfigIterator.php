@@ -2,25 +2,15 @@
 
 namespace TomPHP\ConfigServiceProvider;
 
-use Iterator;
 use RecursiveArrayIterator;
+use RecursiveIteratorIterator;
 
-final class ConfigIterator implements Iterator
+final class ConfigIterator extends RecursiveIteratorIterator
 {
     /**
      * @var string[]
      */
     private $path = [];
-
-    /**
-     * @var RecursiveArrayIterator
-     */
-    private $stack = [];
-
-    /**
-     * @var RecursiveArrayIterator
-     */
-    private $current;
 
     /**
      * @var string
@@ -32,58 +22,36 @@ final class ConfigIterator implements Iterator
      */
     public function __construct(Config $config)
     {
+        parent::__construct(
+            new RecursiveArrayIterator($config->asArray()),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
         $this->separator = $config->getSeparator();
-        $this->current   = new RecursiveArrayIterator($config->asArray());
-    }
-
-    public function current()
-    {
-        return $this->current->current();
     }
 
     public function key()
     {
-        return implode($this->separator, array_merge($this->path, [$this->current->key()]));
+        return implode($this->separator, array_merge($this->path, [parent::key()]));
     }
 
     public function next()
     {
-        if ($this->current->hasChildren()) {
-            $it = &$this->current;
-            array_push($this->stack, $it);
-            array_push($this->path, $it->key());
-            $this->current = $it->getChildren();
-        } else {
-            $this->current->next();
+        if ($this->hasChildren()) {
+            array_push($this->path, parent::key());
         }
+
+        parent::next();
     }
 
     public function rewind()
     {
-        if (!empty($this->stack)) {
-            $this->current = array_shift($this->stack);
-        }
-
-        $this->stack = [];
         $this->path = [];
 
-        $this->current->rewind();
+        parent::rewind();
     }
 
-    public function valid()
+    public function endChildren()
     {
-        if ($this->current->valid()) {
-            return true;
-        }
-
-        if (empty($this->stack)) {
-            return false;
-        }
-
         array_pop($this->path);
-        $this->current = array_pop($this->stack);
-        $this->current->next();
-
-        return $this->valid();
     }
 }
