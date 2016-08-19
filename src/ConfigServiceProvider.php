@@ -4,6 +4,7 @@ namespace TomPHP\ConfigServiceProvider;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
+use League\Container\ServiceProvider\ServiceProviderInterface;
 
 final class ConfigServiceProvider extends AbstractServiceProvider implements
     BootableServiceProviderInterface
@@ -57,7 +58,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
      */
     public static function fromFiles(array $patterns, array $settings = [])
     {
-        $separator = self::getSettingOrDefault(self::SETTING_PREFIX, $settings, self::DEFAULT_PREFIX);
+        $separator = self::getSettingOrDefault(self::SETTING_SEPARATOR, $settings, self::DEFAULT_SEPARATOR);
 
         return self::fromConfig(Config::fromFiles($patterns, $separator), $settings);
     }
@@ -80,16 +81,10 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
 
         $config = ($config instanceof Config) ? $config : new Config($config, $separator);
 
-        $iterator = new ConfigIterator($config, $separator);
-        $prefix = $prefix ? $prefix . $separator : '';
+        $configurator = new League\Configurator();
+        $configurator->addConfig($config, $prefix);
 
-        foreach ($iterator as $key => $value) {
-            $this->config[$prefix . $key] = $value;
-        }
-
-        $this->subProviders = $subProviders;
-
-        $this->provides = array_keys($this->config);
+        $this->subProviders = [__FILE__ => $configurator->getServiceProvider()] + $subProviders;
 
         foreach ($this->subProviders as $key => $provider) {
             $this->configureSubProvider($key, $config->asArray(), $provider);
@@ -98,12 +93,6 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
 
     public function register()
     {
-        foreach ($this->config as $key => $value) {
-            $this->getContainer()->add($key, function () use ($value) {
-                return $value;
-            });
-        }
-
         foreach ($this->subProviders as $provider) {
             $provider->setContainer($this->getContainer());
             $provider->register();
@@ -123,17 +112,19 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     }
 
     /**
-     * @param string $key
-     * @param array $config
-     * @param ConfigurableServiceProvider $provider
+     * @param string                   $key
+     * @param array                    $config
+     * @param ServiceProviderInterface $provider
      */
-    private function configureSubProvider($key, array $config, ConfigurableServiceProvider $provider)
+    private function configureSubProvider($key, array $config, ServiceProviderInterface $provider)
     {
-        if (!array_key_exists($key, $config)) {
+        if ($key !== __FILE__ && !array_key_exists($key, $config)) {
             return;
         }
 
-        $provider->configure($config[$key]);
+        if ($provider instanceof ConfigurableServiceProvider) {
+            $provider->configure($config[$key]);
+        }
 
         $this->provides = array_merge($this->provides, $provider->provides());
     }
