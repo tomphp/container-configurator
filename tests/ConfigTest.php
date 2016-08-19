@@ -55,6 +55,19 @@ final class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(isset($this->config['group1.null']));
     }
 
+    public function testItReturnsAllItsKeys()
+    {
+        $this->assertEquals(
+            [
+                'keyA',
+                'group1',
+                'group1.keyB',
+                'group1.null',
+            ],
+            $this->config->getKeys()
+        );
+    }
+
     public function testItCanBeConvertedToAnArray()
     {
         $this->assertEquals(

@@ -68,6 +68,14 @@ final class Config implements ArrayAccess
         $this->separator = $separator;
     }
 
+    /**
+     * @return array
+     */
+    public function getKeys()
+    {
+        return array_keys(iterator_to_array(new ConfigIterator($this)));
+    }
+
     public function offsetExists($offset)
     {
         try {
