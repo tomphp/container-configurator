@@ -7,9 +7,7 @@ use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use TomPHP\ConfigServiceProvider\Exception\NotClassDefinitionException;
 
-final class DIConfigServiceProvider extends AbstractServiceProvider implements
-    BootableServiceProviderInterface,
-    ConfigurableServiceProvider
+final class DIConfigServiceProvider extends AbstractServiceProvider
 {
     /**
      * @var array
@@ -19,11 +17,12 @@ final class DIConfigServiceProvider extends AbstractServiceProvider implements
     /**
      * @api
      *
-     * @param array  $config
+     * @param ServiceConfig $config
      */
-    public function __construct(array $config)
+    public function __construct(ServiceConfig $config)
     {
-        $this->configure($config);
+        $this->config   = $config;
+        $this->provides = $config->getKeys();
     }
 
     /**
@@ -37,60 +36,40 @@ final class DIConfigServiceProvider extends AbstractServiceProvider implements
 
     public function register()
     {
-        foreach ($this->config as $name => $config) {
-            $this->registerService($name, $config);
+        foreach ($this->config as $config) {
+            $this->registerService($config);
         }
     }
 
-    public function boot()
-    {
-    }
-
     /**
-     * @param string $name
-     * @param array  $config
+     * @param ServiceDefinition  $definition
      */
-    private function registerService($name, array $config)
+    private function registerService(ServiceDefinition $definition)
     {
-        $singleton = array_key_exists('singleton', $config) && $config['singleton'];
-
-        $service = $this->getContainer()->add($name, $config['class'], $singleton);
+        $service = $this->getContainer()->add(
+            $definition->getKey(),
+            $definition->getClass(),
+            $definition->isSingleton()
+        );
 
         if (!$service instanceof ClassDefinition) {
             throw new NotClassDefinitionException(sprintf(
-                'DI config for %s does not create a class definition',
-                $name
+                'DI definition for %s does not create a class definition',
+                $definition->getKey()
             ));
         }
 
-        $this->addConstuctorArguments($service, $config);
-        $this->addMethodCalls($service, $config);
+        $service->withArguments($definition->getArguments());
+        $this->addMethodCalls($service, $definition);
     }
 
     /**
-     * @param ClassDefinition $service
-     * @param array $config
+     * @param ClassDefinition   $service
+     * @param ServiceDefinition $definition
      */
-    private function addConstuctorArguments(ClassDefinition $service, array $config)
+    private function addMethodCalls(ClassDefinition $service, ServiceDefinition $definition)
     {
-        if (!isset($config['arguments']) || !is_array($config['arguments'])) {
-            return;
-        }
-
-        $service->withArguments($config['arguments']);
-    }
-
-    /**
-     * @param ClassDefinition $service
-     * @param array $config
-     */
-    private function addMethodCalls(ClassDefinition $service, array $config)
-    {
-        if (!isset($config['methods']) || !is_array($config['methods'])) {
-            return;
-        }
-
-        foreach ($config['methods'] as $method => $args) {
+        foreach ($definition->getMethods() as $method => $args) {
             $service->withMethodCall($method, $args);
         }
     }

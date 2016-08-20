@@ -5,6 +5,7 @@ namespace tests\TomPHP\ConfigServiceProvider;
 use League\Container\Container;
 use PHPUnit_Framework_TestCase;
 use TomPHP\ConfigServiceProvider\DIConfigServiceProvider;
+use TomPHP\ConfigServiceProvider\ServiceConfig;
 
 final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 {
@@ -18,21 +19,21 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
         $this->container = new Container();
     }
 
-    public function testItIsAConfigurableServiceProvider()
+    public function testItIsAServiceProvider()
     {
         $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\ConfigurableServiceProvider',
-            new DIConfigServiceProvider([])
+            'League\Container\ServiceProvider\ServiceProviderInterface',
+            new DIConfigServiceProvider(new ServiceConfig([]))
         );
     }
 
     public function testItSetsUpABasicService()
     {
-        $config = [
+        $config = new ServiceConfig([
             'example_class' => [
                 'class' => 'tests\mocks\ExampleClass'
             ]
-        ];
+        ]);
 
         $this->container->addServiceProvider(new DIConfigServiceProvider($config));
 
@@ -44,12 +45,12 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 
     public function testItCanCreateSingletonInstances()
     {
-        $config = [
+        $config = new ServiceConfig([
             'example_class' => [
                 'class'     => 'tests\mocks\ExampleClass',
                 'singleton' => true,
             ]
-        ];
+        ]);
 
         $this->container->addServiceProvider(new DIConfigServiceProvider($config));
 
@@ -61,12 +62,12 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 
     public function testItCanCreateUniqueInstances()
     {
-        $config = [
+        $config = new ServiceConfig([
             'example_class' => [
                 'class'     => 'tests\mocks\ExampleClass',
                 'singleton' => false,
             ]
-        ];
+        ]);
 
         $this->container->addServiceProvider(new DIConfigServiceProvider($config));
 
@@ -78,11 +79,11 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 
     public function testItCreatesUniqueInstancesIfSingletonIsNotSpecified()
     {
-        $config = [
+        $config = new ServiceConfig([
             'example_class' => [
                 'class' => 'tests\mocks\ExampleClass',
             ]
-        ];
+        ]);
 
         $this->container->addServiceProvider(new DIConfigServiceProvider($config));
 
@@ -94,7 +95,7 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 
     public function testItAddsConstructorArguments()
     {
-        $config = [
+        $config = new ServiceConfig([
             'example_class' => [
                 'class' => 'tests\mocks\ExampleClassWithArgs',
                 'arguments' => [
@@ -102,7 +103,7 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
                     'arg2',
                 ],
             ]
-        ];
+        ]);
 
         $this->container->addServiceProvider(new DIConfigServiceProvider($config));
 
@@ -113,14 +114,14 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 
     public function testItCallsSetterMethods()
     {
-        $config = [
+        $config = new ServiceConfig([
             'example_class' => [
                 'class' => 'tests\mocks\ExampleClass',
                 'methods' => [
                     'setValue' => ['the value'],
                 ],
             ]
-        ];
+        ]);
 
         $this->container->addServiceProvider(new DIConfigServiceProvider($config));
 
@@ -131,37 +132,17 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 
     public function testItThrowsIfAClassDefinitionIsNotCreated()
     {
-        $config = [
+        $config = new ServiceConfig([
             'example_class' => [
                 'class' => function () {
                 }
             ]
-        ];
+        ]);
 
         $this->container->addServiceProvider(new DIConfigServiceProvider($config));
 
         $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\NotClassDefinitionException');
 
         $this->container->get('example_class');
-    }
-
-    public function testCanBeReconfigured()
-    {
-        $config = [
-            'example_class' => [
-                'class' => 'tests\mocks\ExampleClass'
-            ]
-        ];
-
-        $provider = new DIConfigServiceProvider([]);
-        $provider->configure($config);
-
-        $this->container->addServiceProvider($provider);
-        $this->container->add('example', 'tests\mocks\ExampleClass');
-
-        $this->assertInstanceOf(
-            'tests\mocks\ExampleClass',
-            $this->container->get('example_class')
-        );
     }
 }

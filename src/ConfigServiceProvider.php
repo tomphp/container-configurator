@@ -5,6 +5,7 @@ namespace TomPHP\ConfigServiceProvider;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use League\Container\ServiceProvider\ServiceProviderInterface;
+use TomPHP\ConfigServiceProvider\Exception\EntryDoesNotExistException;
 
 final class ConfigServiceProvider extends AbstractServiceProvider implements
     BootableServiceProviderInterface
@@ -43,7 +44,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
             self::getSettingOrDefault(self::SETTING_SEPARATOR, $settings, self::DEFAULT_SEPARATOR),
             [
                 self::DEFAULT_INFLECTORS_KEY => new InflectorConfigServiceProvider([]),
-                self::DEFAULT_DI_KEY         => new DIConfigServiceProvider([]),
+                self::DEFAULT_DI_KEY         => new DIConfigServiceProvider(new ServiceConfig([])),
             ]
         );
     }
@@ -84,7 +85,19 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
         $configurator = new League\Configurator();
         $configurator->addConfig($config, $prefix);
 
-        $this->subProviders = [__FILE__ => $configurator->getServiceProvider()] + $subProviders;
+        $this->subProviders = [__FILE__ => $configurator->getServiceProvider()];
+
+        foreach ($subProviders as $key => $provider) {
+            if ($provider instanceof DIConfigServiceProvider) {
+                try {
+                    $this->subProviders[$key] = new DIConfigServiceProvider(new ServiceConfig($config[$key]));
+                } catch (EntryDoesNotExistException $e) {
+                    // no op
+                }
+            } else {
+                $this->subProviders[$key] = $provider;
+            }
+        }
 
         foreach ($this->subProviders as $key => $provider) {
             $this->configureSubProvider($key, $config->asArray(), $provider);

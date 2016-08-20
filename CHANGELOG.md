@@ -2,7 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.4.0]
+## [Unreleased]
+### Added
+  * If `class` is left out of the config for a service, then the service name
+    is assumed to be the name of the class.
+
+## [0.4.0] - 2016-05-25
 ### Added
  * Exception thrown when no files are found when using the `fromFiles`
    constructor
