@@ -25,15 +25,6 @@ final class DIConfigServiceProvider extends AbstractServiceProvider
         $this->provides = $config->getKeys();
     }
 
-    /**
-     * @param array  $config
-     */
-    public function configure(array $config)
-    {
-        $this->provides = array_keys($config);
-        $this->config   = $config;
-    }
-
     public function register()
     {
         foreach ($this->config as $config) {
@@ -47,7 +38,7 @@ final class DIConfigServiceProvider extends AbstractServiceProvider
     private function registerService(ServiceDefinition $definition)
     {
         $service = $this->getContainer()->add(
-            $definition->getKey(),
+            $definition->getName(),
             $definition->getClass(),
             $definition->isSingleton()
         );
@@ -55,7 +46,7 @@ final class DIConfigServiceProvider extends AbstractServiceProvider
         if (!$service instanceof ClassDefinition) {
             throw new NotClassDefinitionException(sprintf(
                 'DI definition for %s does not create a class definition',
-                $definition->getKey()
+                $definition->getName()
             ));
         }
 

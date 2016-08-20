@@ -26,7 +26,7 @@ final class ServiceConfig implements IteratorAggregate
     {
         return array_map(
             function (ServiceDefinition $definition) {
-                return $definition->getKey();
+                return $definition->getName();
             },
             $this->config
         );

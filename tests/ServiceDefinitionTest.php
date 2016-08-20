@@ -19,7 +19,7 @@ final class ServiceDefinitionTest extends PHPUnit_Framework_TestCase
 
         $definition = new ServiceDefinition('service_name', $config);
 
-        $this->assertEquals('service_name', $definition->getKey());
+        $this->assertEquals('service_name', $definition->getName());
         $this->assertEquals(__CLASS__, $definition->getClass());
         $this->assertFalse($definition->isSingleton());
         $this->assertEquals(['argument1', 'argument2'], $definition->getArguments());

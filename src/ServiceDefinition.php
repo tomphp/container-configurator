@@ -7,7 +7,7 @@ final class ServiceDefinition
     /**
      * @var string
      */
-    private $key;
+    private $name;
 
     /**
      * @var string
@@ -30,13 +30,13 @@ final class ServiceDefinition
     private $methods;
 
     /**
-     * @param string $key
-     * @param array  $config
+     * @param string $name
+     * @param array $config
      */
-    public function __construct($key, array $config)
+    public function __construct($name, array $config)
     {
-        $this->key       = $key;
-        $this->class     = isset($config['class']) ? $config['class'] : $key;
+        $this->name       = $name;
+        $this->class     = isset($config['class']) ? $config['class'] : $name;
         $this->singleton = isset($config['singleton']) ? $config['singleton'] : false;
         $this->arguments = isset($config['arguments']) ? $config['arguments'] : [];
         $this->methods   = isset($config['methods']) ? $config['methods'] : [];
@@ -45,9 +45,9 @@ final class ServiceDefinition
     /**
      * @return string
      */
-    public function getKey()
+    public function getName()
     {
-        return $this->key;
+        return $this->name;
     }
 
     /**
