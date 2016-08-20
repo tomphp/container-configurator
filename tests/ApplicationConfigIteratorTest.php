@@ -3,14 +3,14 @@
 namespace tests\TomPHP\ConfigServiceProvider;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\Config;
-use TomPHP\ConfigServiceProvider\ConfigIterator;
+use TomPHP\ConfigServiceProvider\ApplicationConfig;
+use TomPHP\ConfigServiceProvider\ApplicationConfigIterator;
 
-final class ConfigIteratorTest extends PHPUnit_Framework_TestCase
+final class ApplicationConfigIteratorTest extends PHPUnit_Framework_TestCase
 {
     public function testItIteratesOverSimpleConfigValues()
     {
-        $iterator = new ConfigIterator(new Config([
+        $iterator = new ApplicationConfigIterator(new ApplicationConfig([
             'keyA'   => 'valueA',
             'keyB'   => 'valueB',
         ]));
@@ -26,7 +26,7 @@ final class ConfigIteratorTest extends PHPUnit_Framework_TestCase
 
     public function testItIteratesRecursively()
     {
-        $iterator = new ConfigIterator(new Config([
+        $iterator = new ApplicationConfigIterator(new ApplicationConfig([
             'group1' => [
                 'keyA'   => 'valueA',
             ],
@@ -52,7 +52,7 @@ final class ConfigIteratorTest extends PHPUnit_Framework_TestCase
 
     public function testItGoesMultipleLevels()
     {
-        $iterator = new ConfigIterator(new Config([
+        $iterator = new ApplicationConfigIterator(new ApplicationConfig([
             'group1' => [
                 'keyA'   => 'valueA',
                 'group2' => [
@@ -81,7 +81,7 @@ final class ConfigIteratorTest extends PHPUnit_Framework_TestCase
 
     public function testItRewinds()
     {
-        $iterator = new ConfigIterator(new Config([
+        $iterator = new ApplicationConfigIterator(new ApplicationConfig([
             'group1' => [
                 'keyA'   => 'valueA',
                 'keyB'   => 'valueB',
@@ -110,7 +110,7 @@ final class ConfigIteratorTest extends PHPUnit_Framework_TestCase
 
     public function testItUsesADifferentSeparator()
     {
-        $iterator = new ConfigIterator(new Config([
+        $iterator = new ApplicationConfigIterator(new ApplicationConfig([
             'group1' => [
                 'keyA'   => 'valueA',
             ],

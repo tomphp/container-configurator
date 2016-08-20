@@ -3,20 +3,20 @@
 namespace tests\TomPHP\ConfigServiceProvider;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\Config;
+use TomPHP\ConfigServiceProvider\ApplicationConfig;
 
-final class ConfigTest extends PHPUnit_Framework_TestCase
+final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
 {
     use TestFileCreator;
 
     /**
-     * @var Config
+     * @var ApplicationConfig
      */
     private $config;
 
     protected function setUp()
     {
-        $this->config = new Config([
+        $this->config = new ApplicationConfig([
             'keyA'   => 'valueA',
             'group1' => [
                 'keyB' => 'valueB',
@@ -84,7 +84,7 @@ final class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function testItWorksWithADifferentSeperator()
     {
-        $this->config = new Config([
+        $this->config = new ApplicationConfig([
             'group1' => [
                 'keyA' => 'valueA',
             ],
@@ -118,7 +118,7 @@ final class ConfigTest extends PHPUnit_Framework_TestCase
 
         $this->createPHPConfigFile('config.php', $configData);
 
-        $config = Config::fromFiles([
+        $config = ApplicationConfig::fromFiles([
             $this->getTestPath('*')
         ]);
 
@@ -138,7 +138,7 @@ final class ConfigTest extends PHPUnit_Framework_TestCase
 
         $this->createPHPConfigFile('config.php', $configData);
 
-        $config = Config::fromFiles([ $this->getTestPath('*') ], '/');
+        $config = ApplicationConfig::fromFiles([ $this->getTestPath('*') ], '/');
 
         $this->assertEquals(
             [
@@ -161,7 +161,7 @@ final class ConfigTest extends PHPUnit_Framework_TestCase
         $this->createPHPConfigFile('config2.php', $config2);
         $this->createJSONConfigFile('config3.json', $config3);
 
-        $config = Config::fromFiles(
+        $config = ApplicationConfig::fromFiles(
             [ $this->getTestPath('*') ]
         );
 
@@ -180,6 +180,6 @@ final class ConfigTest extends PHPUnit_Framework_TestCase
             'TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException'
         );
 
-        Config::fromFiles([$this->getTestPath('*')]);
+        ApplicationConfig::fromFiles([$this->getTestPath('*')]);
     }
 }

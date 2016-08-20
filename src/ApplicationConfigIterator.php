@@ -5,7 +5,7 @@ namespace TomPHP\ConfigServiceProvider;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 
-final class ConfigIterator extends RecursiveIteratorIterator
+final class ApplicationConfigIterator extends RecursiveIteratorIterator
 {
     /**
      * @var string[]
@@ -18,9 +18,9 @@ final class ConfigIterator extends RecursiveIteratorIterator
     private $separator;
 
     /**
-     * @param Config $config
+     * @param ApplicationConfig $config
      */
-    public function __construct(Config $config)
+    public function __construct(ApplicationConfig $config)
     {
         parent::__construct(
             new RecursiveArrayIterator($config->asArray()),

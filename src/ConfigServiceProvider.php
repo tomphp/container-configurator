@@ -31,8 +31,8 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     /**
      * @api
      *
-     * @param array|Config $config
-     * @param array        $settings
+     * @param array|ApplicationConfig $config
+     * @param array                   $settings
      *
      * @return ConfigServiceProvider
      */
@@ -61,13 +61,13 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     {
         $separator = self::getSettingOrDefault(self::SETTING_SEPARATOR, $settings, self::DEFAULT_SEPARATOR);
 
-        return self::fromConfig(Config::fromFiles($patterns, $separator), $settings);
+        return self::fromConfig(ApplicationConfig::fromFiles($patterns, $separator), $settings);
     }
 
     /**
      * @api
      *
-     * @param array|Config                  $config
+     * @param array|ApplicationConfig       $config
      * @param string                        $prefix
      * @param string                        $separator
      * @param ConfigurableServiceProvider[] $subProviders
@@ -80,7 +80,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     ) {
         $this->config = [];
 
-        $config = ($config instanceof Config) ? $config : new Config($config, $separator);
+        $config = ($config instanceof ApplicationConfig) ? $config : new ApplicationConfig($config, $separator);
 
         $configurator = new League\Configurator();
         $configurator->addConfig($config, $prefix);

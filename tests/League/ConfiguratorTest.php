@@ -5,7 +5,7 @@ namespace tests\TomPHP\ConfigServiceProvider\League;
 use PHPUnit_Framework_TestCase;
 use League\Container\Container;
 use TomPHP\ConfigServiceProvider\League\Configurator;
-use TomPHP\ConfigServiceProvider\Config;
+use TomPHP\ConfigServiceProvider\ApplicationConfig;
 
 final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 {
@@ -35,7 +35,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
     public function testItAddsConfigToTheServiceProvider()
     {
-        $this->configurator->addConfig(new Config([
+        $this->configurator->addConfig(new ApplicationConfig([
             'keyA'   => 'valueA',
             'group1' => ['keyB' => 'valueB']
         ]), 'settings');
@@ -49,7 +49,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
     public function testItAddsConfigToTheServiceProviderWithNoPrefix()
     {
-        $this->configurator->addConfig(new Config([
+        $this->configurator->addConfig(new ApplicationConfig([
             'keyA'   => 'valueA',
             'group1' => ['keyB' => 'valueB']
         ]), '');

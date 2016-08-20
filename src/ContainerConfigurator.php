@@ -5,10 +5,10 @@ namespace TomPHP\ConfigServiceProvider;
 interface ContainerConfigurator
 {
     /**
-     * @param Config $config
-     * @param string $prefix
+     * @param ApplicationConfig $config
+     * @param string            $prefix
      *
      * @return void
      */
-    public function addConfig(Config $config, $prefix = 'config');
+    public function addConfig(ApplicationConfig $config, $prefix = 'config');
 }

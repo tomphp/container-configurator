@@ -3,17 +3,17 @@
 namespace TomPHP\ConfigServiceProvider\League;
 
 use TomPHP\ConfigServiceProvider\ContainerConfigurator;
-use TomPHP\ConfigServiceProvider\Config;
+use TomPHP\ConfigServiceProvider\ApplicationConfig;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 
 final class Configurator implements ContainerConfigurator
 {
-    /** @var ConfigServiceProvider */
+    /** @var ApplicationConfigServiceProvider */
     private $provider;
 
-    public function addConfig(Config $config, $prefix = 'config')
+    public function addConfig(ApplicationConfig $config, $prefix = 'config')
     {
-        $this->provider = new ConfigServiceProvider($config, $prefix);
+        $this->provider = new ApplicationConfigServiceProvider($config, $prefix);
     }
 
     /**

@@ -7,7 +7,7 @@ use TomPHP\ConfigServiceProvider\Exception\EntryDoesNotExistException;
 use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
 use TomPHP\ConfigServiceProvider\Exception\ReadOnlyException;
 
-final class Config implements ArrayAccess
+final class ApplicationConfig implements ArrayAccess
 {
     /**
      * @var array
@@ -25,7 +25,7 @@ final class Config implements ArrayAccess
      * @param array  $patterns
      * @param string $separator
      *
-     * @return self
+     * @return ApplicationConfig
      */
     public static function fromFiles(array $patterns, $separator = '.')
     {
@@ -73,7 +73,7 @@ final class Config implements ArrayAccess
      */
     public function getKeys()
     {
-        return array_keys(iterator_to_array(new ConfigIterator($this)));
+        return array_keys(iterator_to_array(new ApplicationConfigIterator($this)));
     }
 
     public function offsetExists($offset)

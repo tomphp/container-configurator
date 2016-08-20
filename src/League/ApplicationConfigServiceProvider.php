@@ -3,13 +3,13 @@
 namespace TomPHP\ConfigServiceProvider\League;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
-use TomPHP\ConfigServiceProvider\Config;
-use TomPHP\ConfigServiceProvider\ConfigIterator;
+use TomPHP\ConfigServiceProvider\ApplicationConfig;
+use TomPHP\ConfigServiceProvider\ApplicationConfigIterator;
 
-final class ConfigServiceProvider extends AbstractServiceProvider
+final class ApplicationConfigServiceProvider extends AbstractServiceProvider
 {
     /**
-     * @var Config
+     * @var ApplicationConfig
      */
     private $config;
 
@@ -19,10 +19,10 @@ final class ConfigServiceProvider extends AbstractServiceProvider
     private $prefix;
 
     /**
-     * @param Config $config
-     * @param string $prefix
+     * @param ApplicationConfig $config
+     * @param string            $prefix
      */
-    public function __construct(Config $config, $prefix)
+    public function __construct(ApplicationConfig $config, $prefix)
     {
         $this->prefix   = $prefix;
         $this->config   = $config;
@@ -37,7 +37,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider
     public function register()
     {
         $container = $this->getContainer();
-        $iterator  = new ConfigIterator($this->config);
+        $iterator  = new ApplicationConfigIterator($this->config);
         $prefix    = $this->keyPrefix();
 
         foreach ($iterator as $key => $value) {
