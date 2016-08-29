@@ -1,3 +1,4 @@
 vendor
 tests/.test-config
 .php_cs.cache
+composer.lock
