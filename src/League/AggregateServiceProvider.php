@@ -11,8 +11,6 @@ use League\Container\ContainerInterface;
 final class AggregateServiceProvider extends AbstractServiceProvider implements
     BootableServiceProviderInterface
 {
-    use ContainerAwareTrait;
-
     /**
      * @var ServiceProviderInterface[]
      */
