@@ -37,10 +37,9 @@ final class ApplicationConfigServiceProvider extends AbstractServiceProvider
     public function register()
     {
         $container = $this->getContainer();
-        $iterator  = new ApplicationConfigIterator($this->config);
         $prefix    = $this->keyPrefix();
 
-        foreach ($iterator as $key => $value) {
+        foreach ($this->config as $key => $value) {
             $this->getContainer()->share($prefix . $key, function () use ($value) {
                 return $value;
             });

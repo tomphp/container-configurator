@@ -3,11 +3,12 @@
 namespace TomPHP\ConfigServiceProvider;
 
 use ArrayAccess;
+use IteratorAggregate;
 use TomPHP\ConfigServiceProvider\Exception\EntryDoesNotExistException;
 use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
 use TomPHP\ConfigServiceProvider\Exception\ReadOnlyException;
 
-final class ApplicationConfig implements ArrayAccess
+final class ApplicationConfig implements ArrayAccess, IteratorAggregate
 {
     /**
      * @var array
@@ -66,6 +67,11 @@ final class ApplicationConfig implements ArrayAccess
     {
         $this->config    = $config;
         $this->separator = $separator;
+    }
+
+    public function getIterator()
+    {
+        return new ApplicationConfigIterator($this);
     }
 
     /**
