@@ -2,6 +2,8 @@
 
 namespace TomPHP\ConfigServiceProvider\Exception;
 
-final class EntryDoesNotExistException extends RuntimeException
+use DomainException;
+
+final class EntryDoesNotExistException extends DomainException implements Exception
 {
 }

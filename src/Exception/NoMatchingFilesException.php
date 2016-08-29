@@ -2,6 +2,6 @@
 
 namespace TomPHP\ConfigServiceProvider\Exception;
 
-final class NoMatchingFilesException extends RuntimeException
+final class NoMatchingFilesException extends \RuntimeException implements Exception
 {
 }

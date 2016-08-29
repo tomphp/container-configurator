@@ -6,10 +6,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
   * If `class` is left out of the config for a service, then the service name
     is assumed to be the name of the class.
+  * All exceptions implement `TomPHP\ConfigServiceProvider\Exception\Exception`.
 
 ### Removed
   * Custom configurable service providers (`TomPHP\ConfigServiceProvider\ConfigurableServiceProvider`).
   * Custom sub-providers.
+  * `TomPHP\ConfigServiceProvider\Exception\RuntimeException`
 
 ## [0.4.0] - 2016-05-25
 ### Added

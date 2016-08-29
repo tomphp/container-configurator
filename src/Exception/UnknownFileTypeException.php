@@ -2,6 +2,6 @@
 
 namespace TomPHP\ConfigServiceProvider\Exception;
 
-final class UnknownFileTypeException extends RuntimeException
+final class UnknownFileTypeException extends \RuntimeException implements Exception
 {
 }

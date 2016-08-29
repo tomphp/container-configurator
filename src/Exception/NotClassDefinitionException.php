@@ -2,6 +2,6 @@
 
 namespace TomPHP\ConfigServiceProvider\Exception;
 
-final class NotClassDefinitionException extends RuntimeException
+final class NotClassDefinitionException extends \RuntimeException implements Exception
 {
 }

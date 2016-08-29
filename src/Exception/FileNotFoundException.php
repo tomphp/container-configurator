@@ -2,6 +2,6 @@
 
 namespace TomPHP\ConfigServiceProvider\Exception;
 
-class FileNotFoundException extends RuntimeException
+class FileNotFoundException extends \RuntimeException implements Exception
 {
 }

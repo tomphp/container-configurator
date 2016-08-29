@@ -7,10 +7,10 @@ use TomPHP\ConfigServiceProvider\Exception\NotClassDefinitionException;
 
 final class NotClassDefinitionExceptionTest extends PHPUnit_Framework_TestCase
 {
-    public function testItIsAnInstanceOfThePackagesRuntimeException()
+    public function testItImplementsTheBaseExceptionType()
     {
         $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\Exception\RuntimeException',
+            'TomPHP\ConfigServiceProvider\Exception\Exception',
             new NotClassDefinitionException()
         );
     }

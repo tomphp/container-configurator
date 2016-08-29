@@ -7,11 +7,12 @@ use TomPHP\ConfigServiceProvider\Exception\InvalidConfigException;
 
 final class InvalidConfigExceptionTest extends PHPUnit_Framework_TestCase
 {
-    public function testItIsAnInstanceOfThePackagesRuntimeException()
+    public function testItImplementsTheBaseExceptionType()
     {
         $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\Exception\RuntimeException',
+            'TomPHP\ConfigServiceProvider\Exception\Exception',
             new InvalidConfigException()
         );
     }
+
 }
