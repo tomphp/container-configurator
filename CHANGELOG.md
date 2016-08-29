@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
   * Custom configurable service providers (`TomPHP\ConfigServiceProvider\ConfigurableServiceProvider`).
-  * Custom custom sub-providers.
+  * Custom sub-providers.
 
 ## [0.4.0] - 2016-05-25
 ### Added
