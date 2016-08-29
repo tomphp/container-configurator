@@ -4,8 +4,6 @@ namespace TomPHP\ConfigServiceProvider;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
-use League\Container\ServiceProvider\ServiceProviderInterface;
-use TomPHP\ConfigServiceProvider\Exception\EntryDoesNotExistException;
 use TomPHP\ConfigServiceProvider\League\AggregateServiceProvider;
 use League\Container\ContainerInterface;
 
@@ -68,7 +66,6 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
      * @param array|ApplicationConfig    $config
      * @param string                     $prefix
      * @param string                     $separator
-     * @param ServiceProviderInterface[] $subProviders
      */
     public function __construct(
         $config,

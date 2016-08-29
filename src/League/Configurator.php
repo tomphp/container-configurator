@@ -2,6 +2,7 @@
 
 namespace TomPHP\ConfigServiceProvider\League;
 
+use League\Container\ServiceProvider\ServiceProviderInterface;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
 use TomPHP\ConfigServiceProvider\ContainerConfigurator;
 use TomPHP\ConfigServiceProvider\InflectorConfig;

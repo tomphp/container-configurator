@@ -5,7 +5,6 @@ namespace TomPHP\ConfigServiceProvider\League;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use League\Container\ServiceProvider\ServiceProviderInterface;
-use League\Container\ContainerAwareTrait;
 use League\Container\ContainerInterface;
 
 final class AggregateServiceProvider extends AbstractServiceProvider implements

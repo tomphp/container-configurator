@@ -4,7 +4,6 @@ namespace TomPHP\ConfigServiceProvider\League;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
-use TomPHP\ConfigServiceProvider\ApplicationConfigIterator;
 
 final class ApplicationConfigServiceProvider extends AbstractServiceProvider
 {

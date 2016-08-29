@@ -3,7 +3,6 @@
 namespace tests\TomPHP\ConfigServiceProvider;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\ServiceConfig;
 use TomPHP\ConfigServiceProvider\ServiceDefinition;
 
 final class ServiceDefinitionTest extends PHPUnit_Framework_TestCase
