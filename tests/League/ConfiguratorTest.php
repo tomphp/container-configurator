@@ -37,7 +37,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
     public function testItAddsConfigToTheServiceProvider()
     {
-        $this->configurator->addConfig(new ApplicationConfig([
+        $this->configurator->addApplicationConfig(new ApplicationConfig([
             'keyA'   => 'valueA',
             'group1' => ['keyB' => 'valueB']
         ]), 'settings');
@@ -51,7 +51,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
     public function testItAddsConfigToTheServiceProviderWithNoPrefix()
     {
-        $this->configurator->addConfig(new ApplicationConfig([
+        $this->configurator->addApplicationConfig(new ApplicationConfig([
             'keyA'   => 'valueA',
             'group1' => ['keyB' => 'valueB']
         ]), '');
@@ -80,7 +80,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
     public function testItAddsInflectorConfigToTheServiceProvider()
     {
-        $this->configurator->addConfig(new ApplicationConfig(['test_key' => 'test value']));
+        $this->configurator->addApplicationConfig(new ApplicationConfig(['test_key' => 'test value']));
         $this->configurator->addInflectorConfig(new InflectorConfig([
             'tests\mocks\ExampleInterface' => [
                 'setValue' => ['config.test_key'],

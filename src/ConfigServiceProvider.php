@@ -81,7 +81,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
 
         $configurator = new League\Configurator();
 
-        $configurator->addConfig($config, $prefix);
+        $configurator->addApplicationConfig($config, $prefix);
 
         if (isset($config[self::DEFAULT_DI_KEY])) {
             $configurator->addServiceConfig(new ServiceConfig($config[self::DEFAULT_DI_KEY]));

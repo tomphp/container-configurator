@@ -17,7 +17,7 @@ final class Configurator implements ContainerConfigurator
      */
     private $providers = [];
 
-    public function addConfig(ApplicationConfig $config, $prefix = 'config')
+    public function addApplicationConfig(ApplicationConfig $config, $prefix = 'config')
     {
         $this->providers[] = new ApplicationConfigServiceProvider($config, $prefix);
     }

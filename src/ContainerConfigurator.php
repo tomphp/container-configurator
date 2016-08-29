@@ -10,7 +10,7 @@ interface ContainerConfigurator
      *
      * @return void
      */
-    public function addConfig(ApplicationConfig $config, $prefix = 'config');
+    public function addApplicationConfig(ApplicationConfig $config, $prefix = 'config');
 
     /**
      * @param ServiceConfig $config
