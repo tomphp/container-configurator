@@ -15,17 +15,17 @@ final class Configurator implements ContainerConfigurator
      */
     private $providers = [];
 
-    public function addApplicationConfig(ApplicationConfig $config, $prefix = 'config')
+    public function addApplicationConfig($container, ApplicationConfig $config, $prefix = 'config')
     {
         $this->providers[] = new ApplicationConfigServiceProvider($config, $prefix);
     }
 
-    public function addServiceConfig(ServiceConfig $config)
+    public function addServiceConfig($container, ServiceConfig $config)
     {
         $this->providers[] = new ServiceServiceProvider($config);
     }
 
-    public function addInflectorConfig(InflectorConfig $config)
+    public function addInflectorConfig($container, InflectorConfig $config)
     {
         $this->providers[] = new InflectorServiceProvider($config);
     }
