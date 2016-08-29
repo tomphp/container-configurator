@@ -1,13 +1,14 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider;
+namespace TomPHP\ConfigServiceProvider\League;
 
 use League\Container\Definition\ClassDefinition;
 use League\Container\ServiceProvider\AbstractServiceProvider;
-use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use TomPHP\ConfigServiceProvider\Exception\NotClassDefinitionException;
+use TomPHP\ConfigServiceProvider\ServiceConfig;
+use TomPHP\ConfigServiceProvider\ServiceDefinition;
 
-final class DIConfigServiceProvider extends AbstractServiceProvider
+final class ServiceServiceProvider extends AbstractServiceProvider
 {
     /**
      * @var array

@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\TomPHP\ConfigServiceProvider;
+namespace tests\TomPHP\ConfigServiceProvider\League;
 
 use League\Container\Container;
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\DIConfigServiceProvider;
+use TomPHP\ConfigServiceProvider\League\ServiceServiceProvider;
 use TomPHP\ConfigServiceProvider\ServiceConfig;
 
-final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
+final class ServiceServiceProviderTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Container
@@ -23,7 +23,7 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(
             'League\Container\ServiceProvider\ServiceProviderInterface',
-            new DIConfigServiceProvider(new ServiceConfig([]))
+            new ServiceServiceProvider(new ServiceConfig([]))
         );
     }
 
@@ -35,7 +35,7 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->container->addServiceProvider(new DIConfigServiceProvider($config));
+        $this->container->addServiceProvider(new ServiceServiceProvider($config));
 
         $this->assertInstanceOf(
             'tests\mocks\ExampleClass',
@@ -52,7 +52,7 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->container->addServiceProvider(new DIConfigServiceProvider($config));
+        $this->container->addServiceProvider(new ServiceServiceProvider($config));
 
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
@@ -69,7 +69,7 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->container->addServiceProvider(new DIConfigServiceProvider($config));
+        $this->container->addServiceProvider(new ServiceServiceProvider($config));
 
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
@@ -85,7 +85,7 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->container->addServiceProvider(new DIConfigServiceProvider($config));
+        $this->container->addServiceProvider(new ServiceServiceProvider($config));
 
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
@@ -105,7 +105,7 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->container->addServiceProvider(new DIConfigServiceProvider($config));
+        $this->container->addServiceProvider(new ServiceServiceProvider($config));
 
         $instance = $this->container->get('example_class');
 
@@ -123,7 +123,7 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->container->addServiceProvider(new DIConfigServiceProvider($config));
+        $this->container->addServiceProvider(new ServiceServiceProvider($config));
 
         $instance = $this->container->get('example_class');
 
@@ -139,7 +139,7 @@ final class DIConfigServiceProviderTest extends PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->container->addServiceProvider(new DIConfigServiceProvider($config));
+        $this->container->addServiceProvider(new ServiceServiceProvider($config));
 
         $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\NotClassDefinitionException');
 

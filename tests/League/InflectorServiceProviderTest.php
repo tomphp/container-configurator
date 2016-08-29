@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\TomPHP\ConfigServiceProvider;
+namespace tests\TomPHP\ConfigServiceProvider\League;
 
 use League\Container\Container;
 use PHPUnit_Framework_TestCase;
 use TomPHP\ConfigServiceProvider\InflectorConfig;
-use TomPHP\ConfigServiceProvider\InflectorConfigServiceProvider;
+use TomPHP\ConfigServiceProvider\League\InflectorServiceProvider;
 
-final class InflectorConfigServiceProviderTest extends PHPUnit_Framework_TestCase
+final class InflectorServiceProviderTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Container
@@ -27,7 +27,7 @@ final class InflectorConfigServiceProviderTest extends PHPUnit_Framework_TestCas
             ]
         ]);
 
-        $this->container->addServiceProvider(new InflectorConfigServiceProvider($config));
+        $this->container->addServiceProvider(new InflectorServiceProvider($config));
         $this->container->add('example', 'tests\mocks\ExampleClass');
 
         $this->assertEquals(
