@@ -14,4 +14,20 @@ final class UnknownFileTypeExceptionTest extends PHPUnit_Framework_TestCase
             new UnknownFileTypeException()
         );
     }
+
+    public function testItIsADomainException()
+    {
+        $this->assertInstanceOf('DomainException', new UnknownFileTypeException());
+    }
+
+    public function testItCanBeCreatedFromFileExtension()
+    {
+        $this->assertEquals(
+            'No reader configured for ".yml" files; readers are available for [".json", ".php"].',
+            UnknownFileTypeException::fromFileExtension(
+                '.yml',
+                ['.json', '.php']
+            )->getMessage()
+        );
+    }
 }

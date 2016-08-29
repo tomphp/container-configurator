@@ -8,6 +8,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     is assumed to be the name of the class.
   * All exceptions implement `TomPHP\ConfigServiceProvider\Exception\Exception`.
 
+### Changed
+  * Exception base-classes have been updated.
+
 ### Removed
   * Custom configurable service providers (`TomPHP\ConfigServiceProvider\ConfigurableServiceProvider`).
   * Custom sub-providers.

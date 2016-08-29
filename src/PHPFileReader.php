@@ -25,14 +25,14 @@ final class PHPFileReader implements FileReader
     private function assertFileExists()
     {
         if (!file_exists($this->filename)) {
-            throw new FileNotFoundException($this->filename . ' does not exist');
+            throw FileNotFoundException::fromFileName($this->filename);
         }
     }
 
     private function assertConfigIsValid($config)
     {
         if (!is_array($config)) {
-            throw new InvalidConfigException($this->filename . ' does not return a PHP array');
+            throw InvalidConfigException::fromPHPFileError($this->filename);
         }
     }
 }

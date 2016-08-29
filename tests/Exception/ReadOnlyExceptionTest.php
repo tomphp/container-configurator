@@ -3,28 +3,28 @@
 namespace tests\TomPHP\ConfigServiceProvider\Exception;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
+use TomPHP\ConfigServiceProvider\Exception\ReadOnlyException;
 
-final class NoMatchingFilesExceptionTest extends PHPUnit_Framework_TestCase
+final class ReadOnlyExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItImplementsTheBaseExceptionType()
     {
         $this->assertInstanceOf(
             'TomPHP\ConfigServiceProvider\Exception\Exception',
-            new NoMatchingFilesException()
+            new ReadOnlyException()
         );
     }
 
     public function testItIsALogicException()
     {
-        $this->assertInstanceOf('LogicException', new NoMatchingFilesException());
+        $this->assertInstanceOf('LogicException', new ReadOnlyException());
     }
 
     public function testItCanBeCreatedFromThePatterns()
     {
         $this->assertEquals(
-            'No files found matching patterns: ["*.json", "*.php"].',
-            NoMatchingFilesException::fromPatterns(['*.json', '*.php'])->getMessage()
+            '"ClassName" is read only.',
+            ReadOnlyException::fromClassName('ClassName')->getMessage()
         );
     }
 }

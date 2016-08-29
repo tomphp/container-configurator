@@ -14,4 +14,17 @@ final class FileNotFoundExceptionTest extends PHPUnit_Framework_TestCase
             new FileNotFoundException()
         );
     }
+
+    public function testItIsALogicException()
+    {
+        $this->assertInstanceOf('LogicException', new FileNotFoundException());
+    }
+
+    public function testItCanBeCreatedFromTheFileName()
+    {
+        $this->assertEquals(
+            '"example.cfg" does not exist',
+            FileNotFoundException::fromFileName('example.cfg')->getMessage()
+        );
+    }
 }

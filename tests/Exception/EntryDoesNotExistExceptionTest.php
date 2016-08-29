@@ -17,9 +17,14 @@ final class EntryDoesNotExistExceptionTest extends PHPUnit_Framework_TestCase
 
     public function testItIsADomainException()
     {
-        $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\Exception\Exception',
-            new EntryDoesNotExistException()
+        $this->assertInstanceOf('DomainException', new EntryDoesNotExistException());
+    }
+
+    public function testItCanBeCreatedFromTheKey()
+    {
+        $this->assertEquals(
+            'No entry found for "example-key".',
+            EntryDoesNotExistException::fromKey('example-key')->getMessage()
         );
     }
 }

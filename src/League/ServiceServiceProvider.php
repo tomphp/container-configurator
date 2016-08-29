@@ -45,10 +45,7 @@ final class ServiceServiceProvider extends AbstractServiceProvider
         );
 
         if (!$service instanceof ClassDefinition) {
-            throw new NotClassDefinitionException(sprintf(
-                'DI definition for %s does not create a class definition',
-                $definition->getName()
-            ));
+            throw NotClassDefinitionException::fromServiceName($definition->getName());
         }
 
         $service->withArguments($definition->getArguments());
