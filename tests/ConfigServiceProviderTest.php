@@ -7,7 +7,6 @@ use PHPUnit_Framework_TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use TomPHP\ConfigServiceProvider\ConfigServiceProvider;
 use Prophecy\Argument;
-use TomPHP\ConfigServiceProvider\ConfigurableServiceProvider;
 
 final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 {
@@ -19,7 +18,7 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     private $container;
 
     /**
-     * @var ConfigurableServiceProvider|ObjectProphecy
+     * @var ServiceProviderInterface|ObjectProphecy
      */
     private $subProvider;
 
@@ -27,9 +26,8 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     {
         $this->container = new Container();
 
-        $this->subProvider = $this->prophesize('TomPHP\ConfigServiceProvider\ConfigurableServiceProvider');
+        $this->subProvider = $this->prophesize('League\Container\ServiceProvider\ServiceProviderInterface');
 
-        $this->subProvider->configure(Argument::any())->willReturn();
         $this->subProvider->provides()->willReturn([]);
         $this->subProvider->setContainer(Argument::any())->willReturn();
         $this->subProvider->register()->willReturn();
@@ -132,34 +130,6 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     /**
      * @group sub_providers
      */
-    public function testItConfiguresASubProvider()
-    {
-        $config = [
-            'sub_provider' => ['key' => 'config'],
-        ];
-
-        new ConfigServiceProvider($config, 'config', '.', [
-            'sub_provider' => $this->subProvider->reveal(),
-        ]);
-
-        $this->subProvider->configure(['key' => 'config'])->shouldHaveBeenCalled();
-    }
-
-    /**
-     * @group sub_providers
-     */
-    public function testItSkipsConfiguringASubProviderWithNoConfig()
-    {
-        new ConfigServiceProvider([], 'config', '.', [
-            'sub_provider' => $this->subProvider->reveal(),
-        ]);
-
-        $this->subProvider->configure(Argument::any())->shouldNotHaveBeenCalled();
-    }
-
-    /**
-     * @group sub_providers
-     */
     public function testItMergesTheSubProvidersServiceList()
     {
         $this->subProvider->provides()->willReturn(['b']);
@@ -197,9 +167,8 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
      */
     public function testBootableSubProvidersAreBooted()
     {
-        $this->subProvider = $this->prophesize('tests\mocks\BootableConfigurableServiceProvider');
+        $this->subProvider = $this->prophesize('tests\mocks\BootableServiceProvider');
 
-        $this->subProvider->configure(Argument::any())->willReturn();
         $this->subProvider->provides()->willReturn([]);
         $this->subProvider->setContainer(Argument::any())->willReturn();
         $this->subProvider->register()->willReturn();

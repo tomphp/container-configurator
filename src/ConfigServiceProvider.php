@@ -24,7 +24,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     private $config;
 
     /**
-     * @var ConfigurableServiceProvider[]
+     * @var ServiceProviderInterface[]
      */
     private $subProviders;
 
@@ -67,10 +67,10 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     /**
      * @api
      *
-     * @param array|ApplicationConfig       $config
-     * @param string                        $prefix
-     * @param string                        $separator
-     * @param ConfigurableServiceProvider[] $subProviders
+     * @param array|ApplicationConfig    $config
+     * @param string                     $prefix
+     * @param string                     $separator
+     * @param ServiceProviderInterface[] $subProviders
      */
     public function __construct(
         $config,
@@ -85,7 +85,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
         $configurator = new League\Configurator();
         $configurator->addConfig($config, $prefix);
 
-        $this->subProviders = [__FILE__ => $configurator->getServiceProvider()];
+        $this->subProviders = [__CLASS__ => $configurator->getServiceProvider()];
 
         foreach ($subProviders as $key => $provider) {
             if ($provider instanceof DIConfigServiceProvider && isset($config[$key])) {
@@ -102,7 +102,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
         }
 
         foreach ($this->subProviders as $key => $provider) {
-            $this->configureSubProvider($key, $config->asArray(), $provider);
+            $this->provides = array_merge($this->provides, $provider->provides());
         }
     }
 
@@ -124,24 +124,6 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
             $provider->setContainer($this->getContainer());
             $provider->boot();
         }
-    }
-
-    /**
-     * @param string                   $key
-     * @param array                    $config
-     * @param ServiceProviderInterface $provider
-     */
-    private function configureSubProvider($key, array $config, ServiceProviderInterface $provider)
-    {
-        if ($key !== __FILE__ && !array_key_exists($key, $config)) {
-            return;
-        }
-
-        if ($provider instanceof ConfigurableServiceProvider) {
-            $provider->configure($config[$key]);
-        }
-
-        $this->provides = array_merge($this->provides, $provider->provides());
     }
 
     /**

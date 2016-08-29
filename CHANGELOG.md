@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
   * `TomPHP\ConfigServiceProvider\DIConfigServiceProvider` is no longer re-configurable.
   * `TomPHP\ConfigServiceProvider\InflectoConfigServiceProvider` is no longer re-configurable.
+  * Custom configurable service providers (`TomPHP\ConfigServiceProvider\ConfigurableServiceProvider`).
 
 ## [0.4.0] - 2016-05-25
 ### Added
