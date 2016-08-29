@@ -35,7 +35,7 @@ final class ServiceDefinition
      */
     public function __construct($name, array $config)
     {
-        $this->name       = $name;
+        $this->name      = $name;
         $this->class     = isset($config['class']) ? $config['class'] : $name;
         $this->singleton = isset($config['singleton']) ? $config['singleton'] : false;
         $this->arguments = isset($config['arguments']) ? $config['arguments'] : [];

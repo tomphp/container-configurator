@@ -6,28 +6,19 @@ use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
 
 final class InflectorConfigServiceProvider extends AbstractServiceProvider implements
-    BootableServiceProviderInterface,
-    ConfigurableServiceProvider
+    BootableServiceProviderInterface
 {
     /**
-     * @var array
+     * @var InflectorConfig
      */
     private $config;
 
     /**
      * @api
      *
-     * @param array  $config
+     * @param InflectorConfig $config
      */
-    public function __construct(array $config)
-    {
-        $this->config = $config;
-    }
-
-    /**
-     * @param array  $config
-     */
-    public function configure(array $config)
+    public function __construct(InflectorConfig $config)
     {
         $this->config = $config;
     }
@@ -38,8 +29,8 @@ final class InflectorConfigServiceProvider extends AbstractServiceProvider imple
 
     public function boot()
     {
-        foreach ($this->config as $interface => $config) {
-            $this->configureInterface($interface, $config);
+        foreach ($this->config as $definition) {
+            $this->configureInterface($definition);
         }
     }
 
@@ -47,10 +38,14 @@ final class InflectorConfigServiceProvider extends AbstractServiceProvider imple
      * @param string $interface
      * @param array  $config
      */
-    private function configureInterface($interface, array $config)
+    private function configureInterface(InflectorDefinition $definition)
     {
-        foreach ($config as $method => $args) {
-            $this->addInflectorMethod($interface, $method, $args);
+        foreach ($definition->getMethods() as $method => $args) {
+            $this->addInflectorMethod(
+                $definition->getInterface(),
+                $method,
+                $args
+            );
         }
     }
 

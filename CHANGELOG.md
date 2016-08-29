@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   * If `class` is left out of the config for a service, then the service name
     is assumed to be the name of the class.
 
+### Removed
+  * `TomPHP\ConfigServiceProvider\DIConfigServiceProvider` is no longer re-configurable.
+  * `TomPHP\ConfigServiceProvider\InflectoConfigServiceProvider` is no longer re-configurable.
+
 ## [0.4.0] - 2016-05-25
 ### Added
  * Exception thrown when no files are found when using the `fromFiles`

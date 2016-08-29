@@ -43,7 +43,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
             self::getSettingOrDefault(self::SETTING_PREFIX, $settings, self::DEFAULT_PREFIX),
             self::getSettingOrDefault(self::SETTING_SEPARATOR, $settings, self::DEFAULT_SEPARATOR),
             [
-                self::DEFAULT_INFLECTORS_KEY => new InflectorConfigServiceProvider([]),
+                self::DEFAULT_INFLECTORS_KEY => new InflectorConfigServiceProvider(new InflectorConfig([])),
                 self::DEFAULT_DI_KEY         => new DIConfigServiceProvider(new ServiceConfig([])),
             ]
         );
@@ -88,12 +88,14 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
         $this->subProviders = [__FILE__ => $configurator->getServiceProvider()];
 
         foreach ($subProviders as $key => $provider) {
-            if ($provider instanceof DIConfigServiceProvider) {
+            if ($provider instanceof DIConfigServiceProvider && isset($config[$key])) {
                 try {
                     $this->subProviders[$key] = new DIConfigServiceProvider(new ServiceConfig($config[$key]));
                 } catch (EntryDoesNotExistException $e) {
                     // no op
                 }
+            } elseif ($provider instanceof InflectorConfigServiceProvider && isset($config[$key])) {
+                $this->subProviders[$key] = new InflectorConfigServiceProvider(new InflectorConfig($config[$key]));
             } else {
                 $this->subProviders[$key] = $provider;
             }
