@@ -46,8 +46,6 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
             'settings'
         );
 
-        $this->container->addServiceProvider($this->configurator->getServiceProvider());
-
         $this->assertEquals('valueA', $this->container->get('settings.keyA'));
         $this->assertEquals(['keyB' => 'valueB'], $this->container->get('settings.group1'));
         $this->assertEquals('valueB', $this->container->get('settings.group1.keyB'));
@@ -64,8 +62,6 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
             ''
         );
 
-        $this->container->addServiceProvider($this->configurator->getServiceProvider());
-
         $this->assertEquals('valueA', $this->container->get('keyA'));
         $this->assertEquals(['keyB' => 'valueB'], $this->container->get('group1'));
         $this->assertEquals('valueB', $this->container->get('group1.keyB'));
@@ -81,7 +77,6 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
                 ],
             ])
         );
-        $this->container->addServiceProvider($this->configurator->getServiceProvider());
 
         $this->assertInstanceOf(
             'tests\mocks\ExampleClass',
@@ -104,7 +99,6 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
                 ],
             ])
         );
-        $this->container->addServiceProvider($this->configurator->getServiceProvider());
         $this->container->add('example', 'tests\mocks\ExampleClass');
 
         $this->assertEquals(
