@@ -8,9 +8,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     is assumed to be the name of the class.
 
 ### Removed
-  * `TomPHP\ConfigServiceProvider\DIConfigServiceProvider` is no longer re-configurable.
-  * `TomPHP\ConfigServiceProvider\InflectoConfigServiceProvider` is no longer re-configurable.
   * Custom configurable service providers (`TomPHP\ConfigServiceProvider\ConfigurableServiceProvider`).
+  * Custom custom sub-providers.
 
 ## [0.4.0] - 2016-05-25
 ### Added

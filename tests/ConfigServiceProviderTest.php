@@ -128,66 +128,6 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group sub_providers
-     */
-    public function testItMergesTheSubProvidersServiceList()
-    {
-        $this->subProvider->provides()->willReturn(['b']);
-
-        $provider = new ConfigServiceProvider(
-            ['sub_provider' => [], 'a' => 1],
-            'config',
-            '.',
-            [ 'sub_provider' => $this->subProvider->reveal() ]
-        );
-
-        $this->assertEquals(['config.sub_provider', 'config.a', 'b'], $provider->provides());
-    }
-
-    /**
-     * @group sub_providers
-     */
-    public function testItRegistersSubProviders()
-    {
-        $this->container->addServiceProvider(new ConfigServiceProvider(
-            ['sub_provider' => []],
-            'config',
-            '.',
-            [ 'sub_provider' => $this->subProvider->reveal() ]
-        ));
-
-        $this->container->get('config.sub_provider');
-
-        $this->subProvider->setContainer($this->container)->shouldHaveBeenCalled();
-        $this->subProvider->register()->shouldHaveBeenCalled();
-    }
-
-    /**
-     * @group sub_providers
-     */
-    public function testBootableSubProvidersAreBooted()
-    {
-        $this->subProvider = $this->prophesize('tests\mocks\BootableServiceProvider');
-
-        $this->subProvider->provides()->willReturn([]);
-        $this->subProvider->setContainer(Argument::any())->willReturn();
-        $this->subProvider->register()->willReturn();
-        $this->subProvider->boot()->willReturn();
-
-        $this->container->addServiceProvider(new ConfigServiceProvider(
-            ['sub_provider' => []],
-            'config',
-            '.',
-            [ 'sub_provider' => $this->subProvider->reveal() ]
-        ));
-
-        $this->container->get('config.sub_provider');
-
-        $this->subProvider->setContainer($this->container)->shouldHaveBeenCalled();
-        $this->subProvider->boot()->shouldHaveBeenCalled();
-    }
-
-    /**
      * @group from_config_factory
      */
     public function testItCreatesFromConfigWithDefaultSettings()

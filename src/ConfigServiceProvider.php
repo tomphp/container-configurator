@@ -43,11 +43,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
         return new self(
             $config,
             self::getSettingOrDefault(self::SETTING_PREFIX, $settings, self::DEFAULT_PREFIX),
-            self::getSettingOrDefault(self::SETTING_SEPARATOR, $settings, self::DEFAULT_SEPARATOR),
-            [
-                self::DEFAULT_INFLECTORS_KEY => new InflectorConfigServiceProvider(new InflectorConfig([])),
-                self::DEFAULT_DI_KEY         => new DIConfigServiceProvider(new ServiceConfig([])),
-            ]
+            self::getSettingOrDefault(self::SETTING_SEPARATOR, $settings, self::DEFAULT_SEPARATOR)
         );
     }
 
@@ -77,30 +73,26 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     public function __construct(
         $config,
         $prefix = self::DEFAULT_PREFIX,
-        $separator = self::DEFAULT_SEPARATOR,
-        array $subProviders = []
+        $separator = self::DEFAULT_SEPARATOR
     ) {
         $this->config = [];
 
         $config = ($config instanceof ApplicationConfig) ? $config : new ApplicationConfig($config, $separator);
 
         $configurator = new League\Configurator();
+
         $configurator->addConfig($config, $prefix);
 
-        $providers = [__CLASS__ => $configurator->getServiceProvider()];
+        $providers = [$configurator->getServiceProvider()];
 
-        foreach ($subProviders as $key => $provider) {
-            if ($provider instanceof DIConfigServiceProvider && isset($config[$key])) {
-                try {
-                    $providers[$key] = new DIConfigServiceProvider(new ServiceConfig($config[$key]));
-                } catch (EntryDoesNotExistException $e) {
-                    // no op
-                }
-            } elseif ($provider instanceof InflectorConfigServiceProvider && isset($config[$key])) {
-                $providers[$key] = new InflectorConfigServiceProvider(new InflectorConfig($config[$key]));
-            } else {
-                $providers[$key] = $provider;
-            }
+        if (isset($config[self::DEFAULT_DI_KEY])) {
+            $providers[] = new DIConfigServiceProvider(new ServiceConfig($config[self::DEFAULT_DI_KEY]));
+        }
+
+        if (isset($config[self::DEFAULT_INFLECTORS_KEY])) {
+            $providers[] = new InflectorConfigServiceProvider(
+                new InflectorConfig($config[self::DEFAULT_INFLECTORS_KEY])
+            );
         }
 
         $this->subProviders = new AggregateServiceProvider($providers);
