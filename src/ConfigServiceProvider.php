@@ -6,6 +6,8 @@ use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use League\Container\ServiceProvider\ServiceProviderInterface;
 use TomPHP\ConfigServiceProvider\Exception\EntryDoesNotExistException;
+use TomPHP\ConfigServiceProvider\League\AggregateServiceProvider;
+use League\Container\ContainerInterface;
 
 final class ConfigServiceProvider extends AbstractServiceProvider implements
     BootableServiceProviderInterface
@@ -24,7 +26,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
     private $config;
 
     /**
-     * @var ServiceProviderInterface[]
+     * @var AggregateServiceProvider
      */
     private $subProviders;
 
@@ -85,45 +87,48 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
         $configurator = new League\Configurator();
         $configurator->addConfig($config, $prefix);
 
-        $this->subProviders = [__CLASS__ => $configurator->getServiceProvider()];
+        $providers = [__CLASS__ => $configurator->getServiceProvider()];
 
         foreach ($subProviders as $key => $provider) {
             if ($provider instanceof DIConfigServiceProvider && isset($config[$key])) {
                 try {
-                    $this->subProviders[$key] = new DIConfigServiceProvider(new ServiceConfig($config[$key]));
+                    $providers[$key] = new DIConfigServiceProvider(new ServiceConfig($config[$key]));
                 } catch (EntryDoesNotExistException $e) {
                     // no op
                 }
             } elseif ($provider instanceof InflectorConfigServiceProvider && isset($config[$key])) {
-                $this->subProviders[$key] = new InflectorConfigServiceProvider(new InflectorConfig($config[$key]));
+                $providers[$key] = new InflectorConfigServiceProvider(new InflectorConfig($config[$key]));
             } else {
-                $this->subProviders[$key] = $provider;
+                $providers[$key] = $provider;
             }
         }
 
-        foreach ($this->subProviders as $key => $provider) {
-            $this->provides = array_merge($this->provides, $provider->provides());
-        }
+        $this->subProviders = new AggregateServiceProvider($providers);
+    }
+
+    public function provides($service = null)
+    {
+        return $this->subProviders->provides($service);
     }
 
     public function register()
     {
-        foreach ($this->subProviders as $provider) {
-            $provider->setContainer($this->getContainer());
-            $provider->register();
-        }
+        $this->subProviders->register();
     }
 
     public function boot()
     {
-        foreach ($this->subProviders as $provider) {
-            if (!$provider instanceof BootableServiceProviderInterface) {
-                continue;
-            }
+        $this->subProviders->boot();
+    }
 
-            $provider->setContainer($this->getContainer());
-            $provider->boot();
-        }
+    public function setContainer(ContainerInterface $container)
+    {
+        $this->subProviders->setContainer($container);
+    }
+
+    public function getContainer()
+    {
+        return $this->subProviders->getContainer();
     }
 
     /**
