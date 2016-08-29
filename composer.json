@@ -13,14 +13,19 @@
             "role": "Developer"
         }
     ],
-    "require-dev": {
-        "fabpot/php-cs-fixer": "^1.10",
-        "phpunit/phpunit": "^4.6.4",
-        "squizlabs/php_codesniffer": "*"
+    "suggest": {
+        "league/container": "Small but powerful dependency injection container http://container.thephpleague.com",
+        "pimple/pimple": "A small PHP 5.3 dependency injection container http://pimple.sensiolabs.org"
     },
     "require": {
-        "php": ">=5.4",
-        "league/container": "^2.0.2"
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^1.10",
+        "phpunit/phpunit": "^4.6.4",
+        "squizlabs/php_codesniffer": "*",
+        "league/container": "^2.0.2",
+        "pimple/pimple": "^3.0.0"
     },
     "autoload": {
         "psr-4": {
