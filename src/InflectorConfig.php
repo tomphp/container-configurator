@@ -7,7 +7,9 @@ use IteratorAggregate;
 
 final class InflectorConfig implements IteratorAggregate
 {
-    /** @var array */
+    /**
+     * @var array
+     */
     private $inflectors;
 
     /**

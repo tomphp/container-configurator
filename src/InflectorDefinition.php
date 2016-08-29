@@ -31,7 +31,9 @@ final class InflectorDefinition
         return $this->interface;
     }
 
-    /** @return array */
+    /**
+     * @return array
+     */
     public function getMethods()
     {
         return $this->methods;
