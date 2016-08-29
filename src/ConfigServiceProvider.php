@@ -77,15 +77,14 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
 
         $configurator = new League\Configurator();
 
-        $configurator->addApplicationConfig($config, $prefix);
+        $configurator->addApplicationConfig(null, $config, $prefix);
 
         if (isset($config[self::DEFAULT_DI_KEY])) {
-            $configurator->addServiceConfig(new ServiceConfig($config[self::DEFAULT_DI_KEY]));
+            $configurator->addServiceConfig(null, new ServiceConfig($config[self::DEFAULT_DI_KEY]));
         }
 
-
         if (isset($config[self::DEFAULT_INFLECTORS_KEY])) {
-            $configurator->addInflectorConfig(new InflectorConfig($config[self::DEFAULT_INFLECTORS_KEY]));
+            $configurator->addInflectorConfig(null, new InflectorConfig($config[self::DEFAULT_INFLECTORS_KEY]));
         }
 
         $this->subProviders = $configurator->getServiceProvider();
