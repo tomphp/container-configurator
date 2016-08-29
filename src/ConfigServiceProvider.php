@@ -83,19 +83,16 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements
 
         $configurator->addConfig($config, $prefix);
 
-        $providers = [$configurator->getServiceProvider()];
-
         if (isset($config[self::DEFAULT_DI_KEY])) {
-            $providers[] = new DIConfigServiceProvider(new ServiceConfig($config[self::DEFAULT_DI_KEY]));
+            $configurator->addServiceConfig(new ServiceConfig($config[self::DEFAULT_DI_KEY]));
         }
+
 
         if (isset($config[self::DEFAULT_INFLECTORS_KEY])) {
-            $providers[] = new InflectorConfigServiceProvider(
-                new InflectorConfig($config[self::DEFAULT_INFLECTORS_KEY])
-            );
+            $configurator->addInflectorConfig(new InflectorConfig($config[self::DEFAULT_INFLECTORS_KEY]));
         }
 
-        $this->subProviders = new AggregateServiceProvider($providers);
+        $this->subProviders = $configurator->getServiceProvider();
     }
 
     public function provides($service = null)

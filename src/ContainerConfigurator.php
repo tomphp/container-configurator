@@ -11,4 +11,18 @@ interface ContainerConfigurator
      * @return void
      */
     public function addConfig(ApplicationConfig $config, $prefix = 'config');
+
+    /**
+     * @param ServiceConfig $config
+     *
+     * @return void
+     */
+    public function addServiceConfig(ServiceConfig $config);
+
+    /**
+     * @param InflectorConfig $config
+     *
+     * @return void
+     */
+    public function addInflectorConfig(InflectorConfig $config);
 }

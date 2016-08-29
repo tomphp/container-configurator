@@ -2,18 +2,34 @@
 
 namespace TomPHP\ConfigServiceProvider\League;
 
-use TomPHP\ConfigServiceProvider\ContainerConfigurator;
-use TomPHP\ConfigServiceProvider\ApplicationConfig;
 use League\Container\ServiceProvider\AbstractServiceProvider;
+use TomPHP\ConfigServiceProvider\ApplicationConfig;
+use TomPHP\ConfigServiceProvider\ContainerConfigurator;
+use TomPHP\ConfigServiceProvider\DIConfigServiceProvider;
+use TomPHP\ConfigServiceProvider\InflectorConfig;
+use TomPHP\ConfigServiceProvider\InflectorConfigServiceProvider;
+use TomPHP\ConfigServiceProvider\ServiceConfig;
 
 final class Configurator implements ContainerConfigurator
 {
-    /** @var ApplicationConfigServiceProvider */
-    private $provider;
+    /**
+     * @var ServiceProviderInterface[]
+     */
+    private $providers = [];
 
     public function addConfig(ApplicationConfig $config, $prefix = 'config')
     {
-        $this->provider = new ApplicationConfigServiceProvider($config, $prefix);
+        $this->providers[] = new ApplicationConfigServiceProvider($config, $prefix);
+    }
+
+    public function addServiceConfig(ServiceConfig $config)
+    {
+        $this->providers[] = new DIConfigServiceProvider($config);
+    }
+
+    public function addInflectorConfig(InflectorConfig $config)
+    {
+        $this->providers[] = new InflectorConfigServiceProvider($config);
     }
 
     /**
@@ -23,6 +39,6 @@ final class Configurator implements ContainerConfigurator
      */
     public function getServiceProvider()
     {
-        return $this->provider;
+        return new AggregateServiceProvider($this->providers);
     }
 }
