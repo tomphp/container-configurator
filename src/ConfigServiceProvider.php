@@ -7,8 +7,7 @@ use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use TomPHP\ConfigServiceProvider\League\AggregateServiceProvider;
 use League\Container\ContainerInterface;
 
-final class ConfigServiceProvider extends AbstractServiceProvider implements
-    BootableServiceProviderInterface
+final class ConfigServiceProvider extends AbstractServiceProvider implements BootableServiceProviderInterface
 {
     const DEFAULT_PREFIX         = 'config';
     const DEFAULT_SEPARATOR      = '.';

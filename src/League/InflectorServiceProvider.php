@@ -7,8 +7,7 @@ use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use TomPHP\ConfigServiceProvider\InflectorConfig;
 use TomPHP\ConfigServiceProvider\InflectorDefinition;
 
-final class InflectorServiceProvider extends AbstractServiceProvider implements
-    BootableServiceProviderInterface
+final class InflectorServiceProvider extends AbstractServiceProvider implements BootableServiceProviderInterface
 {
     /**
      * @var InflectorConfig
