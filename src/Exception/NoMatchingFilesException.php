@@ -2,7 +2,9 @@
 
 namespace TomPHP\ConfigServiceProvider\Exception;
 
-final class NoMatchingFilesException extends \LogicException implements Exception
+use LogicException;
+
+final class NoMatchingFilesException extends LogicException implements Exception
 {
     use ExceptionFactory;
 
