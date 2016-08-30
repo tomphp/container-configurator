@@ -7,8 +7,7 @@ use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use League\Container\ServiceProvider\ServiceProviderInterface;
 use League\Container\ContainerInterface;
 
-final class AggregateServiceProvider extends AbstractServiceProvider implements
-    BootableServiceProviderInterface
+final class AggregateServiceProvider extends AbstractServiceProvider implements BootableServiceProviderInterface
 {
     /**
      * @var ServiceProviderInterface[]

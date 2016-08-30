@@ -34,9 +34,7 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
         $files   = $locator->locate($patterns);
 
         if (empty($files)) {
-            throw new NoMatchingFilesException(
-                'No files found matching patterns: ' . implode(', ', $patterns)
-            );
+            throw NoMatchingFilesException::fromPatterns($patterns);
         }
 
         $factory = new ReaderFactory([
@@ -100,12 +98,12 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
 
     public function offsetSet($offset, $value)
     {
-        throw new ReadOnlyException('Config is read only.');
+        throw ReadOnlyException::fromClassName(__CLASS__);
     }
 
     public function offsetUnset($offset)
     {
-        throw new ReadOnlyException('Config is read only.');
+        throw ReadOnlyException::fromClassName(__CLASS__);
     }
 
     /**
@@ -135,7 +133,7 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
 
         foreach ($path as $node) {
             if (!is_array($pointer) || !array_key_exists($node, $pointer)) {
-                throw new EntryDoesNotExistException("No entry found for " . implode($this->separator, $path));
+                throw EntryDoesNotExistException::fromKey(implode($this->separator, $path));
             }
 
             $pointer = &$pointer[$node];

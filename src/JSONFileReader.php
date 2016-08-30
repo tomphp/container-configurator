@@ -18,9 +18,7 @@ final class JSONFileReader implements FileReader
         $config = json_decode(file_get_contents($filename), true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new InvalidConfigException(
-                sprintf('Invalid JSON in %s: %s', $filename, $this->getJsonError())
-            );
+            throw InvalidConfigException::fromJSONFileError($filename, $this->getJsonError());
         }
 
         return $config;
@@ -29,7 +27,7 @@ final class JSONFileReader implements FileReader
     private function assertFileExists()
     {
         if (!file_exists($this->filename)) {
-            throw new FileNotFoundException(sprintf('%s does not exist', $this->filename));
+            throw FileNotFoundException::fromFileName($this->filename);
         }
     }
 

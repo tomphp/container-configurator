@@ -2,6 +2,24 @@
 
 namespace TomPHP\ConfigServiceProvider\Exception;
 
-final class UnknownFileTypeException extends RuntimeException
+use DomainException;
+
+final class UnknownFileTypeException extends DomainException implements Exception
 {
+    use ExceptionFactory;
+
+    /**
+     * @param string   $extension
+     * @param string[] $availableExtension
+     *
+     * @return self
+     */
+    public static function fromFileExtension($extension, array $availableExtensions)
+    {
+        return self::create(
+            'No reader configured for "%s" files; readers are available for [%s].',
+            $extension,
+            '"' . implode('", "', $availableExtensions) . '"'
+        );
+    }
 }

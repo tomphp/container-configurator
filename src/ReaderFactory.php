@@ -57,11 +57,10 @@ final class ReaderFactory
         }
 
         if ($readerClass === null) {
-            throw new UnknownFileTypeException(sprintf(
-                'No reader class found for %s; configured exceptions are %s',
+            throw UnknownFileTypeException::fromFileExtension(
                 $filename,
-                implode(', ', array_keys($this->config))
-            ));
+                array_keys($this->config)
+            );
         }
 
         return $readerClass;
