@@ -37,12 +37,14 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
     public function testItAddsConfigToTheServiceProvider()
     {
-        $this->configurator->addApplicationConfig(new ApplicationConfig([
-            'keyA'   => 'valueA',
-            'group1' => ['keyB' => 'valueB']
-        ]), 'settings');
-
-        $this->container->addServiceProvider($this->configurator->getServiceProvider());
+        $this->configurator->addApplicationConfig(
+            $this->container,
+            new ApplicationConfig([
+                'keyA'   => 'valueA',
+                'group1' => ['keyB' => 'valueB']
+            ]),
+            'settings'
+        );
 
         $this->assertEquals('valueA', $this->container->get('settings.keyA'));
         $this->assertEquals(['keyB' => 'valueB'], $this->container->get('settings.group1'));
@@ -51,12 +53,14 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
     public function testItAddsConfigToTheServiceProviderWithNoPrefix()
     {
-        $this->configurator->addApplicationConfig(new ApplicationConfig([
-            'keyA'   => 'valueA',
-            'group1' => ['keyB' => 'valueB']
-        ]), '');
-
-        $this->container->addServiceProvider($this->configurator->getServiceProvider());
+        $this->configurator->addApplicationConfig(
+            $this->container,
+            new ApplicationConfig([
+                'keyA'   => 'valueA',
+                'group1' => ['keyB' => 'valueB']
+            ]),
+            ''
+        );
 
         $this->assertEquals('valueA', $this->container->get('keyA'));
         $this->assertEquals(['keyB' => 'valueB'], $this->container->get('group1'));
@@ -65,12 +69,14 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
     public function testItAddsServiceConfigToTheServiceProvider()
     {
-        $this->configurator->addServiceConfig(new ServiceConfig([
-            'example_class' => [
-                'class' => 'tests\mocks\ExampleClass',
-            ],
-        ]));
-        $this->container->addServiceProvider($this->configurator->getServiceProvider());
+        $this->configurator->addServiceConfig(
+            $this->container,
+            new ServiceConfig([
+                'example_class' => [
+                    'class' => 'tests\mocks\ExampleClass',
+                ],
+            ])
+        );
 
         $this->assertInstanceOf(
             'tests\mocks\ExampleClass',
@@ -80,13 +86,19 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
     public function testItAddsInflectorConfigToTheServiceProvider()
     {
-        $this->configurator->addApplicationConfig(new ApplicationConfig(['test_key' => 'test value']));
-        $this->configurator->addInflectorConfig(new InflectorConfig([
-            'tests\mocks\ExampleInterface' => [
-                'setValue' => ['config.test_key'],
-            ],
-        ]));
-        $this->container->addServiceProvider($this->configurator->getServiceProvider());
+        $this->configurator->addApplicationConfig(
+            $this->container,
+            new ApplicationConfig(['test_key' => 'test value'])
+        );
+
+        $this->configurator->addInflectorConfig(
+            $this->container,
+            new InflectorConfig([
+                'tests\mocks\ExampleInterface' => [
+                    'setValue' => ['config.test_key'],
+                ],
+            ])
+        );
         $this->container->add('example', 'tests\mocks\ExampleClass');
 
         $this->assertEquals(
