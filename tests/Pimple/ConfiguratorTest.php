@@ -5,6 +5,8 @@ namespace tests\TomPHP\ConfigServiceProvider\Pimple;
 use PHPUnit_Framework_TestCase;
 use Pimple\Container;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
+use TomPHP\ConfigServiceProvider\Exception\UnsupportedFeatureException;
+use TomPHP\ConfigServiceProvider\InflectorConfig;
 use TomPHP\ConfigServiceProvider\Pimple\Configurator;
 use TomPHP\ConfigServiceProvider\ServiceConfig;
 
@@ -167,4 +169,15 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
         $this->container->get('example_class');
     }
      */
+
+    // Inflectors
+
+    public function testInflectorsAreUnsupported()
+    {
+        $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\UnsupportedFeatureException');
+
+        $config = new InflectorConfig([]);
+
+        $this->configurator->addInflectorConfig($this->container, $config);
+    }
 }

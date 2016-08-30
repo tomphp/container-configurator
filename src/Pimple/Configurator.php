@@ -8,6 +8,7 @@ use TomPHP\ConfigServiceProvider\ApplicationConfig;
 use TomPHP\ConfigServiceProvider\ContainerConfigurator;
 use TomPHP\ConfigServiceProvider\InflectorConfig;
 use TomPHP\ConfigServiceProvider\ServiceConfig;
+use TomPHP\ConfigServiceProvider\Exception\UnsupportedFeatureException;
 
 final class Configurator implements ContainerConfigurator
 {
@@ -47,5 +48,6 @@ final class Configurator implements ContainerConfigurator
 
     public function addInflectorConfig($container, InflectorConfig $config)
     {
+        throw UnsupportedFeatureException::forInflectors('Pimple');
     }
 }
