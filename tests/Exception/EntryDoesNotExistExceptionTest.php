@@ -22,7 +22,7 @@ final class EntryDoesNotExistExceptionTest extends PHPUnit_Framework_TestCase
 
     public function testItCanBeCreatedFromTheKey()
     {
-        $this->assertEquals(
+        $this->assertSame(
             'No entry found for "example-key".',
             EntryDoesNotExistException::fromKey('example-key')->getMessage()
         );

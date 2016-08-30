@@ -22,7 +22,7 @@ final class NoMatchingFilesExceptionTest extends PHPUnit_Framework_TestCase
 
     public function testItCanBeCreatedFromThePatterns()
     {
-        $this->assertEquals(
+        $this->assertSame(
             'No files found matching patterns: ["*.json", "*.php"].',
             NoMatchingFilesException::fromPatterns(['*.json', '*.php'])->getMessage()
         );

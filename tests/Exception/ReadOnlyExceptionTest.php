@@ -22,7 +22,7 @@ final class ReadOnlyExceptionTest extends PHPUnit_Framework_TestCase
 
     public function testItCanBeCreatedFromThePatterns()
     {
-        $this->assertEquals(
+        $this->assertSame(
             '"ClassName" is read only.',
             ReadOnlyException::fromClassName('ClassName')->getMessage()
         );

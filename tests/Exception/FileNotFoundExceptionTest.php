@@ -22,7 +22,7 @@ final class FileNotFoundExceptionTest extends PHPUnit_Framework_TestCase
 
     public function testItCanBeCreatedFromTheFileName()
     {
-        $this->assertEquals(
+        $this->assertSame(
             '"example.cfg" does not exist',
             FileNotFoundException::fromFileName('example.cfg')->getMessage()
         );
