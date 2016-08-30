@@ -10,8 +10,6 @@ final class UnsupportedFeatureExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItIsAnInstanceOfTheBaseException()
     {
-        $this->markTestSkipped('Require Exception PR to be merged');
-
         $this->assertInstanceOf(
             'TomPHP\ConfigServiceProvider\Exception\Exception',
             new UnsupportedFeatureException()

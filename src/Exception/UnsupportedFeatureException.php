@@ -4,7 +4,7 @@ namespace TomPHP\ConfigServiceProvider\Exception;
 
 use LogicException;
 
-final class UnsupportedFeatureException extends LogicException
+final class UnsupportedFeatureException extends LogicException implements Exception
 {
     /**
      * @param string $containerName
