@@ -135,6 +135,28 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(['arg1', 'arg2'], $instance->getConstructorArgs());
     }
 
+    public function testItResolvesConstructorArgumentsIfTheyAreServiceNames()
+    {
+        $this->configurator->addApplicationConfig(
+            $this->container,
+            new ApplicationConfig(['arg1' => 'value1', 'arg2' => 'value2'])
+        );
+        $config = new ServiceConfig([
+            'example_class' => [
+                'class' => 'tests\mocks\ExampleClassWithArgs',
+                'arguments' => [
+                    'config.arg1',
+                    'config.arg2',
+                ],
+            ]
+        ]);
+        $this->configurator->addServiceConfig($this->container, $config);
+
+        $instance = $this->container->get('example_class');
+
+        $this->assertEquals(['value1', 'value2'], $instance->getConstructorArgs());
+    }
+
     public function testItCallsSetterMethods()
     {
         $config = new ServiceConfig([
@@ -150,6 +172,27 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
         $instance = $this->container->get('example_class');
 
         $this->assertEquals('the value', $instance->getValue());
+    }
+
+    public function testItResolvesSetterMethodArgumentsIfTheyAreServiceNames()
+    {
+        $this->configurator->addApplicationConfig(
+            $this->container,
+            new ApplicationConfig(['arg' => 'value'])
+        );
+        $config = new ServiceConfig([
+            'example_class' => [
+                'class' => 'tests\mocks\ExampleClass',
+                'methods' => [
+                    'setValue' => ['config.arg'],
+                ],
+            ]
+        ]);
+        $this->configurator->addServiceConfig($this->container, $config);
+
+        $instance = $this->container->get('example_class');
+
+        $this->assertEquals('value', $instance->getValue());
     }
 
     /*
