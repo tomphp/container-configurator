@@ -71,8 +71,12 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
         $prefix = self::DEFAULT_PREFIX,
         $separator = self::DEFAULT_SEPARATOR
     ) {
+        if (!$config instanceof ApplicationConfig) {
+           $config = new ApplicationConfig($config, $separator);
+        }
+
         $this->prefix = $prefix;
-        $this->config = ($config instanceof ApplicationConfig) ? $config : new ApplicationConfig($config, $separator);
+        $this->config = $config;
     }
 
     public function boot()
