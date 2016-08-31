@@ -22,10 +22,10 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^1.10",
-        "phpunit/phpunit": "^4.6.4",
-        "squizlabs/php_codesniffer": "*",
         "league/container": "^2.0.2",
-        "pimple/pimple": "^3.0.0"
+        "phpunit/phpunit": "^4.6.4",
+        "pimple/pimple": "^3.0.0",
+        "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
         "psr-4": {
@@ -37,6 +37,9 @@
             "tests\\TomPHP\\ConfigServiceProvider\\": "tests/",
             "tests\\mocks\\": "tests/mocks/"
         }
+    },
+    "config": {
+        "sort-packages": true
     },
     "scripts": {
         "cs": "vendor/bin/phpcbf --standard=psr2 src tests && vendor/bin/php-cs-fixer fix --verbose",
