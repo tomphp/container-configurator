@@ -23,8 +23,8 @@ final class InflectorServiceProviderTest extends PHPUnit_Framework_TestCase
     {
         $config = new InflectorConfig([
             'tests\mocks\ExampleInterface' => [
-                'setValue' => ['test_value']
-            ]
+                'setValue' => ['test_value'],
+            ],
         ]);
 
         $this->container->addServiceProvider(new InflectorServiceProvider($config));

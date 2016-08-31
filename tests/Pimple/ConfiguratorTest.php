@@ -5,7 +5,6 @@ namespace tests\TomPHP\ConfigServiceProvider\Pimple;
 use PHPUnit_Framework_TestCase;
 use Pimple\Container;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
-use TomPHP\ConfigServiceProvider\Exception\UnsupportedFeatureException;
 use TomPHP\ConfigServiceProvider\InflectorConfig;
 use TomPHP\ConfigServiceProvider\Pimple\Configurator;
 use TomPHP\ConfigServiceProvider\ServiceConfig;
@@ -42,7 +41,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
             $this->container,
             new ApplicationConfig([
                 'keyA'   => 'valueA',
-                'group1' => ['keyB' => 'valueB']
+                'group1' => ['keyB' => 'valueB'],
             ]),
             'settings'
         );
@@ -58,7 +57,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
             $this->container,
             new ApplicationConfig([
                 'keyA'   => 'valueA',
-                'group1' => ['keyB' => 'valueB']
+                'group1' => ['keyB' => 'valueB'],
             ]),
             ''
         );
@@ -91,7 +90,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
             'example_class' => [
                 'class'     => 'tests\mocks\ExampleClass',
                 'singleton' => false,
-            ]
+            ],
         ]);
         $this->configurator->addServiceConfig($this->container, $config);
 
@@ -107,7 +106,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
             'example_class' => [
                 'class'     => 'tests\mocks\ExampleClass',
                 'singleton' => true,
-            ]
+            ],
         ]);
         $this->configurator->addServiceConfig($this->container, $config);
 
@@ -126,7 +125,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
                     'arg1',
                     'arg2',
                 ],
-            ]
+            ],
         ]);
         $this->configurator->addServiceConfig($this->container, $config);
 
@@ -148,7 +147,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
                     'config.arg1',
                     'config.arg2',
                 ],
-            ]
+            ],
         ]);
         $this->configurator->addServiceConfig($this->container, $config);
 
@@ -165,7 +164,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
                 'methods' => [
                     'setValue' => ['the value'],
                 ],
-            ]
+            ],
         ]);
         $this->configurator->addServiceConfig($this->container, $config);
 
@@ -186,7 +185,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
                 'methods' => [
                     'setValue' => ['config.arg'],
                 ],
-            ]
+            ],
         ]);
         $this->configurator->addServiceConfig($this->container, $config);
 

@@ -23,8 +23,8 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->configurator = new Configurator;
-        $this->container    = new Container;
+        $this->configurator = new Configurator();
+        $this->container    = new Container();
     }
 
     public function testItIsAConfigurator()
@@ -41,7 +41,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
             $this->container,
             new ApplicationConfig([
                 'keyA'   => 'valueA',
-                'group1' => ['keyB' => 'valueB']
+                'group1' => ['keyB' => 'valueB'],
             ]),
             'settings'
         );
@@ -57,7 +57,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
             $this->container,
             new ApplicationConfig([
                 'keyA'   => 'valueA',
-                'group1' => ['keyB' => 'valueB']
+                'group1' => ['keyB' => 'valueB'],
             ]),
             ''
         );

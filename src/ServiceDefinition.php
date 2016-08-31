@@ -31,7 +31,7 @@ final class ServiceDefinition
 
     /**
      * @param string $name
-     * @param array $config
+     * @param array  $config
      */
     public function __construct($name, array $config)
     {
@@ -59,7 +59,7 @@ final class ServiceDefinition
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isSingleton()
     {

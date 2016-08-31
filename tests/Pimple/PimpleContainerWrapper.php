@@ -2,7 +2,6 @@
 
 namespace tests\TomPHP\ConfigServiceProvider\Pimple;
 
-use Interop\Container\ContainerInterface;
 use Pimple\Container;
 
 final class PimpleContainerWrapper extends Container

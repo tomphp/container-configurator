@@ -34,7 +34,7 @@ final class ServiceServiceProvider extends AbstractServiceProvider
     }
 
     /**
-     * @param ServiceDefinition  $definition
+     * @param ServiceDefinition $definition
      */
     private function registerService(ServiceDefinition $definition)
     {

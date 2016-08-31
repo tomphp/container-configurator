@@ -3,7 +3,6 @@
 namespace tests\TomPHP\ConfigServiceProvider\Exception;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\Exception\UnknownFileTypeException;
 use TomPHP\ConfigServiceProvider\Exception\UnsupportedFeatureException;
 
 final class UnsupportedFeatureExceptionTest extends PHPUnit_Framework_TestCase

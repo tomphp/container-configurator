@@ -4,8 +4,6 @@ namespace TomPHP\ConfigServiceProvider;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
-use TomPHP\ConfigServiceProvider\League\AggregateServiceProvider;
-use League\Container\ContainerInterface;
 
 final class ConfigServiceProvider extends AbstractServiceProvider implements BootableServiceProviderInterface
 {
@@ -62,9 +60,9 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
     /**
      * @api
      *
-     * @param array|ApplicationConfig    $config
-     * @param string                     $prefix
-     * @param string                     $separator
+     * @param array|ApplicationConfig $config
+     * @param string                  $prefix
+     * @param string                  $separator
      */
     public function __construct(
         $config,
@@ -72,7 +70,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
         $separator = self::DEFAULT_SEPARATOR
     ) {
         if (!$config instanceof ApplicationConfig) {
-           $config = new ApplicationConfig($config, $separator);
+            $config = new ApplicationConfig($config, $separator);
         }
 
         $this->prefix = $prefix;
