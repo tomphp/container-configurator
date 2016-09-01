@@ -194,24 +194,6 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('value', $instance->getValue());
     }
 
-    /*
-    public function testItThrowsIfAClassDefinitionIsNotCreated()
-    {
-        $config = new ServiceConfig([
-            'example_class' => [
-                'class' => function () {
-                }
-            ]
-        ]);
-
-        $this->container->addServiceProvider(new ServiceServiceProvider($config));
-
-        $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\NotClassDefinitionException');
-
-        $this->container->get('example_class');
-    }
-     */
-
     // Inflectors
 
     public function testInflectorsAreUnsupported()
