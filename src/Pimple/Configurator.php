@@ -68,7 +68,15 @@ final class Configurator implements ContainerConfigurator
     {
         return array_map(
             function ($argument) {
-                return isset($this->container[$argument]) ? $this->container[$argument] : $argument;
+                if (isset($this->container[$argument])) {
+                    return $this->container[$argument];
+                }
+
+                if (class_exists($argument)) {
+                    return new $argument();
+                }
+
+                return $argument;
             },
             $arguments
         );

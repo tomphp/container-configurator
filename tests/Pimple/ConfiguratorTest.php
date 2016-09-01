@@ -8,6 +8,7 @@ use TomPHP\ConfigServiceProvider\ApplicationConfig;
 use TomPHP\ConfigServiceProvider\InflectorConfig;
 use TomPHP\ConfigServiceProvider\Pimple\Configurator;
 use TomPHP\ConfigServiceProvider\ServiceConfig;
+use tests\mocks\ExampleClass;
 
 final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 {
@@ -156,6 +157,24 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(['value1', 'value2'], $instance->getConstructorArgs());
     }
 
+    public function testItCreatesInstancesIfConstructorArgumentsAreClassNames()
+    {
+        $config = new ServiceConfig([
+            'example_class' => [
+                'class' => 'tests\mocks\ExampleClassWithArgs',
+                'arguments' => [
+                    'tests\mocks\ExampleClass',
+                    'arg2',
+                ],
+            ],
+        ]);
+        $this->configurator->addServiceConfig($this->container, $config);
+
+        $instance = $this->container->get('example_class');
+
+        $this->assertEquals([new ExampleClass(), 'arg2'], $instance->getConstructorArgs());
+    }
+
     public function testItCallsSetterMethods()
     {
         $config = new ServiceConfig([
@@ -192,6 +211,23 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
         $instance = $this->container->get('example_class');
 
         $this->assertEquals('value', $instance->getValue());
+    }
+
+    public function testItCreatesInstancesIfSetterMethodArgumentsAreClassNames()
+    {
+        $config = new ServiceConfig([
+            'example_class' => [
+                'class' => 'tests\mocks\ExampleClass',
+                'methods' => [
+                    'setValue' => ['tests\mocks\ExampleClass'],
+                ],
+            ],
+        ]);
+        $this->configurator->addServiceConfig($this->container, $config);
+
+        $instance = $this->container->get('example_class');
+
+        $this->assertInstanceOf('tests\mocks\ExampleClass', $instance->getValue());
     }
 
     // Inflectors
