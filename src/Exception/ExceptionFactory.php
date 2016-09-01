@@ -17,4 +17,18 @@ trait ExceptionFactory
 
         return new self(vsprintf($message, $params));
     }
+
+    /**
+     * @param string[] $options
+     *
+     * @return string
+     */
+    protected static function optionsToString(array $options)
+    {
+        if (empty($options)) {
+            return '[]';
+        }
+
+        return '["' . implode('", "', $options) . '"]';
+    }
 }
