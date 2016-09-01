@@ -42,7 +42,17 @@
         "sort-packages": true
     },
     "scripts": {
-        "cs": "vendor/bin/phpcbf --standard=psr2 src tests && vendor/bin/php-cs-fixer fix --verbose",
-        "test": "vendor/bin/phpcs --standard=psr2 src tests && vendor/bin/php-cs-fixer fix --verbose --dry-run && vendor/bin/phpunit --colors=always"
+        "cs:fix": [
+            "phpcbf --standard=psr2 src tests; exit 0",
+            "php-cs-fixer fix --verbose; exit 0"
+        ],
+        "cs:check": [
+            "phpcs --standard=psr2 src tests",
+            "php-cs-fixer fix --dry-run --verbose"
+        ],
+        "test": [
+            "@cs:check",
+            "phpunit --colors=always"
+        ]
     }
 }
