@@ -10,7 +10,7 @@ final class UnknownFileTypeException extends DomainException implements Exceptio
 
     /**
      * @param string   $extension
-     * @param string[] $availableExtension
+     * @param string[] $availableExtensions
      *
      * @return self
      */

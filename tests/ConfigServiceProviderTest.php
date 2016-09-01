@@ -36,7 +36,7 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     public function testItProvidesConfigValuesViaTheDI()
     {
         $config = [
-            'test_setting' => 'test value'
+            'test_setting' => 'test value',
         ];
 
         $this->container->addServiceProvider(new ConfigServiceProvider($config));
@@ -50,7 +50,7 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     public function testItCanAUseCustomPrefix()
     {
         $config = [
-            'test_setting' => 'test value'
+            'test_setting' => 'test value',
         ];
 
         $this->container->addServiceProvider(new ConfigServiceProvider($config, 'settings'));
@@ -64,7 +64,7 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     public function testItCanUseNoPrefix()
     {
         $config = [
-            'test_setting' => 'test value'
+            'test_setting' => 'test value',
         ];
 
         $this->container->addServiceProvider(new ConfigServiceProvider($config, ''));
@@ -80,9 +80,9 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
         $config = [
             'test_group' => [
                 'sub_group' => [
-                    'test_setting' => 'test value'
-                ]
-            ]
+                    'test_setting' => 'test value',
+                ],
+            ],
         ];
 
         $this->container->addServiceProvider(new ConfigServiceProvider($config));
@@ -98,9 +98,9 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
         $config = [
             'test_group' => [
                 'sub_group' => [
-                    'test_setting' => 'test value'
-                ]
-            ]
+                    'test_setting' => 'test value',
+                ],
+            ],
         ];
 
         $this->container->addServiceProvider(new ConfigServiceProvider($config));
@@ -115,8 +115,8 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
     {
         $config = [
             'test_group' => [
-                'test_setting' => 'test value'
-            ]
+                'test_setting' => 'test value',
+            ],
         ];
 
         $this->container->addServiceProvider(new ConfigServiceProvider($config, 'config', '/'));
@@ -137,9 +137,9 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 
             'inflectors' => [
                 'tests\mocks\ExampleInterface' => [
-                    'setValue' => ['config.test_key']
-                ]
-            ]
+                    'setValue' => ['config.test_key'],
+                ],
+            ],
         ];
 
         $this->container->addServiceProvider(ConfigServiceProvider::fromConfig($config));
@@ -162,15 +162,15 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 
             'inflectors' => [
                 'tests\mocks\ExampleInterface' => [
-                    'setValue' => ['settings/test_key']
-                ]
-            ]
+                    'setValue' => ['settings/test_key'],
+                ],
+            ],
         ];
 
         $this->container->addServiceProvider(
             ConfigServiceProvider::fromConfig($config, [
                 'prefix' => 'settings',
-                'separator' => '/'
+                'separator' => '/',
             ])
         );
 
@@ -193,8 +193,8 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
             'di' => [
                 'example_class' => [
                     'class' => 'tests\mocks\ExampleClass',
-                ]
-            ]
+                ],
+            ],
         ];
 
         $this->container->addServiceProvider(ConfigServiceProvider::fromConfig($config));
@@ -215,15 +215,15 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 
             'inflectors' => [
                 'tests\mocks\ExampleInterface' => [
-                    'setValue' => ['config.test_key']
-                ]
-            ]
+                    'setValue' => ['config.test_key'],
+                ],
+            ],
         ];
 
         $this->createPHPConfigFile('config.php', $config);
 
         $this->container->addServiceProvider(ConfigServiceProvider::fromFiles([
-            $this->getTestPath('*')
+            $this->getTestPath('*'),
         ]));
 
         $this->container->add('example', 'tests\mocks\ExampleClass');
@@ -244,9 +244,9 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
 
             'inflectors' => [
                 'tests\mocks\ExampleInterface' => [
-                    'setValue' => ['settings/test_key']
-                ]
-            ]
+                    'setValue' => ['settings/test_key'],
+                ],
+            ],
         ];
 
         $this->createPHPConfigFile('config.php', $config);
@@ -255,7 +255,7 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
             [ $this->getTestPath('*') ],
             [
                 'prefix' => 'settings',
-                'separator' => '/'
+                'separator' => '/',
             ]
         ));
 
@@ -300,7 +300,7 @@ final class ConfigServiceProviderTest extends PHPUnit_Framework_TestCase
         );
 
         $this->container->addServiceProvider(ConfigServiceProvider::fromFiles([
-            $this->getTestPath('*')
+            $this->getTestPath('*'),
         ]));
     }
 

@@ -45,6 +45,7 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
         $configs = array_map(
             function ($filename) use ($factory) {
                 $reader = $factory->create($filename);
+
                 return $reader->read($filename);
             },
             $files

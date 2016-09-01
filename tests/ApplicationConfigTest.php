@@ -119,7 +119,7 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
         $this->createPHPConfigFile('config.php', $configData);
 
         $config = ApplicationConfig::fromFiles([
-            $this->getTestPath('*')
+            $this->getTestPath('*'),
         ]);
 
         $this->assertEquals($configData, $config->asArray());
@@ -133,7 +133,7 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
         $configData = [
             'group' => [
                 'key' => 'value',
-            ]
+            ],
         ];
 
         $this->createPHPConfigFile('config.php', $configData);

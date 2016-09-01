@@ -31,8 +31,8 @@ final class ServiceServiceProviderTest extends PHPUnit_Framework_TestCase
     {
         $config = new ServiceConfig([
             'example_class' => [
-                'class' => 'tests\mocks\ExampleClass'
-            ]
+                'class' => 'tests\mocks\ExampleClass',
+            ],
         ]);
 
         $this->container->addServiceProvider(new ServiceServiceProvider($config));
@@ -49,7 +49,7 @@ final class ServiceServiceProviderTest extends PHPUnit_Framework_TestCase
             'example_class' => [
                 'class'     => 'tests\mocks\ExampleClass',
                 'singleton' => true,
-            ]
+            ],
         ]);
 
         $this->container->addServiceProvider(new ServiceServiceProvider($config));
@@ -66,7 +66,7 @@ final class ServiceServiceProviderTest extends PHPUnit_Framework_TestCase
             'example_class' => [
                 'class'     => 'tests\mocks\ExampleClass',
                 'singleton' => false,
-            ]
+            ],
         ]);
 
         $this->container->addServiceProvider(new ServiceServiceProvider($config));
@@ -82,7 +82,7 @@ final class ServiceServiceProviderTest extends PHPUnit_Framework_TestCase
         $config = new ServiceConfig([
             'example_class' => [
                 'class' => 'tests\mocks\ExampleClass',
-            ]
+            ],
         ]);
 
         $this->container->addServiceProvider(new ServiceServiceProvider($config));
@@ -102,7 +102,7 @@ final class ServiceServiceProviderTest extends PHPUnit_Framework_TestCase
                     'arg1',
                     'arg2',
                 ],
-            ]
+            ],
         ]);
 
         $this->container->addServiceProvider(new ServiceServiceProvider($config));
@@ -120,7 +120,7 @@ final class ServiceServiceProviderTest extends PHPUnit_Framework_TestCase
                 'methods' => [
                     'setValue' => ['the value'],
                 ],
-            ]
+            ],
         ]);
 
         $this->container->addServiceProvider(new ServiceServiceProvider($config));
@@ -135,8 +135,8 @@ final class ServiceServiceProviderTest extends PHPUnit_Framework_TestCase
         $config = new ServiceConfig([
             'example_class' => [
                 'class' => function () {
-                }
-            ]
+                },
+            ],
         ]);
 
         $this->container->addServiceProvider(new ServiceServiceProvider($config));

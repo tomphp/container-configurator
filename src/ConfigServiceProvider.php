@@ -4,8 +4,6 @@ namespace TomPHP\ConfigServiceProvider;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
-use TomPHP\ConfigServiceProvider\League\AggregateServiceProvider;
-use League\Container\ContainerInterface;
 
 final class ConfigServiceProvider extends AbstractServiceProvider implements BootableServiceProviderInterface
 {
@@ -18,14 +16,14 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
     const SETTING_SEPARATOR = 'separator';
 
     /**
-     * @var array
+     * @var ApplicationConfig
      */
     private $config;
 
     /**
-     * @var AggregateServiceProvider
+     * @var string
      */
-    private $subProviders;
+    private $prefix;
 
     /**
      * @api
@@ -62,58 +60,45 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
     /**
      * @api
      *
-     * @param array|ApplicationConfig    $config
-     * @param string                     $prefix
-     * @param string                     $separator
+     * @param array|ApplicationConfig $config
+     * @param string                  $prefix
+     * @param string                  $separator
      */
     public function __construct(
         $config,
         $prefix = self::DEFAULT_PREFIX,
         $separator = self::DEFAULT_SEPARATOR
     ) {
-        $this->config = [];
-
-        $config = ($config instanceof ApplicationConfig) ? $config : new ApplicationConfig($config, $separator);
-
-        $configurator = new League\Configurator();
-
-        $configurator->addApplicationConfig($config, $prefix);
-
-        if (isset($config[self::DEFAULT_DI_KEY])) {
-            $configurator->addServiceConfig(new ServiceConfig($config[self::DEFAULT_DI_KEY]));
+        if (!$config instanceof ApplicationConfig) {
+            $config = new ApplicationConfig($config, $separator);
         }
 
-
-        if (isset($config[self::DEFAULT_INFLECTORS_KEY])) {
-            $configurator->addInflectorConfig(new InflectorConfig($config[self::DEFAULT_INFLECTORS_KEY]));
-        }
-
-        $this->subProviders = $configurator->getServiceProvider();
-    }
-
-    public function provides($service = null)
-    {
-        return $this->subProviders->provides($service);
-    }
-
-    public function register()
-    {
-        $this->subProviders->register();
+        $this->prefix = $prefix;
+        $this->config = $config;
     }
 
     public function boot()
     {
-        $this->subProviders->boot();
+        $configurator = new League\Configurator();
+        $configurator->addApplicationConfig($this->container, $this->config, $this->prefix);
+
+        if (isset($this->config[self::DEFAULT_DI_KEY])) {
+            $configurator->addServiceConfig(
+                $this->container,
+                new ServiceConfig($this->config[self::DEFAULT_DI_KEY])
+            );
+        }
+
+        if (isset($this->config[self::DEFAULT_INFLECTORS_KEY])) {
+            $configurator->addInflectorConfig(
+                $this->container,
+                new InflectorConfig($this->config[self::DEFAULT_INFLECTORS_KEY])
+            );
+        }
     }
 
-    public function setContainer(ContainerInterface $container)
+    public function register()
     {
-        $this->subProviders->setContainer($container);
-    }
-
-    public function getContainer()
-    {
-        return $this->subProviders->getContainer();
     }
 
     /**
