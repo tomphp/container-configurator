@@ -72,10 +72,6 @@ final class Configurator implements ContainerConfigurator
                     return $this->container[$argument];
                 }
 
-                if (class_exists($argument)) {
-                    return new $argument();
-                }
-
                 return $argument;
             },
             $arguments

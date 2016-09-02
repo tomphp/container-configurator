@@ -3,7 +3,6 @@
 namespace tests\acceptance;
 
 use Pimple\Container;
-use tests\TomPHP\ConfigServiceProvider\Pimple\PimpleContainerWrapper;
 
 final class PimpleContainerTest extends AbstractContainerTest
 {

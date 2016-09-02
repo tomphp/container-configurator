@@ -86,7 +86,7 @@ trait SupportsServiceConfig
         $this->assertSame($instance1, $instance2);
     }
 
-    public function testItCanCreatesSingletonerviceInstancesByDefault()
+    public function testItCanCreatesSingletonServiceInstancesByDefault()
     {
         $this->markTestIncomplete();
 
@@ -177,10 +177,8 @@ trait SupportsServiceConfig
         $this->assertEquals(['value1', 'value2'], $instance->getConstructorArgs());
     }
 
-    public function testItCreatesInstancesIfConstructorArgumentsAreClassNames()
+    public function testItUsesTheStringIfConstructorArgumentsAreClassNames()
     {
-        $this->markTestIncomplete();
-
         $config = [
             'di' => [
                 'services' => [
@@ -199,7 +197,7 @@ trait SupportsServiceConfig
 
         $instance = $this->container->get('example_class');
 
-        $this->assertEquals([new ExampleClass(), 'arg2'], $instance->getConstructorArgs());
+        $this->assertEquals(['tests\mocks\ExampleClass', 'arg2'], $instance->getConstructorArgs());
     }
 
     public function testItCallsSetterMethods()
@@ -247,10 +245,8 @@ trait SupportsServiceConfig
         $this->assertEquals('value', $instance->getValue());
     }
 
-    public function testItCreatesInstancesIfSetterMethodArgumentsAreClassNames()
+    public function testItUsesTheStringIffSetterMethodArgumentsAreClassNames()
     {
-        $this->markTestIncomplete();
-
         $config = [
             'di' => [
                 'services' => [
@@ -268,6 +264,6 @@ trait SupportsServiceConfig
 
         $instance = $this->container->get('example_class');
 
-        $this->assertInstanceOf('tests\mocks\ExampleClass', $instance->getValue());
+        $this->assertSame('tests\mocks\ExampleClass', $instance->getValue());
     }
 }
