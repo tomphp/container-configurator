@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-  * `TomPHP\ConfigServiceProvider\Configurator` as the main API
+  * `TomPHP\ConfigServiceProvider\ConfigureContainer` as the main API
   * If `class` is left out of the config for a service, then the service name
     is assumed to be the name of the class.
   * All exceptions implement `TomPHP\ConfigServiceProvider\Exception\Exception`.

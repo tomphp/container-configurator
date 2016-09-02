@@ -2,7 +2,7 @@
 
 namespace tests\acceptance;
 
-use TomPHP\ConfigServiceProvider\Configurator;
+use TomPHP\ConfigServiceProvider\ConfigureContainer;
 
 trait SupportsInflectorConfig
 {
@@ -23,7 +23,7 @@ trait SupportsInflectorConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config);
+        ConfigureContainer::fromArray($this->container, $config);
 
         $this->assertEquals(
             'test_value',
@@ -48,7 +48,7 @@ trait SupportsInflectorConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config, ['inflectors_key' => 'inflectors']);
+        ConfigureContainer::fromArray($this->container, $config, ['inflectors_key' => 'inflectors']);
 
         $this->assertEquals(
             'test_value',

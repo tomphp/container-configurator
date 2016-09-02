@@ -2,7 +2,7 @@
 
 namespace tests\acceptance;
 
-use TomPHP\ConfigServiceProvider\Configurator;
+use TomPHP\ConfigServiceProvider\ConfigureContainer;
 
 trait DoesNotSupportInflectors
 {
@@ -16,6 +16,6 @@ trait DoesNotSupportInflectors
             ],
         ];
 
-        Configurator::configure($this->container, $config);
+        ConfigureContainer::fromArray($this->container, $config);
     }
 }

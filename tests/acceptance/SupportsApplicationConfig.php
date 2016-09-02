@@ -2,7 +2,7 @@
 
 namespace tests\acceptance;
 
-use TomPHP\ConfigServiceProvider\Configurator;
+use TomPHP\ConfigServiceProvider\ConfigureContainer;
 
 trait SupportsApplicationConfig
 {
@@ -10,7 +10,7 @@ trait SupportsApplicationConfig
     {
         $config = ['keyA' => 'valueA'];
 
-        Configurator::configure($this->container, $config);
+        ConfigureContainer::fromArray($this->container, $config);
 
         $this->assertEquals('valueA', $this->container->get('config.keyA'));
     }
@@ -19,7 +19,7 @@ trait SupportsApplicationConfig
     {
         $config = ['group1' => ['keyA' => 'valueA']];
 
-        Configurator::configure($this->container, $config);
+        ConfigureContainer::fromArray($this->container, $config);
 
         $this->assertEquals(['keyA' => 'valueA'], $this->container->get('config.group1'));
         $this->assertEquals('valueA', $this->container->get('config.group1.keyA'));
@@ -29,7 +29,7 @@ trait SupportsApplicationConfig
     {
         $config = ['keyA' => 'valueA'];
 
-        Configurator::configure($this->container, $config, ['config_separator' => '/']);
+        ConfigureContainer::fromArray($this->container, $config, ['config_separator' => '/']);
 
         $this->assertEquals('valueA', $this->container->get('config/keyA'));
     }
@@ -38,7 +38,7 @@ trait SupportsApplicationConfig
     {
         $config = ['keyA' => 'valueA'];
 
-        Configurator::configure($this->container, $config, ['config_prefix' => 'settings']);
+        ConfigureContainer::fromArray($this->container, $config, ['config_prefix' => 'settings']);
 
         $this->assertEquals('valueA', $this->container->get('settings.keyA'));
     }
@@ -47,7 +47,7 @@ trait SupportsApplicationConfig
     {
         $config = ['keyA' => 'valueA'];
 
-        Configurator::configure($this->container, $config, ['config_prefix' => '']);
+        ConfigureContainer::fromArray($this->container, $config, ['config_prefix' => '']);
 
         $this->assertEquals('valueA', $this->container->get('keyA'));
     }

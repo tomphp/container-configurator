@@ -2,7 +2,7 @@
 
 namespace tests\acceptance;
 
-use TomPHP\ConfigServiceProvider\Configurator;
+use TomPHP\ConfigServiceProvider\ConfigureContainer;
 
 trait SupportsServiceConfig
 {
@@ -18,7 +18,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config);
+        ConfigureContainer::fromArray($this->container, $config);
 
         $this->assertInstanceOf(
             'tests\mocks\ExampleClass',
@@ -36,7 +36,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config, ['services_key' => 'di']);
+        ConfigureContainer::fromArray($this->container, $config, ['services_key' => 'di']);
 
         $this->assertInstanceOf(
             'tests\mocks\ExampleClass',
@@ -57,7 +57,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config);
+        ConfigureContainer::fromArray($this->container, $config);
 
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
@@ -78,7 +78,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config);
+        ConfigureContainer::fromArray($this->container, $config);
 
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
@@ -100,7 +100,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config, ['singleton_services' => true]);
+        ConfigureContainer::fromArray($this->container, $config, ['singleton_services' => true]);
 
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
@@ -121,7 +121,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config, ['singleton_services' => true]);
+        ConfigureContainer::fromArray($this->container, $config, ['singleton_services' => true]);
 
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
@@ -145,7 +145,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config);
+        ConfigureContainer::fromArray($this->container, $config);
 
         $instance = $this->container->get('example_class');
 
@@ -170,7 +170,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config);
+        ConfigureContainer::fromArray($this->container, $config);
 
         $instance = $this->container->get('example_class');
 
@@ -195,7 +195,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config);
+        ConfigureContainer::fromArray($this->container, $config);
 
         $instance = $this->container->get('example_class');
 
@@ -217,7 +217,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config);
+        ConfigureContainer::fromArray($this->container, $config);
 
         $instance = $this->container->get('example_class');
 
@@ -240,7 +240,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config);
+        ConfigureContainer::fromArray($this->container, $config);
 
         $instance = $this->container->get('example_class');
 
@@ -264,7 +264,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        Configurator::configure($this->container, $config);
+        ConfigureContainer::fromArray($this->container, $config);
 
         $instance = $this->container->get('example_class');
 

@@ -2,7 +2,7 @@
 
 namespace TomPHP\ConfigServiceProvider;
 
-final class Configurator
+final class ConfigureContainer
 {
     /**
      * @api
@@ -12,7 +12,7 @@ final class Configurator
      *
      * @return void
      */
-    public static function configure($container, array $config, $settings = [])
+    public static function fromArray($container, array $config, $settings = [])
     {
         $settings = array_merge(
             [
