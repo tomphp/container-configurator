@@ -88,13 +88,11 @@ trait SupportsServiceConfig
 
     public function testItCanCreatesSingletonServiceInstancesByDefault()
     {
-        $this->markTestIncomplete();
-
         $config = [
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class'     => 'tests\mocks\ExampleClass',
+                        'class' => 'tests\mocks\ExampleClass',
                     ],
                 ],
             ],

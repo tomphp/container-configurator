@@ -16,9 +16,7 @@ final class ConfigureContainer
     public static function fromFiles($container, array $patterns, $settings = [])
     {
         $settings = self::prepareSettings($settings);
-
         $appConfig = ApplicationConfig::fromFiles($patterns, $settings['config_separator']);
-
         self::configureContainer($container, $appConfig, $settings);
     }
 
@@ -34,9 +32,7 @@ final class ConfigureContainer
     public static function fromArray($container, array $config, $settings = [])
     {
         $settings = self::prepareSettings($settings);
-
         $appConfig = new ApplicationConfig($config, $settings['config_separator']);
-
         self::configureContainer($container, $appConfig, $settings);
     }
 
@@ -49,10 +45,11 @@ final class ConfigureContainer
     {
         return array_merge(
             [
-                'config_prefix'    => 'config',
-                'config_separator' => '.',
-                'services_key'     => 'di.services',
-                'inflectors_key'   => 'di.inflectors',
+                'config_prefix'      => 'config',
+                'config_separator'   => '.',
+                'services_key'       => 'di.services',
+                'inflectors_key'     => 'di.inflectors',
+                'singleton_services' => false,
             ],
             $settings
         );
@@ -70,11 +67,17 @@ final class ConfigureContainer
         $configurator->addApplicationConfig($container, $appConfig, $settings['config_prefix']);
 
         if (isset($appConfig[$settings['services_key']])) {
-            $configurator->addServiceConfig($container, new ServiceConfig($appConfig[$settings['services_key']]));
+            $configurator->addServiceConfig(
+                $container,
+                new ServiceConfig($appConfig[$settings['services_key']], $settings['singleton_services'])
+            );
         }
 
         if (isset($appConfig[$settings['inflectors_key']])) {
-            $configurator->addInflectorConfig($container, new InflectorConfig($appConfig[$settings['inflectors_key']]));
+            $configurator->addInflectorConfig(
+                $container,
+                new InflectorConfig($appConfig[$settings['inflectors_key']])
+            );
         }
     }
 }

@@ -12,10 +12,14 @@ final class ServiceConfig implements IteratorAggregate
      */
     private $config = [];
 
-    public function __construct(array $config)
+    /**
+     * @param array $config
+     * @param bool  $singletonDefault
+     */
+    public function __construct(array $config, $singletonDefault = false)
     {
         foreach ($config as $key => $serviceConfig) {
-            $this->config[] = new ServiceDefinition($key, $serviceConfig);
+            $this->config[] = new ServiceDefinition($key, $serviceConfig, $singletonDefault);
         }
     }
 
