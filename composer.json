@@ -35,6 +35,7 @@
     "autoload-dev": {
         "psr-4": {
             "tests\\TomPHP\\ConfigServiceProvider\\": "tests/",
+            "tests\\acceptance\\": "tests/acceptance/",
             "tests\\mocks\\": "tests/mocks/"
         }
     },

@@ -26,7 +26,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
     private $prefix;
 
     /**
-     * @api
+     * @deprecated 1.0.0 See UPGRADE.md
      *
      * @param array|ApplicationConfig $config
      * @param array                   $settings
@@ -43,7 +43,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
     }
 
     /**
-     * @api
+     * @deprecated 1.0.0 See UPGRADE.md
      *
      * @param string[] $patterns
      * @param array    $settings
@@ -58,7 +58,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
     }
 
     /**
-     * @api
+     * @deprecated 1.0.0 See UPGRADE.md
      *
      * @param array|ApplicationConfig $config
      * @param string                  $prefix
