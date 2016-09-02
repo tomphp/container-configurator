@@ -30,7 +30,7 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
     public function testItIsAConfigurator()
     {
         $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\ContainerConfigurator',
+            'TomPHP\ConfigServiceProvider\Configurator',
             $this->configurator
         );
     }

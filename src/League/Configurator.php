@@ -3,11 +3,11 @@
 namespace TomPHP\ConfigServiceProvider\League;
 
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
-use TomPHP\ConfigServiceProvider\ContainerConfigurator;
+use TomPHP\ConfigServiceProvider\Configurator as ConfiguratorInterface;
 use TomPHP\ConfigServiceProvider\InflectorConfig;
 use TomPHP\ConfigServiceProvider\ServiceConfig;
 
-final class Configurator implements ContainerConfigurator
+final class Configurator implements ConfiguratorInterface
 {
     public function addApplicationConfig($container, ApplicationConfig $config, $prefix = 'config')
     {
