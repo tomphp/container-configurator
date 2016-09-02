@@ -8,13 +8,46 @@ final class ConfigureContainer
      * @api
      *
      * @param object $container
+     * @param array  $patterns
+     * @param array  $settings
+     *
+     * @return void
+     */
+    public static function fromFiles($container, array $patterns, $settings = [])
+    {
+        $settings = self::prepareSettings($settings);
+
+        $appConfig = ApplicationConfig::fromFiles($patterns, $settings['config_separator']);
+
+        self::configureContainer($container, $appConfig, $settings);
+    }
+
+    /**
+     * @api
+     *
+     * @param object $container
      * @param array  $config
+     * @param array  $settings
      *
      * @return void
      */
     public static function fromArray($container, array $config, $settings = [])
     {
-        $settings = array_merge(
+        $settings = self::prepareSettings($settings);
+
+        $appConfig = new ApplicationConfig($config, $settings['config_separator']);
+
+        self::configureContainer($container, $appConfig, $settings);
+    }
+
+    /**
+     * @param array $settings
+     *
+     * @return array
+     */
+    private static function prepareSettings(array $settings)
+    {
+        return array_merge(
             [
                 'config_prefix'    => 'config',
                 'config_separator' => '.',
@@ -23,7 +56,10 @@ final class ConfigureContainer
             ],
             $settings
         );
+    }
 
+    private static function configureContainer($container, ApplicationConfig $appConfig, array $settings)
+    {
         $factory = new ConfiguratorFactory([
             'League\Container\Container' => 'TomPHP\ConfigServiceProvider\League\Configurator',
             'Pimple\Container'           => 'TomPHP\ConfigServiceProvider\Pimple\Configurator',
@@ -31,7 +67,6 @@ final class ConfigureContainer
 
         $configurator = $factory->create($container);
 
-        $appConfig = new ApplicationConfig($config, $settings['config_separator']);
         $configurator->addApplicationConfig($container, $appConfig, $settings['config_prefix']);
 
         if (isset($appConfig[$settings['services_key']])) {
