@@ -9,15 +9,27 @@ use TomPHP\ConfigServiceProvider\ServiceConfig;
 
 final class ExampleConfigurator implements Configurator
 {
-    public function addApplicationConfig($container, ApplicationConfig $config, $prefix = 'config')
+    private $container;
+
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
+
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    public function addApplicationConfig(ApplicationConfig $config, $prefix = 'config')
     {
     }
 
-    public function addServiceConfig($container, ServiceConfig $config)
+    public function addServiceConfig(ServiceConfig $config)
     {
     }
 
-    public function addInflectorConfig($container, InflectorConfig $config)
+    public function addInflectorConfig(InflectorConfig $config)
     {
     }
 }

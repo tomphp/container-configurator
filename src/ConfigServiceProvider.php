@@ -80,18 +80,15 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
     public function boot()
     {
         $configurator = new League\Configurator();
-        $configurator->addApplicationConfig($this->container, $this->config, $this->prefix);
+        $configurator->setContainer($this->container);
+        $configurator->addApplicationConfig($this->config, $this->prefix);
 
         if (isset($this->config[self::DEFAULT_DI_KEY])) {
-            $configurator->addServiceConfig(
-                $this->container,
-                new ServiceConfig($this->config[self::DEFAULT_DI_KEY])
-            );
+            $configurator->addServiceConfig(new ServiceConfig($this->config[self::DEFAULT_DI_KEY]));
         }
 
         if (isset($this->config[self::DEFAULT_INFLECTORS_KEY])) {
             $configurator->addInflectorConfig(
-                $this->container,
                 new InflectorConfig($this->config[self::DEFAULT_INFLECTORS_KEY])
             );
         }

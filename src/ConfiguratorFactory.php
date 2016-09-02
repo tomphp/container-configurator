@@ -34,6 +34,9 @@ final class ConfiguratorFactory
             );
         }
 
-        return new $class();
+        $instance = new $class();
+        $instance->setContainer($container);
+
+        return $instance;
     }
 }

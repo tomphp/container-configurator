@@ -43,4 +43,12 @@ final class ConfiguratorFactoryTest extends PHPUnit_Framework_TestCase
 
         $this->subject->create(new \stdClass());
     }
+
+    public function testItSetsTheContainerOnTheConfigurator()
+    {
+        $container = new ExampleContainer();
+        $configurator = $this->subject->create($container);
+
+        $this->assertSame($container, $configurator->getContainer());
+    }
 }

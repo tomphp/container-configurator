@@ -18,27 +18,33 @@ final class Configurator implements ConfiguratorInterface
      */
     private $container;
 
-    public function addApplicationConfig($container, ApplicationConfig $config, $prefix = 'config')
+    /**
+     * @param Container $container
+     */
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
+
+    public function addApplicationConfig(ApplicationConfig $config, $prefix = 'config')
     {
         if (!empty($prefix)) {
             $prefix .= $config->getSeparator();
         }
 
         foreach ($config as $key => $value) {
-            $container[$prefix . $key] = $value;
+            $this->container[$prefix . $key] = $value;
         }
     }
 
-    public function addServiceConfig($container, ServiceConfig $config)
+    public function addServiceConfig(ServiceConfig $config)
     {
-        $this->container = $container;
-
         foreach ($config as $definition) {
             $this->addServiceToContainer($definition);
         }
     }
 
-    public function addInflectorConfig($container, InflectorConfig $config)
+    public function addInflectorConfig(InflectorConfig $config)
     {
         throw UnsupportedFeatureException::forInflectors('Pimple');
     }

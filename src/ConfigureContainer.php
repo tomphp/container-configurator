@@ -64,20 +64,16 @@ final class ConfigureContainer
 
         $configurator = $factory->create($container);
 
-        $configurator->addApplicationConfig($container, $appConfig, $settings['config_prefix']);
+        $configurator->addApplicationConfig($appConfig, $settings['config_prefix']);
 
         if (isset($appConfig[$settings['services_key']])) {
             $configurator->addServiceConfig(
-                $container,
                 new ServiceConfig($appConfig[$settings['services_key']], $settings['singleton_services'])
             );
         }
 
         if (isset($appConfig[$settings['inflectors_key']])) {
-            $configurator->addInflectorConfig(
-                $container,
-                new InflectorConfig($appConfig[$settings['inflectors_key']])
-            );
+            $configurator->addInflectorConfig(new InflectorConfig($appConfig[$settings['inflectors_key']]));
         }
     }
 }
