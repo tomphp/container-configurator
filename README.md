@@ -3,12 +3,12 @@
 [![Build Status](https://api.travis-ci.org/tomphp/config-service-provider.svg)](https://api.travis-ci.org/tomphp/config-service-provider)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tomphp/config-service-provider/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tomphp/config-service-provider/?branch=master)
 
-This package contains a simple service provider for the League Of Extraordinary
-Packages' [Container](https://github.com/thephpleague/container) package.
+This package enables you to configure your application and the Dependency
+Injection Container (DIC) via config arrays or files. Currently, supported
+containers are:
 
-The purpose of this service provider is to take an array and add each item in
-the array to the container as a value. These values can then easily be used as
-dependencies of other services.
+* [League Of Extraordinary Packages' Container](https://github.com/thephpleague/container)
+* [Pimple](http://pimple.sensiolabs.org/)
 
 ## Installation
 
@@ -23,110 +23,131 @@ $ composer require tomphp/config-service-provider
 ```php
 <?php
 
-use League\Container\Container;
-use League\Container\ServiceProvider\AbstractServiceProvider;
-use TomPHP\ConfigServiceProvider\ConfigServiceProvider;
+use League\Container\Container; // or Pimple\Container
+use TomPHP\ConfigServiceProvider\ConfigureContainer;
 
-class DatabaseConnectionProvider extends AbstractServiceProvider
-{
-    protected $provides = [
-        'database_connection',
-    ];
-    
-    public function register()
-    {
-        $this->container->share('database_connection', function () {
-            return new DatabaseConnection(
-                $this->container->get('config.db.name'),
-                $this->container->get('config.db.username'),
-                $this->container->get('config.db.password')
-            );
-        });
-    }
-}
-
-$appConfig = [
+$config = [
     'db' => [
         'name'     => 'example_db',
         'username' => 'dbuser',
         'password' => 'dbpass',
-    ]
+    ],
+
+    'di' => [
+        'services' => [
+            'database_connection' => [
+                'class' => DatabaseConnection::class,
+                'arguments' => [
+                    'config.db.name',
+                    'config.db.username',
+                    'config.db.password',
+                ],
+            ],
+        ],
+    ],
 ];
 
 $container = new Container();
-
-$container->addServiceProvider(ConfigServiceProvider::fromConfig($appConfig));
-$container->addServiceProvider(new DatabaseConnectionProvider());
+ConfigureContainer::fromArray($container, $config);
 
 $db = $container->get('database_connection');
 ```
 
-* Each item in the config array is added as a separate entry into the
-  container.
-* Each item name is has a prefix added to it. The prefix defaults to `config`.
-* If an item contains an sub-array, each of that array's are added separately
-  with a name made up of the first array key, followed by a separator (defaults
-  to `.`) followed by the key from the second array.
-
 ### Reading Files From Disk
 
-Instead of providing the config as an array, you can also provide a list of 
-file filesystem pattern matches to the `fromFiles` constructor.
+Instead of providing the config as an array, you can also provide a list of
+file pattern matches to the `fromFiles` function.
 
 ```php
-$container->addServiceProvider(ConfigServiceProvider::fromFiles([
-    'config_dir/*.global.php',
-    'json_dir/*.json',
-    'config_dir/*.local.php',
-]));
+ConfigureContainer::fromFiles(
+  $container,
+  [
+      'config_dir/*.global.php',
+      'json_dir/*.json',
+      'config_dir/*.local.php',
+  ]
+);
 ```
 
 #### Merging
 
-Patterns will be matched in the order the appear in the array. As files are
-read their config will be merged in, overwriting any matching keys.
+The reader matches files in the order the appear in the array.  As files are
+read their config is be merged in, overwriting any matching keys.
 
 #### Supported Formats
 
-Current `.php` and `.json` files are supported. PHP config files **must**
+Currently `.php` and `.json` files are supported. PHP config files **must**
 return a PHP array.
 
-### Accessing A Whole Sub-Array
+### Application Configuration
+
+All values in the config array are made accessible via the DIC with the keys
+separated by a separator (default: `.`) and prefixed with set string (default:
+`config`).
+
+##### Example
+
+```php
+$config = [
+    'db' => [
+        'name'     => 'example_db',
+        'username' => 'dbuser',
+        'password' => 'dbpass',
+    ],
+];
+
+$container = new Container();
+ConfigureContainer::fromArray($container, $config);
+
+var_dump($container->get('config.db.name'));
+/*
+ * OUTPUT:
+ * string(10) "example_db"
+ */
+```
+
+#### Accessing A Whole Sub-Array
 
 Whole sub-arrays are also made available for cases where you want them instead
 of individual values. Altering the previous example, this is also possible
 instead:
 
+##### Example
+
 ```php
-class DatabaseConnectionProvider extends AbstractServiceProvider
-{
-    protected $provides = [
-        'database_connection',
-    ];
-    
-    public function register()
-    {
-        $this->container->share('database_connection', function () {
-            /* @var array $config */
-            $config = $this->container->get('config.db');
-        
-            return new DatabaseConnection(
-                $config['name'],
-                $config['username'],
-                $config['password']
-            );
-        });
-    }
-}
+$config = [
+    'db' => [
+        'name'     => 'example_db',
+        'username' => 'dbuser',
+        'password' => 'dbpass',
+    ],
+];
+
+$container = new Container();
+ConfigureContainer::fromArray($container, $config);
+
+var_dump($container->get('config.db'));
+/*
+ * OUTPUT:
+ * array(3) {
+ *   ["name"]=>
+ *   string(10) "example_db"
+ *   ["username"]=>
+ *   string(6) "dbuser"
+ *   ["password"]=>
+ *   string(6) "dbpass"
+ * }
+ */
 ```
 
-### Configuring DI
+### Configuring Services
 
-Another feature is the ability to add services to your container via the config.
-This is done by adding a `di` key to the config and using the following format:
+Another feature is the ability to add services to your container via the
+config. By default, this is done by adding a `services` key under a `di` key in
+the config in the following format:
 
 ```php
-$appConfig = [
+$config = [
     'di' => [
         'logger' => [
             'class'     => Logger::class,
@@ -135,7 +156,7 @@ $appConfig = [
                 StdoutLogger::class
             ],
             'methods'   => [
-                'setMinLogLevel' => [ 'info' ]
+                'setLogLevel' => [ 'info' ]
             ],
         ],
 
@@ -145,9 +166,15 @@ $appConfig = [
     ]
 ];
 
+$container = new Container();
+ConfigureContainer::fromArray($container, $config);
+
+$logger = $container->get('logger'));
 ```
 
 ### Configuring Inflectors
+
+**Currently only supported by the League Container.**
 
 It is also possible to set up
 [Inflectors](http://container.thephpleague.com/inflectors/) by adding an
@@ -165,21 +192,24 @@ $appConfig = [
 
 ### Extra Settings
 
-You can provide an array of extra settings as a second parameter to
-`TomPHP\ConfigServiceProvider\ConfigServiceProvider::fromConfig()`.
-
-Current valid keys are:
-
-| Name        | Effect                                        |
-|-------------|-----------------------------------------------|
-| `prefix`    | Changes `config` prefix given to config keys. |
-| `separator` | Changes `.` separator in config keys.         |
-
-Example:
+Both `ConfigureContainer::fromArray($container, array $config, array $settings = [])`
+and `ConfigureContainer::fromFiles($container, array $files, array $settings = [])`
+can take an optional array of settings are the third parameter.
 
 ```php
-$provider = ConfigServiceProvider::fromConfig($appConfig, [
-    'prefix'    => 'settings',
-    'separator' => '/'
-]);
+ConfigureContainer::fromFiles(
+    $container,
+    ['*.cfg.php'],
+    ['config_prefix' => 'settings', 'config_separator' => '/']
+);
 ```
+
+Available settings are:
+
+| Name               | Description                                     | Default         |
+|--------------------|-------------------------------------------------|-----------------|
+| config_prefix      | Sets prefix name for config value keys.         | `config`        |
+| config_separator   | Sets the separator for config key.              | `.`             |
+| services_key       | Where the config for the services is.           | `di.services`   |
+| inflectors_key     | Where the config for the inflectors is.         | `di.inflectors` |
+| singleton_services | Sets whether services are singleton by default. | `false`         |
