@@ -2,7 +2,7 @@
 
 namespace tests\acceptance;
 
-use TomPHP\ConfigServiceProvider\ConfigureContainer;
+use TomPHP\ConfigServiceProvider\Configurator;
 
 trait SupportsServiceConfig
 {
@@ -18,7 +18,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
+        Configurator::apply()->configFromArray($config)->to($this->container);
 
         $this->assertInstanceOf(
             'tests\mocks\ExampleClass',
@@ -36,7 +36,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::apply()
+        Configurator::apply()
             ->configFromArray($config)
             ->withSetting('services_key', 'di')
             ->to($this->container);
@@ -60,7 +60,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
+        Configurator::apply()->configFromArray($config)->to($this->container);
 
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
@@ -81,7 +81,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
+        Configurator::apply()->configFromArray($config)->to($this->container);
 
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
@@ -101,7 +101,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::apply()
+        Configurator::apply()
             ->configFromArray($config)
             ->withSetting('singleton_services', true)
             ->to($this->container);
@@ -125,7 +125,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::apply()
+        Configurator::apply()
             ->configFromArray($config)
             ->withSetting('singleton_services', true)
             ->to($this->container);
@@ -152,7 +152,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
+        Configurator::apply()->configFromArray($config)->to($this->container);
 
         $instance = $this->container->get('example_class');
 
@@ -177,7 +177,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
+        Configurator::apply()->configFromArray($config)->to($this->container);
 
         $instance = $this->container->get('example_class');
 
@@ -200,7 +200,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
+        Configurator::apply()->configFromArray($config)->to($this->container);
 
         $instance = $this->container->get('example_class');
 
@@ -222,7 +222,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
+        Configurator::apply()->configFromArray($config)->to($this->container);
 
         $instance = $this->container->get('example_class');
 
@@ -245,7 +245,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
+        Configurator::apply()->configFromArray($config)->to($this->container);
 
         $instance = $this->container->get('example_class');
 
@@ -267,7 +267,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
+        Configurator::apply()->configFromArray($config)->to($this->container);
 
         $instance = $this->container->get('example_class');
 

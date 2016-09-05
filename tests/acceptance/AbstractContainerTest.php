@@ -4,7 +4,7 @@ namespace tests\acceptance;
 
 use PHPUnit_Framework_TestCase;
 use tests\support\TestFileCreator;
-use TomPHP\ConfigServiceProvider\ConfigureContainer;
+use TomPHP\ConfigServiceProvider\Configurator;
 
 abstract class AbstractContainerTest extends PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,7 @@ abstract class AbstractContainerTest extends PHPUnit_Framework_TestCase
 
         $this->createJSONConfigFile('config.json', $config);
 
-        ConfigureContainer::apply()
+        Configurator::apply()
             ->configFromFiles($this->getTestPath('*'))
             ->to($this->container);
 
@@ -31,7 +31,7 @@ abstract class AbstractContainerTest extends PHPUnit_Framework_TestCase
 
         $this->createJSONConfigFile('config.json', $config);
 
-        ConfigureContainer::apply()
+        Configurator::apply()
             ->configFromArray(['keyA' => 'valueA', 'keyB' => 'valueX'])
             ->configFromFiles($this->getTestPath('*'))
             ->to($this->container);

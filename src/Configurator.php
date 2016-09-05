@@ -4,8 +4,9 @@ namespace TomPHP\ConfigServiceProvider;
 
 use TomPHP\ConfigServiceProvider\FileReader\FileLocator;
 use TomPHP\ConfigServiceProvider\FileReader\ReaderFactory;
+use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
 
-final class ConfigureContainer
+final class Configurator
 {
     /**
      * @var ApplicationConfig
@@ -26,7 +27,7 @@ final class ConfigureContainer
     /**
      * @api
      *
-     * @return self
+     * @return Configurator
      */
     public static function apply()
     {
@@ -43,7 +44,7 @@ final class ConfigureContainer
      *
      * @param array $config
      *
-     * @return self
+     * @return Configurator
      */
     public function configFromArray(array $config)
     {
@@ -57,7 +58,7 @@ final class ConfigureContainer
      *
      * @param string $pattern
      *
-     * @return self
+     * @return Configurator
      */
     public function configFromFiles($pattern)
     {
@@ -68,7 +69,13 @@ final class ConfigureContainer
             '.php'  => 'TomPHP\ConfigServiceProvider\FileReader\PHPFileReader',
         ]);
 
-        foreach ($locator->locate($pattern) as $filename) {
+        $files = $locator->locate($pattern);
+
+        if (empty($files)) {
+            throw NoMatchingFilesException::fromPattern($pattern);
+        }
+
+        foreach ($files as $filename) {
             $reader = $factory->create($filename);
             $this->config->merge($reader->read($filename));
         }
@@ -82,7 +89,7 @@ final class ConfigureContainer
      * @param string $name
      * @param mixed  $value
      *
-     * @return self
+     * @return Configurator
      */
     public function withSetting($name, $value)
     {
