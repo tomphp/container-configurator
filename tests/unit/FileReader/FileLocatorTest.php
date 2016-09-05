@@ -26,7 +26,7 @@ final class FileLocatorTest extends PHPUnit_Framework_TestCase
         $this->createTestFile('config2.php');
         $this->createTestFile('config.json');
 
-        $files = $this->locator->locate([$this->getTestPath('*.php')]);
+        $files = $this->locator->locate($this->getTestPath('*.php'));
 
         $this->assertEquals([
             $this->getTestPath('config1.php'),
@@ -41,7 +41,7 @@ final class FileLocatorTest extends PHPUnit_Framework_TestCase
         $this->createTestFile('nothing.php');
         $this->createTestFile('nothing.php.dist');
 
-        $files = $this->locator->locate([$this->getTestPath('{,*.}{global,local}.php')]);
+        $files = $this->locator->locate($this->getTestPath('{,*.}{global,local}.php'));
 
         $this->assertEquals([
             $this->getTestPath('global.php'),

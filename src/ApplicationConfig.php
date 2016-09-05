@@ -33,7 +33,13 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
     public static function fromFiles(array $patterns, $separator = '.')
     {
         $locator = new FileLocator();
-        $files   = $locator->locate($patterns);
+        $files   = array_reduce(
+            $patterns,
+            function (array $result, $pattern) use ($locator) {
+                return array_merge($result, $locator->locate($pattern));
+            },
+            []
+        );
 
         if (empty($files)) {
             throw NoMatchingFilesException::fromPatterns($patterns);
