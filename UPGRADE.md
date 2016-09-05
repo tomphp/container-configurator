@@ -16,7 +16,19 @@ $container->addServiceProvider(ConfigServiceProvider::fromFile(['config.php']);
 You now configure the container like this:
 
 ```php
-ConfigureContainer::fromFiles($container, ['config.php']);
+Configurator::apply()
+    ->configFromFiles('config/*.inc.php')
+    ->to($container);
+```
+
+If you had multiple file pattern matches, you can chain more `configFromFiles`
+calls like so:
+
+```php
+Configurator::apply()
+    ->configFromFiles('*.global.php')
+    ->configFromFiles('*.local.php')
+    ->to($container);
 ```
 
 Also:
@@ -28,7 +40,9 @@ $container->addServiceProvider(ConfigServiceProvider::fromConfig($config);
 Would now be replaced with:
 
 ```php
-ConfigureContainer::fromArray($container, $config);
+Configurator::apply()
+    ->configFromArray($config)
+    ->to($container);
 ```
 
 ### Default DI Config Has Changed Structure
@@ -62,12 +76,13 @@ $config = [
 ];
 ```
 
-If you don't wish to adopt this new format, you can set the configurator up to
+If you don't wish to adopt this new format, you can set the Configurator up to
 behave in the old way by using the following settings:
 
 ```php
-[
-    'services_key'   => 'di',
-    'inflectors_key' => 'inflectors',
-]
+Configurator::apply()
+    ->configFromArray($config)
+    ->withSetting('services_key', 'di')
+    ->withSetting('inflectors_key', 'inflectors')
+    ->to($container);
 ```
