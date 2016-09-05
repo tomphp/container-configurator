@@ -15,10 +15,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   * Exception base-classes have been updated.
   * File reader classes have moved to `TomPHP\ConfigServiceProvider\FileReader`.
 
-### Deprecated
-  * `TomPHP\ConfigServiceProvider\ConfigServiceProvider`
-
 ### Removed
+  * `TomPHP\ConfigServiceProvider\ConfigServiceProvider`
   * Custom configurable service providers (`TomPHP\ConfigServiceProvider\ConfigurableServiceProvider`).
   * Custom sub-providers.
   * `TomPHP\ConfigServiceProvider\Exception\RuntimeException`
