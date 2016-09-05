@@ -27,8 +27,8 @@ trait TestFileCreator
     }
 
     /**
-     * @param string $name
-     * @param array  $content
+     * @param string $filename
+     * @param array  $config
      */
     protected function createPHPConfigFile($filename, array $config)
     {
@@ -38,8 +38,8 @@ trait TestFileCreator
     }
 
     /**
-     * @param string $name
-     * @param array  $content
+     * @param string $filename
+     * @param array  $config
      */
     protected function createJSONConfigFile($filename, array $config)
     {

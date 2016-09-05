@@ -36,8 +36,7 @@ final class InflectorServiceProvider extends AbstractServiceProvider implements 
     }
 
     /**
-     * @param string $interface
-     * @param array  $config
+     * @param InflectorDefinition $definition
      */
     private function configureInterface(InflectorDefinition $definition)
     {
