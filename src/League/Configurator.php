@@ -2,25 +2,39 @@
 
 namespace TomPHP\ConfigServiceProvider\League;
 
+use League\Container\Container;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
-use TomPHP\ConfigServiceProvider\ContainerConfigurator;
+use TomPHP\ConfigServiceProvider\Configurator as ConfiguratorInterface;
 use TomPHP\ConfigServiceProvider\InflectorConfig;
 use TomPHP\ConfigServiceProvider\ServiceConfig;
 
-final class Configurator implements ContainerConfigurator
+final class Configurator implements ConfiguratorInterface
 {
-    public function addApplicationConfig($container, ApplicationConfig $config, $prefix = 'config')
+    /**
+     * @var Container
+     */
+    private $container;
+
+    /**
+     * @param Container $container
+     */
+    public function setContainer($container)
     {
-        $container->addServiceProvider(new ApplicationConfigServiceProvider($config, $prefix));
+        $this->container = $container;
     }
 
-    public function addServiceConfig($container, ServiceConfig $config)
+    public function addApplicationConfig(ApplicationConfig $config, $prefix = 'config')
     {
-        $container->addServiceProvider(new ServiceServiceProvider($config));
+        $this->container->addServiceProvider(new ApplicationConfigServiceProvider($config, $prefix));
     }
 
-    public function addInflectorConfig($container, InflectorConfig $config)
+    public function addServiceConfig(ServiceConfig $config)
     {
-        $container->addServiceProvider(new InflectorServiceProvider($config));
+        $this->container->addServiceProvider(new ServiceServiceProvider($config));
+    }
+
+    public function addInflectorConfig(InflectorConfig $config)
+    {
+        $this->container->addServiceProvider(new InflectorServiceProvider($config));
     }
 }

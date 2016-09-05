@@ -41,4 +41,13 @@ final class ServiceConfigTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(['service1', 'service2'], $config->getKeys());
     }
+
+    public function testDefaultValueForSingletonCanBeSetToTrue()
+    {
+        $serviceConfig = ['class' => __CLASS__];
+
+        $config = new ServiceConfig(['service_name' => $serviceConfig], true);
+
+        $this->assertTrue(iterator_to_array($config)[0]->isSingleton());
+    }
 }

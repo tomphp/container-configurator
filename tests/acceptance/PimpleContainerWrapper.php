@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\TomPHP\ConfigServiceProvider\Pimple;
+namespace tests\acceptance;
 
 use Pimple\Container;
 

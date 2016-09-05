@@ -32,12 +32,13 @@ final class ServiceDefinition
     /**
      * @param string $name
      * @param array  $config
+     * @param bool   $singletonDefault
      */
-    public function __construct($name, array $config)
+    public function __construct($name, array $config, $singletonDefault = false)
     {
         $this->name      = $name;
         $this->class     = isset($config['class']) ? $config['class'] : $name;
-        $this->singleton = isset($config['singleton']) ? $config['singleton'] : false;
+        $this->singleton = isset($config['singleton']) ? $config['singleton'] : $singletonDefault;
         $this->arguments = isset($config['arguments']) ? $config['arguments'] : [];
         $this->methods   = isset($config['methods']) ? $config['methods'] : [];
     }

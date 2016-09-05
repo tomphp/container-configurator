@@ -5,40 +5,46 @@ namespace TomPHP\ConfigServiceProvider\Pimple;
 use Pimple\Container;
 use ReflectionClass;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
-use TomPHP\ConfigServiceProvider\ContainerConfigurator;
+use TomPHP\ConfigServiceProvider\Configurator as ConfiguratorInterface;
 use TomPHP\ConfigServiceProvider\Exception\UnsupportedFeatureException;
 use TomPHP\ConfigServiceProvider\InflectorConfig;
 use TomPHP\ConfigServiceProvider\ServiceConfig;
 use TomPHP\ConfigServiceProvider\ServiceDefinition;
 
-final class Configurator implements ContainerConfigurator
+final class Configurator implements ConfiguratorInterface
 {
     /**
      * @var Container
      */
     private $container;
 
-    public function addApplicationConfig($container, ApplicationConfig $config, $prefix = 'config')
+    /**
+     * @param Container $container
+     */
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
+
+    public function addApplicationConfig(ApplicationConfig $config, $prefix = 'config')
     {
         if (!empty($prefix)) {
             $prefix .= $config->getSeparator();
         }
 
         foreach ($config as $key => $value) {
-            $container[$prefix . $key] = $value;
+            $this->container[$prefix . $key] = $value;
         }
     }
 
-    public function addServiceConfig($container, ServiceConfig $config)
+    public function addServiceConfig(ServiceConfig $config)
     {
-        $this->container = $container;
-
         foreach ($config as $definition) {
             $this->addServiceToContainer($definition);
         }
     }
 
-    public function addInflectorConfig($container, InflectorConfig $config)
+    public function addInflectorConfig(InflectorConfig $config)
     {
         throw UnsupportedFeatureException::forInflectors('Pimple');
     }
@@ -70,10 +76,6 @@ final class Configurator implements ContainerConfigurator
             function ($argument) {
                 if (isset($this->container[$argument])) {
                     return $this->container[$argument];
-                }
-
-                if (class_exists($argument)) {
-                    return new $argument();
                 }
 
                 return $argument;

@@ -26,7 +26,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
     private $prefix;
 
     /**
-     * @api
+     * @deprecated 1.0.0 See UPGRADE.md
      *
      * @param array|ApplicationConfig $config
      * @param array                   $settings
@@ -43,7 +43,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
     }
 
     /**
-     * @api
+     * @deprecated 1.0.0 See UPGRADE.md
      *
      * @param string[] $patterns
      * @param array    $settings
@@ -58,7 +58,7 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
     }
 
     /**
-     * @api
+     * @deprecated 1.0.0 See UPGRADE.md
      *
      * @param array|ApplicationConfig $config
      * @param string                  $prefix
@@ -80,18 +80,15 @@ final class ConfigServiceProvider extends AbstractServiceProvider implements Boo
     public function boot()
     {
         $configurator = new League\Configurator();
-        $configurator->addApplicationConfig($this->container, $this->config, $this->prefix);
+        $configurator->setContainer($this->container);
+        $configurator->addApplicationConfig($this->config, $this->prefix);
 
         if (isset($this->config[self::DEFAULT_DI_KEY])) {
-            $configurator->addServiceConfig(
-                $this->container,
-                new ServiceConfig($this->config[self::DEFAULT_DI_KEY])
-            );
+            $configurator->addServiceConfig(new ServiceConfig($this->config[self::DEFAULT_DI_KEY]));
         }
 
         if (isset($this->config[self::DEFAULT_INFLECTORS_KEY])) {
             $configurator->addInflectorConfig(
-                $this->container,
                 new InflectorConfig($this->config[self::DEFAULT_INFLECTORS_KEY])
             );
         }

@@ -4,13 +4,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+  * `TomPHP\ConfigServiceProvider\ConfigureContainer` as the main API
   * If `class` is left out of the config for a service, then the service name
     is assumed to be the name of the class.
+  * Services can be set as singleton by default.
   * All exceptions implement `TomPHP\ConfigServiceProvider\Exception\Exception`.
   * Support for Pimple.
 
 ### Changed
   * Exception base-classes have been updated.
+
+### Deprecated
+  * `TomPHP\ConfigServiceProvider\ConfigServiceProvider`
 
 ### Removed
   * Custom configurable service providers (`TomPHP\ConfigServiceProvider\ConfigurableServiceProvider`).

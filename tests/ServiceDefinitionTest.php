@@ -39,6 +39,13 @@ final class ServiceDefinitionTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($definition->isSingleton());
     }
 
+    public function testSingletonDefaultCanBeSetToToTrue()
+    {
+        $definition = new ServiceDefinition('service_name', [], true);
+
+        $this->assertTrue($definition->isSingleton());
+    }
+
     public function testArgumentsDefaultToAnEmptyList()
     {
         $definition = new ServiceDefinition('service_name', []);

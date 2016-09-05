@@ -17,9 +17,9 @@ final class UnknownFileTypeException extends DomainException implements Exceptio
     public static function fromFileExtension($extension, array $availableExtensions)
     {
         return self::create(
-            'No reader configured for "%s" files; readers are available for [%s].',
+            'No reader configured for "%s" files; readers are available for %s.',
             $extension,
-            '"' . implode('", "', $availableExtensions) . '"'
+            self::optionsToString($availableExtensions)
         );
     }
 }
