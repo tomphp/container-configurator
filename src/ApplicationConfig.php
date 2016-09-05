@@ -72,6 +72,11 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
         $this->separator = $separator;
     }
 
+    public function merge(array $config)
+    {
+        $this->config = array_replace_recursive($this->config, $config);
+    }
+
     public function getIterator()
     {
         return new ApplicationConfigIterator($this);

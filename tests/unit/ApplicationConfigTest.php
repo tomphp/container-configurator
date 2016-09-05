@@ -107,6 +107,21 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
         unset($this->config['keyA']);
     }
 
+    public function testItMergesInNewConfig()
+    {
+        $config = new ApplicationConfig([
+            'group' => [
+                'keyA' => 'valueA',
+                'keyB' => 'valueX',
+            ],
+        ]);
+
+        $config->merge(['group' => ['keyB' => 'valueB']]);
+
+        $this->assertSame('valueA', $config['group.keyA']);
+        $this->assertSame('valueB', $config['group.keyB']);
+    }
+
     /**
      * @group from_files_factory
      */
