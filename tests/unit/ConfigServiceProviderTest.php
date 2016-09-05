@@ -3,9 +3,9 @@
 namespace tests\unit\TomPHP\ConfigServiceProvider;
 
 use League\Container\Container;
+use League\Container\ServiceProvider\ServiceProviderInterface;
 use PHPUnit_Framework_TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
-use tests\TomPHP\ConfigServiceProvider\ServiceProviderInterface;
 use tests\support\TestFileCreator;
 use TomPHP\ConfigServiceProvider\ConfigServiceProvider;
 use Prophecy\Argument;
