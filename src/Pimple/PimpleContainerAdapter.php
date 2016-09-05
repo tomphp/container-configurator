@@ -5,13 +5,13 @@ namespace TomPHP\ConfigServiceProvider\Pimple;
 use Pimple\Container;
 use ReflectionClass;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
-use TomPHP\ConfigServiceProvider\Configurator as ConfiguratorInterface;
+use TomPHP\ConfigServiceProvider\ContainerAdapter;
 use TomPHP\ConfigServiceProvider\Exception\UnsupportedFeatureException;
 use TomPHP\ConfigServiceProvider\InflectorConfig;
 use TomPHP\ConfigServiceProvider\ServiceConfig;
 use TomPHP\ConfigServiceProvider\ServiceDefinition;
 
-final class Configurator implements ConfiguratorInterface
+final class PimpleContainerAdapter implements ContainerAdapter
 {
     /**
      * @var Container

@@ -58,8 +58,8 @@ final class ConfigureContainer
     private static function configureContainer($container, ApplicationConfig $appConfig, array $settings)
     {
         $factory = new ConfiguratorFactory([
-            'League\Container\Container' => 'TomPHP\ConfigServiceProvider\League\Configurator',
-            'Pimple\Container'           => 'TomPHP\ConfigServiceProvider\Pimple\Configurator',
+            'League\Container\Container' => 'TomPHP\ConfigServiceProvider\League\LeagueContainerAdapter',
+            'Pimple\Container'           => 'TomPHP\ConfigServiceProvider\Pimple\PimpleContainerAdapter',
         ]);
 
         $configurator = $factory->create($container);

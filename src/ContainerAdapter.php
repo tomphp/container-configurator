@@ -2,7 +2,7 @@
 
 namespace TomPHP\ConfigServiceProvider;
 
-interface Configurator
+interface ContainerAdapter
 {
     /**
      * @param object $container
