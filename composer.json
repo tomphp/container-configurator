@@ -34,9 +34,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "tests\\unit\\TomPHP\\ConfigServiceProvider\\": "tests/unit",
+            "tests\\unit\\TomPHP\\ConfigServiceProvider\\": "tests/unit/",
             "tests\\acceptance\\": "tests/acceptance/",
-            "tests\\support\\": "tests/support",
+            "tests\\support\\": "tests/support/",
             "tests\\mocks\\": "tests/mocks/"
         }
     },
