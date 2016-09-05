@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\TomPHP\ConfigServiceProvider\Exception;
+namespace tests\unit\TomPHP\ConfigServiceProvider\Exception;
 
 use PHPUnit_Framework_TestCase;
 use TomPHP\ConfigServiceProvider\Exception\EntryDoesNotExistException;

@@ -1,22 +1,23 @@
 <?php
 
-namespace tests\TomPHP\ConfigServiceProvider;
+namespace tests\unit\TomPHP\ConfigServiceProvider;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\PHPFileReader;
+use tests\support\TestFileCreator;
+use TomPHP\ConfigServiceProvider\JSONFileReader;
 
-final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
+final class JSONFileReaderTest extends PHPUnit_Framework_TestCase
 {
     use TestFileCreator;
 
     /**
-     * @var PHPFileReader
+     * @var JSONFileReader
      */
     private $reader;
 
     protected function setUp()
     {
-        $this->reader = new PHPFileReader();
+        $this->reader = new JSONFileReader();
     }
 
     public function testItIsAFileReader()
@@ -33,21 +34,19 @@ final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
 
     public function testReadsAPHPConfigFile()
     {
-        $config = ['key' => 'value'];
-        $code = '<?php return ' . var_export($config, true) . ';';
+        $config = ['key' => 'value', 'sub' => ['key' => 'value']];
 
-        $this->createTestFile('config.php', $code);
+        $this->createTestFile('config.json', json_encode($config));
 
-        $this->assertEquals($config, $this->reader->read($this->getTestPath('config.php')));
+        $this->assertEquals($config, $this->reader->read($this->getTestPath('config.json')));
     }
 
     public function testItThrowsIfTheConfigIsInvalid()
     {
         $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\InvalidConfigException');
 
-        $code = '<?php return 123;';
-        $this->createTestFile('config.php', $code);
+        $this->createTestFile('config.json', 'not json');
 
-        $this->reader->read($this->getTestPath('config.php'));
+        $this->reader->read($this->getTestPath('config.json'));
     }
 }

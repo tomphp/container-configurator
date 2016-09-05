@@ -1,7 +1,10 @@
 <phpunit colors="true">
     <testsuites>
-        <testsuite name="">
-            <directory>tests</directory>
+        <testsuite name="unit">
+            <directory>tests/unit</directory>
+        </testsuite>
+        <testsuite name="acceptance">
+            <directory>tests/acceptance</directory>
         </testsuite>
     </testsuites>
 </phpunit>

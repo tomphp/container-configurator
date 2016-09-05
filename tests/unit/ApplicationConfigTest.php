@@ -1,8 +1,9 @@
 <?php
 
-namespace tests\TomPHP\ConfigServiceProvider;
+namespace tests\unit\TomPHP\ConfigServiceProvider;
 
 use PHPUnit_Framework_TestCase;
+use tests\support\TestFileCreator;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
 
 final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
