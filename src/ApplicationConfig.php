@@ -23,8 +23,6 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
     private $separator;
 
     /**
-     * @api
-     *
      * @param array  $patterns
      * @param string $separator
      *
@@ -65,8 +63,6 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
     }
 
     /**
-     * @api
-     *
      * @param array  $config
      * @param string $separator
      */
