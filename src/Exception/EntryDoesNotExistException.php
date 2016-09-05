@@ -9,7 +9,7 @@ final class EntryDoesNotExistException extends DomainException implements Except
     use ExceptionFactory;
 
     /**
-     * @param string key
+     * @param string $key
      *
      * @return self
      */
