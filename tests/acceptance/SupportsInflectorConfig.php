@@ -23,7 +23,7 @@ trait SupportsInflectorConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config);
+        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
 
         $this->assertEquals(
             'test_value',
@@ -48,7 +48,10 @@ trait SupportsInflectorConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config, ['inflectors_key' => 'inflectors']);
+        ConfigureContainer::apply()
+            ->configFromArray($config)
+            ->withSetting('inflectors_key', 'inflectors')
+            ->to($this->container);
 
         $this->assertEquals(
             'test_value',

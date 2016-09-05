@@ -5,10 +5,7 @@ namespace TomPHP\ConfigServiceProvider;
 use ArrayAccess;
 use IteratorAggregate;
 use TomPHP\ConfigServiceProvider\Exception\EntryDoesNotExistException;
-use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
 use TomPHP\ConfigServiceProvider\Exception\ReadOnlyException;
-use TomPHP\ConfigServiceProvider\FileReader\FileLocator;
-use TomPHP\ConfigServiceProvider\FileReader\ReaderFactory;
 
 final class ApplicationConfig implements ArrayAccess, IteratorAggregate
 {
@@ -21,46 +18,6 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
      * @var string
      */
     private $separator;
-
-    /**
-     * @param array  $patterns
-     * @param string $separator
-     *
-     * @return ApplicationConfig
-     */
-    public static function fromFiles(array $patterns, $separator = '.')
-    {
-        $locator = new FileLocator();
-        $files   = array_reduce(
-            $patterns,
-            function (array $result, $pattern) use ($locator) {
-                return array_merge($result, $locator->locate($pattern));
-            },
-            []
-        );
-
-        if (empty($files)) {
-            throw NoMatchingFilesException::fromPatterns($patterns);
-        }
-
-        $factory = new ReaderFactory([
-            '.json' => 'TomPHP\ConfigServiceProvider\FileReader\JSONFileReader',
-            '.php'  => 'TomPHP\ConfigServiceProvider\FileReader\PHPFileReader',
-        ]);
-
-        $configs = array_map(
-            function ($filename) use ($factory) {
-                $reader = $factory->create($filename);
-
-                return $reader->read($filename);
-            },
-            $files
-        );
-
-        $config = call_user_func_array('array_replace_recursive', $configs);
-
-        return new self($config, $separator);
-    }
 
     /**
      * @param array  $config

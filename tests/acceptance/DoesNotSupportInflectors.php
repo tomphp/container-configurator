@@ -16,6 +16,6 @@ trait DoesNotSupportInflectors
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config);
+        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
     }
 }

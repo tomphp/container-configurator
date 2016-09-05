@@ -18,7 +18,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config);
+        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
 
         $this->assertInstanceOf(
             'tests\mocks\ExampleClass',
@@ -36,7 +36,10 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config, ['services_key' => 'di']);
+        ConfigureContainer::apply()
+            ->configFromArray($config)
+            ->withSetting('services_key', 'di')
+            ->to($this->container);
 
         $this->assertInstanceOf(
             'tests\mocks\ExampleClass',
@@ -57,7 +60,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config);
+        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
 
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
@@ -78,7 +81,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config);
+        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
 
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
@@ -98,7 +101,10 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config, ['singleton_services' => true]);
+        ConfigureContainer::apply()
+            ->configFromArray($config)
+            ->withSetting('singleton_services', true)
+            ->to($this->container);
 
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
@@ -119,7 +125,10 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config, ['singleton_services' => true]);
+        ConfigureContainer::apply()
+            ->configFromArray($config)
+            ->withSetting('singleton_services', true)
+            ->to($this->container);
 
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
@@ -143,7 +152,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config);
+        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
 
         $instance = $this->container->get('example_class');
 
@@ -168,7 +177,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config);
+        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
 
         $instance = $this->container->get('example_class');
 
@@ -191,7 +200,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config);
+        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
 
         $instance = $this->container->get('example_class');
 
@@ -213,7 +222,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config);
+        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
 
         $instance = $this->container->get('example_class');
 
@@ -236,7 +245,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config);
+        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
 
         $instance = $this->container->get('example_class');
 
@@ -258,7 +267,7 @@ trait SupportsServiceConfig
             ],
         ];
 
-        ConfigureContainer::fromArray($this->container, $config);
+        ConfigureContainer::apply()->configFromArray($config)->to($this->container);
 
         $instance = $this->container->get('example_class');
 
