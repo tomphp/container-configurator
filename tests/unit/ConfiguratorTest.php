@@ -16,4 +16,11 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
         Configurator::apply()->configFromFiles($this->getTestPath('config.php'));
     }
+
+    public function testItThrowsWhenAnUnknownSettingIsSet()
+    {
+        $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\UnknownSettingException');
+
+        Configurator::apply()->withSetting('unknown_setting', 'value');
+    }
 }

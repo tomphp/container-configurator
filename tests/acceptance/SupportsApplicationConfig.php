@@ -28,7 +28,6 @@ trait SupportsApplicationConfig
             ->to($this->container);
 
         $this->assertEquals('valueA', $this->container->get('config.keyA'));
-
     }
 
     public function testItAddsGroupedConfigToTheContainer()

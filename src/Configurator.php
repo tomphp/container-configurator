@@ -5,6 +5,7 @@ namespace TomPHP\ConfigServiceProvider;
 use TomPHP\ConfigServiceProvider\FileReader\FileLocator;
 use TomPHP\ConfigServiceProvider\FileReader\ReaderFactory;
 use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
+use TomPHP\ConfigServiceProvider\Exception\UnknownSettingException;
 
 final class Configurator
 {
@@ -93,7 +94,9 @@ final class Configurator
      */
     public function withSetting($name, $value)
     {
-        // @todo check for invalid setting
+        if (!array_key_exists($name, $this->settings)) {
+            throw UnknownSettingException::fromSetting($name, array_keys($this->settings));
+        }
 
         $this->settings[$name] = $value;
 
