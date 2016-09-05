@@ -22,7 +22,7 @@ final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
 
     public function testItIsAFileReader()
     {
-        $this->assertInstanceOf('TomPHP\ConfigServiceProvider\FileReader', $this->reader);
+        $this->assertInstanceOf('TomPHP\ConfigServiceProvider\FileReader\FileReader', $this->reader);
     }
 
     public function testItThrowsIfFileDoesNotExist()

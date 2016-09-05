@@ -3,7 +3,6 @@
 namespace TomPHP\ConfigServiceProvider\FileReader;
 
 use TomPHP\ConfigServiceProvider\Exception\UnknownFileTypeException;
-use TomPHP\ConfigServiceProvider\FileReader\FileReader;
 
 final class ReaderFactory
 {

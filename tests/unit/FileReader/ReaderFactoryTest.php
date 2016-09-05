@@ -15,8 +15,8 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->factory = new ReaderFactory([
-            '.php' => 'TomPHP\ConfigServiceProvider\PHPFileReader',
-            '.json' => 'TomPHP\ConfigServiceProvider\JSONFileReader',
+            '.php' => 'TomPHP\ConfigServiceProvider\FileReader\PHPFileReader',
+            '.json' => 'TomPHP\ConfigServiceProvider\FileReader\JSONFileReader',
         ]);
     }
 
@@ -25,7 +25,7 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
         $reader = $this->factory->create('test.php');
 
         $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\PHPFileReader',
+            'TomPHP\ConfigServiceProvider\FileReader\PHPFileReader',
             $reader
         );
     }
@@ -35,7 +35,7 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
         $reader = $this->factory->create('test.json');
 
         $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\JSONFileReader',
+            'TomPHP\ConfigServiceProvider\FileReader\JSONFileReader',
             $reader
         );
     }

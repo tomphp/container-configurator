@@ -4,7 +4,6 @@ namespace TomPHP\ConfigServiceProvider\FileReader;
 
 use TomPHP\ConfigServiceProvider\Exception\FileNotFoundException;
 use TomPHP\ConfigServiceProvider\Exception\InvalidConfigException;
-use TomPHP\ConfigServiceProvider\FileReader\FileReader;
 
 final class PHPFileReader implements FileReader
 {

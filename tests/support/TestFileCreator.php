@@ -77,7 +77,7 @@ trait TestFileCreator
 
     private function ensurePathExists()
     {
-        $this->configFilePath = __DIR__ . '/.test-config';
+        $this->configFilePath = __DIR__ . '/../.test-config';
 
         if (!file_exists($this->configFilePath)) {
             mkdir($this->configFilePath);

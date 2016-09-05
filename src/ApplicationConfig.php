@@ -40,8 +40,8 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
         }
 
         $factory = new ReaderFactory([
-            '.json' => 'TomPHP\ConfigServiceProvider\JSONFileReader',
-            '.php'  => 'TomPHP\ConfigServiceProvider\PHPFileReader',
+            '.json' => 'TomPHP\ConfigServiceProvider\FileReader\JSONFileReader',
+            '.php'  => 'TomPHP\ConfigServiceProvider\FileReader\PHPFileReader',
         ]);
 
         $configs = array_map(
