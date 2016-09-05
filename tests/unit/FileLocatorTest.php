@@ -1,8 +1,9 @@
 <?php
 
-namespace tests\TomPHP\ConfigServiceProvider;
+namespace tests\unit\TomPHP\ConfigServiceProvider;
 
 use PHPUnit_Framework_TestCase;
+use tests\support\TestFileCreator;
 use TomPHP\ConfigServiceProvider\FileLocator;
 
 final class FileLocatorTest extends PHPUnit_Framework_TestCase

@@ -3,7 +3,7 @@
 namespace tests\acceptance;
 
 use PHPUnit_Framework_TestCase;
-use tests\TomPHP\ConfigServiceProvider\TestFileCreator;
+use tests\support\TestFileCreator;
 use TomPHP\ConfigServiceProvider\ConfigureContainer;
 
 abstract class AbstractContainerTest extends PHPUnit_Framework_TestCase

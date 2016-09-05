@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\TomPHP\ConfigServiceProvider;
+namespace tests\support;
 
 trait TestFileCreator
 {

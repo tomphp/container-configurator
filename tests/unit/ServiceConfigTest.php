@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\TomPHP\ConfigServiceProvider;
+namespace tests\unit\TomPHP\ConfigServiceProvider;
 
 use PHPUnit_Framework_TestCase;
 use TomPHP\ConfigServiceProvider\ServiceConfig;
