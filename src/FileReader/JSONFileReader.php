@@ -1,9 +1,10 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider;
+namespace TomPHP\ConfigServiceProvider\FileReader;
 
 use TomPHP\ConfigServiceProvider\Exception\FileNotFoundException;
 use TomPHP\ConfigServiceProvider\Exception\InvalidConfigException;
+use TomPHP\ConfigServiceProvider\FileReader\FileReader;
 
 final class JSONFileReader implements FileReader
 {

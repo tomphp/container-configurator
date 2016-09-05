@@ -1,9 +1,9 @@
 <?php
 
-namespace tests\unit\TomPHP\ConfigServiceProvider;
+namespace tests\unit\TomPHP\ConfigServiceProvider\FileReader;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\ReaderFactory;
+use TomPHP\ConfigServiceProvider\FileReader\ReaderFactory;
 
 final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
 {

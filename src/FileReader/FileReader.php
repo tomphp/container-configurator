@@ -1,6 +1,6 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider;
+namespace TomPHP\ConfigServiceProvider\FileReader;
 
 interface FileReader
 {

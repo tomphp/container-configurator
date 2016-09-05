@@ -7,6 +7,8 @@ use IteratorAggregate;
 use TomPHP\ConfigServiceProvider\Exception\EntryDoesNotExistException;
 use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
 use TomPHP\ConfigServiceProvider\Exception\ReadOnlyException;
+use TomPHP\ConfigServiceProvider\FileReader\FileLocator;
+use TomPHP\ConfigServiceProvider\FileReader\ReaderFactory;
 
 final class ApplicationConfig implements ArrayAccess, IteratorAggregate
 {

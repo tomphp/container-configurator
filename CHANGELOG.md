@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
   * Exception base-classes have been updated.
+  * File reader classes have moved to `TomPHP\ConfigServiceProvider\FileReader`.
 
 ### Deprecated
   * `TomPHP\ConfigServiceProvider\ConfigServiceProvider`
