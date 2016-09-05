@@ -24,7 +24,7 @@ $ composer require tomphp/config-service-provider
 <?php
 
 use League\Container\Container; // or Pimple\Container
-use TomPHP\ConfigServiceProvider\ConfigureContainer;
+use TomPHP\ConfigServiceProvider\Configurator;
 
 $config = [
     'db' => [
@@ -48,7 +48,7 @@ $config = [
 ];
 
 $container = new Container();
-ConfigureContainer::fromArray($container, $config);
+Configurator::apply()->configFromArray($config)->to($container);
 
 $db = $container->get('database_connection');
 ```
@@ -59,14 +59,11 @@ Instead of providing the config as an array, you can also provide a list of
 file pattern matches to the `fromFiles` function.
 
 ```php
-ConfigureContainer::fromFiles(
-  $container,
-  [
-      'config_dir/*.global.php',
-      'json_dir/*.json',
-      'config_dir/*.local.php',
-  ]
-);
+Configurator::apply()
+     ->configFromFiles('config_dir/*.global.php')
+     ->configFromFiles('json_dir/*.json')
+     ->configFromFiles('config_dir/*.local.php')
+    ->to($container);
 ```
 
 #### Merging
@@ -97,7 +94,7 @@ $config = [
 ];
 
 $container = new Container();
-ConfigureContainer::fromArray($container, $config);
+Configurator::apply()->configFromArray($config)->to($container);
 
 var_dump($container->get('config.db.name'));
 /*
@@ -124,7 +121,7 @@ $config = [
 ];
 
 $container = new Container();
-ConfigureContainer::fromArray($container, $config);
+Configurator::apply()->configFromArray($config)->to($container);
 
 var_dump($container->get('config.db'));
 /*
@@ -167,7 +164,7 @@ $config = [
 ];
 
 $container = new Container();
-ConfigureContainer::fromArray($container, $config);
+Configurator::apply()->configFromArray($config)->to($container);
 
 $logger = $container->get('logger'));
 ```
@@ -178,15 +175,17 @@ $logger = $container->get('logger'));
 
 It is also possible to set up
 [Inflectors](http://container.thephpleague.com/inflectors/) by adding an
-`inflectors` key to the config.
+`inflectors` key to the `di` section of the config.
 
 ```php
 $appConfig = [
-    'inflectors' => [
-        LoggerAwareInterface::class => [
-            'setLogger' => ['Some\Logger']
-        ]
-    ]
+    'di' => [
+        'inflectors' => [
+            LoggerAwareInterface::class => [
+                'setLogger' => ['Some\Logger']
+            ],
+        ],
+    ],
 ];
 ```
 
@@ -197,11 +196,11 @@ and `ConfigureContainer::fromFiles($container, array $files, array $settings = [
 can take an optional array of settings are the third parameter.
 
 ```php
-ConfigureContainer::fromFiles(
-    $container,
-    ['*.cfg.php'],
-    ['config_prefix' => 'settings', 'config_separator' => '/']
-);
+Configurator::apply()
+    ->configFromFiles('*.cfg.php'),
+    ->withSetting('config_prefix', 'settings')
+    ->withSetting('config_separator', '/')
+    ->to($container);
 ```
 
 Available settings are:
