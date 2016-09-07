@@ -60,16 +60,16 @@ file pattern matches to the `fromFiles` function.
 
 ```php
 Configurator::apply()
-     ->configFromFiles('config_dir/*.global.php')
-     ->configFromFiles('json_dir/*.json')
-     ->configFromFiles('config_dir/*.local.php')
+    ->configFromFiles('config_dir/*.global.php')
+    ->configFromFiles('json_dir/*.json')
+    ->configFromFiles('config_dir/*.local.php')
     ->to($container);
 ```
 
 #### Merging
 
-The reader matches files in the order the appear in the array.  As files are
-read their config is be merged in, overwriting any matching keys.
+The reader matches files in the order they are specified. As files are
+read their config is merged in; overwriting any matching keys.
 
 #### Supported Formats
 
@@ -191,9 +191,8 @@ $appConfig = [
 
 ### Extra Settings
 
-Both `ConfigureContainer::fromArray($container, array $config, array $settings = [])`
-and `ConfigureContainer::fromFiles($container, array $files, array $settings = [])`
-can take an optional array of settings are the third parameter.
+The behaviour of the `Configurator` can be adjusted by using the
+`withSetting(string $name, $value` method:
 
 ```php
 Configurator::apply()
