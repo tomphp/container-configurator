@@ -122,7 +122,7 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
         $this->assertSame('valueB', $config['group.keyB']);
     }
 
-    public function testItUpdateTheSeparator()
+    public function testItUpdatesTheSeparator()
     {
         $config = new ApplicationConfig([
             'group' => [

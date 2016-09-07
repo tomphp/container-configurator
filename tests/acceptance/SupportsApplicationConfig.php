@@ -10,18 +10,15 @@ trait SupportsApplicationConfig
     {
         $config = ['keyA' => 'valueA'];
 
-        Configurator::apply()->configFromArray($config)->to($this->container);
+        Configurator::apply()
+            ->configFromArray($config)
+            ->to($this->container);
 
         $this->assertEquals('valueA', $this->container->get('config.keyA'));
     }
 
     public function testItCascadeAddsConfigToTheContainer()
     {
-        $config = [
-            'keyA' => 'valueA',
-            'keyA' => 'valueA',
-        ];
-
         Configurator::apply()
             ->configFromArray(['keyA' => 'valueA', 'keyB' => 'valueX'])
             ->configFromArray(['keyB' => 'valueB'])
@@ -32,9 +29,9 @@ trait SupportsApplicationConfig
 
     public function testItAddsGroupedConfigToTheContainer()
     {
-        $config = ['group1' => ['keyA' => 'valueA']];
-
-        Configurator::apply()->configFromArray($config)->to($this->container);
+        Configurator::apply()
+            ->configFromArray(['group1' => ['keyA' => 'valueA']])
+            ->to($this->container);
 
         $this->assertEquals(['keyA' => 'valueA'], $this->container->get('config.group1'));
         $this->assertEquals('valueA', $this->container->get('config.group1.keyA'));
@@ -42,22 +39,18 @@ trait SupportsApplicationConfig
 
     public function testItAddsConfigToTheContainerWithAnAlternativeSeparator()
     {
-        $config = ['keyA' => 'valueA'];
-
         Configurator::apply()
-            ->configFromArray($config)
+            ->configFromArray(['keyA' => 'valueA'])
             ->withSetting('config_separator', '/')
             ->to($this->container);
 
         $this->assertEquals('valueA', $this->container->get('config/keyA'));
     }
 
-    public function testItAddsConfigToTheContainerWithAnAlterantivePrefix()
+    public function testItAddsConfigToTheContainerWithAnAlternativePrefix()
     {
-        $config = ['keyA' => 'valueA'];
-
         Configurator::apply()
-            ->configFromArray($config)
+            ->configFromArray(['keyA' => 'valueA'])
             ->withSetting('config_prefix', 'settings')
             ->to($this->container);
 
@@ -66,10 +59,8 @@ trait SupportsApplicationConfig
 
     public function testItAddsConfigToTheContainerWithNoPrefix()
     {
-        $config = ['keyA' => 'valueA'];
-
         Configurator::apply()
-            ->configFromArray($config)
+            ->configFromArray(['keyA' => 'valueA'])
             ->withSetting('config_prefix', '')
             ->to($this->container);
 

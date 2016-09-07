@@ -20,7 +20,7 @@ final class UnknownSettingExceptionTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('DomainException', new UnknownSettingException());
     }
 
-    public function testItCanBeCreatedFromFileExtension()
+    public function testItCanBeCreatedFromSetting()
     {
         $exception = UnknownSettingException::fromSetting('unknown', ['setting_a', 'setting_b']);
 

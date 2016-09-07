@@ -124,9 +124,10 @@ final class Configurator
         $configurator->addApplicationConfig($this->config, $this->settings['config_prefix']);
 
         if (isset($this->config[$this->settings['services_key']])) {
-            $configurator->addServiceConfig(
-                new ServiceConfig($this->config[$this->settings['services_key']], $this->settings['singleton_services'])
-            );
+            $configurator->addServiceConfig(new ServiceConfig(
+                $this->config[$this->settings['services_key']],
+                $this->settings['singleton_services']
+            ));
         }
 
         if (isset($this->config[$this->settings['inflectors_key']])) {

@@ -23,7 +23,9 @@ trait SupportsInflectorConfig
             ],
         ];
 
-        Configurator::apply()->configFromArray($config)->to($this->container);
+        Configurator::apply()
+            ->configFromArray($config)
+            ->to($this->container);
 
         $this->assertEquals(
             'test_value',
