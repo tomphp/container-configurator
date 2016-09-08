@@ -68,17 +68,22 @@ final class PimpleContainerAdapter implements ContainerAdapter
         $this->container[$definition->getName()] = $factory;
     }
 
+    /**
+     * @param array $arguments
+     *
+     * @return array
+     */
     private function resolveArguments(array $arguments)
     {
-        return array_map(
-            function ($argument) {
-                if (isset($this->container[$argument])) {
-                    return $this->container[$argument];
-                }
+        return array_map([$this, 'resolveArgument'], $arguments);
+    }
 
-                return $argument;
-            },
-            $arguments
-        );
+    private function resolveArgument($argument)
+    {
+        if (!isset($this->container[$argument])) {
+            return $argument;
+        }
+
+        return $this->container[$argument];
     }
 }
