@@ -2,6 +2,7 @@
 
 namespace TomPHP\ConfigServiceProvider\League;
 
+use Assert\Assertion;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
 
@@ -23,6 +24,8 @@ final class ApplicationConfigServiceProvider extends AbstractServiceProvider
      */
     public function __construct(ApplicationConfig $config, $prefix)
     {
+        Assertion::string($prefix);
+
         $this->prefix   = $prefix;
         $this->config   = $config;
         $this->provides = array_map(

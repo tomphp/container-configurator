@@ -2,6 +2,8 @@
 
 namespace TomPHP\ConfigServiceProvider;
 
+use Assert\Assertion;
+
 final class ServiceDefinition
 {
     /**
@@ -36,6 +38,9 @@ final class ServiceDefinition
      */
     public function __construct($name, array $config, $singletonDefault = false)
     {
+        Assertion::string($name);
+        Assertion::boolean($singletonDefault);
+
         $this->name      = $name;
         $this->class     = isset($config['class']) ? $config['class'] : $name;
         $this->singleton = isset($config['singleton']) ? $config['singleton'] : $singletonDefault;

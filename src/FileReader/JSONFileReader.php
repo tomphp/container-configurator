@@ -2,6 +2,7 @@
 
 namespace TomPHP\ConfigServiceProvider\FileReader;
 
+use Assert\Assertion;
 use TomPHP\ConfigServiceProvider\Exception\FileNotFoundException;
 use TomPHP\ConfigServiceProvider\Exception\InvalidConfigException;
 
@@ -23,6 +24,8 @@ final class JSONFileReader implements FileReader
 
     public function read($filename)
     {
+        Assertion::string($filename);
+
         $this->filename = $filename;
 
         $this->assertFileExists();

@@ -2,6 +2,7 @@
 
 namespace TomPHP\ConfigServiceProvider\Pimple;
 
+use Assert\Assertion;
 use Pimple\Container;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
 use TomPHP\ConfigServiceProvider\ContainerAdapter;
@@ -27,6 +28,8 @@ final class PimpleContainerAdapter implements ContainerAdapter
 
     public function addApplicationConfig(ApplicationConfig $config, $prefix = 'config')
     {
+        Assertion::string($prefix);
+
         if (!empty($prefix)) {
             $prefix .= $config->getSeparator();
         }

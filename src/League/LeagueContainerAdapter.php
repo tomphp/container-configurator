@@ -2,6 +2,7 @@
 
 namespace TomPHP\ConfigServiceProvider\League;
 
+use Assert\Assertion;
 use League\Container\Container;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
 use TomPHP\ConfigServiceProvider\ContainerAdapter;
@@ -25,6 +26,8 @@ final class LeagueContainerAdapter implements ContainerAdapter
 
     public function addApplicationConfig(ApplicationConfig $config, $prefix = 'config')
     {
+        Assertion::string($prefix);
+
         $this->container->addServiceProvider(new ApplicationConfigServiceProvider($config, $prefix));
     }
 
