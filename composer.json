@@ -1,6 +1,6 @@
 {
     "name": "tomphp/config-service-provider",
-    "description": "A service provider for the League of Extraordinary Packages' Container which easily allows you to add config values to your DI.",
+    "description": "This package enables you to configure The League Container or Pimple via config arrays and files.",
     "license": "MIT",
     "type": "library",
     "homepage": "https://github.com/tomphp/config-service-provider",
