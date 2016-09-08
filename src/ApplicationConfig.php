@@ -6,6 +6,7 @@ use ArrayAccess;
 use IteratorAggregate;
 use TomPHP\ConfigServiceProvider\Exception\EntryDoesNotExistException;
 use TomPHP\ConfigServiceProvider\Exception\ReadOnlyException;
+use Assert\Assertion;
 
 final class ApplicationConfig implements ArrayAccess, IteratorAggregate
 {
@@ -25,6 +26,8 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
      */
     public function __construct(array $config, $separator = '.')
     {
+        Assertion::string($separator);
+
         $this->config    = $config;
         $this->separator = $separator;
     }

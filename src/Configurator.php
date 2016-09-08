@@ -6,6 +6,7 @@ use TomPHP\ConfigServiceProvider\FileReader\FileLocator;
 use TomPHP\ConfigServiceProvider\FileReader\ReaderFactory;
 use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
 use TomPHP\ConfigServiceProvider\Exception\UnknownSettingException;
+use Assert\Assertion;
 
 final class Configurator
 {
@@ -63,6 +64,8 @@ final class Configurator
      */
     public function configFromFiles($pattern)
     {
+        Assertion::string($pattern);
+
         $locator = new FileLocator();
 
         $factory = new ReaderFactory([
@@ -72,7 +75,7 @@ final class Configurator
 
         $files = $locator->locate($pattern);
 
-        if (empty($files)) {
+        if (count($files) === 0) {
             throw NoMatchingFilesException::fromPattern($pattern);
         }
 
@@ -94,6 +97,9 @@ final class Configurator
      */
     public function withSetting($name, $value)
     {
+        Assertion::string($name);
+        Assertion::scalar($value);
+
         if (!array_key_exists($name, $this->settings)) {
             throw UnknownSettingException::fromSetting($name, array_keys($this->settings));
         }

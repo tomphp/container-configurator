@@ -2,6 +2,8 @@
 
 namespace TomPHP\ConfigServiceProvider\FileReader;
 
+use Assert\Assertion;
+
 final class FileLocator
 {
     /**
@@ -11,6 +13,8 @@ final class FileLocator
      */
     public function locate($pattern)
     {
+        Assertion::string($pattern);
+
         return glob($pattern, GLOB_BRACE);
     }
 }
