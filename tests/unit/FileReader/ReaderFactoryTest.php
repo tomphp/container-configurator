@@ -3,6 +3,9 @@
 namespace tests\unit\TomPHP\ConfigServiceProvider\FileReader;
 
 use PHPUnit_Framework_TestCase;
+use TomPHP\ConfigServiceProvider\Exception\UnknownFileTypeException;
+use TomPHP\ConfigServiceProvider\FileReader\JSONFileReader;
+use TomPHP\ConfigServiceProvider\FileReader\PHPFileReader;
 use TomPHP\ConfigServiceProvider\FileReader\ReaderFactory;
 
 final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
@@ -15,8 +18,8 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->factory = new ReaderFactory([
-            '.php' => 'TomPHP\ConfigServiceProvider\FileReader\PHPFileReader',
-            '.json' => 'TomPHP\ConfigServiceProvider\FileReader\JSONFileReader',
+            '.php'  => PHPFileReader::class,
+            '.json' => JSONFileReader::class,
         ]);
     }
 
@@ -24,20 +27,14 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
     {
         $reader = $this->factory->create('test.php');
 
-        $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\FileReader\PHPFileReader',
-            $reader
-        );
+        $this->assertInstanceOf(PHPFileReader::class, $reader);
     }
 
     public function testCreatesAnotherReader()
     {
         $reader = $this->factory->create('test.json');
 
-        $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\FileReader\JSONFileReader',
-            $reader
-        );
+        $this->assertInstanceOf(JSONFileReader::class, $reader);
     }
 
     public function testReturnsTheSameReaderForTheSameFileType()
@@ -50,7 +47,7 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testItThrowsIfThereIsNoRegisteredReaderForGivenFileType()
     {
-        $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\UnknownFileTypeException');
+        $this->setExpectedException(UnknownFileTypeException::class);
 
         $this->factory->create('test.unknown');
     }

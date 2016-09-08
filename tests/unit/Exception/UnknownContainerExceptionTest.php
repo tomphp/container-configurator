@@ -2,22 +2,21 @@
 
 namespace tests\unit\TomPHP\ConfigServiceProvider\Exception;
 
+use LogicException;
 use PHPUnit_Framework_TestCase;
+use TomPHP\ConfigServiceProvider\Exception\Exception;
 use TomPHP\ConfigServiceProvider\Exception\UnknownContainerException;
 
 final class UnknownContainerExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItImplementsTheBaseExceptionType()
     {
-        $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\Exception\Exception',
-            new UnknownContainerException()
-        );
+        $this->assertInstanceOf(Exception::class, new UnknownContainerException());
     }
 
     public function testItIsADomainException()
     {
-        $this->assertInstanceOf('LogicException', new UnknownContainerException());
+        $this->assertInstanceOf(LogicException::class, new UnknownContainerException());
     }
 
     public function testItCanBeCreatedFromFileExtension()

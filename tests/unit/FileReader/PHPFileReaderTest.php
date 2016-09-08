@@ -4,6 +4,9 @@ namespace tests\unit\TomPHP\ConfigServiceProvider\FileReader;
 
 use PHPUnit_Framework_TestCase;
 use tests\support\TestFileCreator;
+use TomPHP\ConfigServiceProvider\Exception\FileNotFoundException;
+use TomPHP\ConfigServiceProvider\Exception\InvalidConfigException;
+use TomPHP\ConfigServiceProvider\FileReader\FileReader;
 use TomPHP\ConfigServiceProvider\FileReader\PHPFileReader;
 
 final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
@@ -22,12 +25,12 @@ final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
 
     public function testItIsAFileReader()
     {
-        $this->assertInstanceOf('TomPHP\ConfigServiceProvider\FileReader\FileReader', $this->reader);
+        $this->assertInstanceOf(FileReader::class, $this->reader);
     }
 
     public function testItThrowsIfFileDoesNotExist()
     {
-        $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\FileNotFoundException');
+        $this->setExpectedException(FileNotFoundException::class);
 
         $this->reader->read('file-which-does-not-exist');
     }
@@ -44,7 +47,7 @@ final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
 
     public function testItThrowsIfTheConfigIsInvalid()
     {
-        $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\InvalidConfigException');
+        $this->setExpectedException(InvalidConfigException::class);
 
         $code = '<?php return 123;';
         $this->createTestFile('config.php', $code);

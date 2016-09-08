@@ -3,7 +3,6 @@
 namespace TomPHP\ConfigServiceProvider\Pimple;
 
 use Pimple\Container;
-use ReflectionClass;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
 use TomPHP\ConfigServiceProvider\ContainerAdapter;
 use TomPHP\ConfigServiceProvider\Exception\UnsupportedFeatureException;
@@ -52,12 +51,11 @@ final class PimpleContainerAdapter implements ContainerAdapter
     private function addServiceToContainer(ServiceDefinition $definition)
     {
         $factory = function () use ($definition) {
-            $reflection = new ReflectionClass($definition->getClass());
-
-            $instance = $reflection->newInstanceArgs($this->resolveArguments($definition->getArguments()));
+            $className = $definition->getClass();
+            $instance = new $className(...$this->resolveArguments($definition->getArguments()));
 
             foreach ($definition->getMethods() as $name => $args) {
-                call_user_func_array([$instance, $name], $this->resolveArguments($args));
+                $instance->$name(...$this->resolveArguments($args));
             }
 
             return $instance;

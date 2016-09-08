@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   * Support for Pimple.
 
 ### Changed
+  * Minimum supported PHP version is now `5.6`.
   * Exception base-classes have been updated.
   * File reader classes have moved to `TomPHP\ConfigServiceProvider\FileReader`.
 

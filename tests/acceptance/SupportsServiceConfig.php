@@ -2,6 +2,8 @@
 
 namespace tests\acceptance;
 
+use tests\mocks\ExampleClass;
+use tests\mocks\ExampleClassWithArgs;
 use TomPHP\ConfigServiceProvider\Configurator;
 
 trait SupportsServiceConfig
@@ -12,7 +14,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class' => 'tests\mocks\ExampleClass',
+                        'class' => ExampleClass::class,
                     ],
                 ],
             ],
@@ -22,10 +24,7 @@ trait SupportsServiceConfig
             ->configFromArray($config)
             ->to($this->container);
 
-        $this->assertInstanceOf(
-            'tests\mocks\ExampleClass',
-            $this->container->get('example_class')
-        );
+        $this->assertInstanceOf(ExampleClass::class, $this->container->get('example_class'));
     }
 
     public function testItAddsServicesToTheContainerForADifferentConfigKey()
@@ -33,7 +32,7 @@ trait SupportsServiceConfig
         $config = [
             'di' => [
                 'example_class' => [
-                    'class' => 'tests\mocks\ExampleClass',
+                    'class' => ExampleClass::class,
                 ],
             ],
         ];
@@ -43,10 +42,7 @@ trait SupportsServiceConfig
             ->withSetting('services_key', 'di')
             ->to($this->container);
 
-        $this->assertInstanceOf(
-            'tests\mocks\ExampleClass',
-            $this->container->get('example_class')
-        );
+        $this->assertInstanceOf(ExampleClass::class, $this->container->get('example_class'));
     }
 
     public function testItCreatesUniqueServiceInstancesByDefault()
@@ -55,7 +51,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class'     => 'tests\mocks\ExampleClass',
+                        'class'     => ExampleClass::class,
                         'singleton' => false,
                     ],
                 ],
@@ -78,7 +74,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class'     => 'tests\mocks\ExampleClass',
+                        'class'     => ExampleClass::class,
                         'singleton' => true,
                     ],
                 ],
@@ -101,7 +97,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class' => 'tests\mocks\ExampleClass',
+                        'class' => ExampleClass::class,
                     ],
                 ],
             ],
@@ -124,7 +120,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class'     => 'tests\mocks\ExampleClass',
+                        'class'     => ExampleClass::class,
                         'singleton' => false,
                     ],
                 ],
@@ -148,7 +144,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class' => 'tests\mocks\ExampleClassWithArgs',
+                        'class' => ExampleClassWithArgs::class,
                         'arguments' => [
                             'arg1',
                             'arg2',
@@ -175,7 +171,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class' => 'tests\mocks\ExampleClassWithArgs',
+                        'class' => ExampleClassWithArgs::class,
                         'arguments' => [
                             'config.arg1',
                             'config.arg2',
@@ -200,9 +196,9 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class' => 'tests\mocks\ExampleClassWithArgs',
+                        'class' => ExampleClassWithArgs::class,
                         'arguments' => [
-                            'tests\mocks\ExampleClass',
+                            ExampleClass::class,
                             'arg2',
                         ],
                     ],
@@ -216,7 +212,7 @@ trait SupportsServiceConfig
 
         $instance = $this->container->get('example_class');
 
-        $this->assertEquals(['tests\mocks\ExampleClass', 'arg2'], $instance->getConstructorArgs());
+        $this->assertEquals([ExampleClass::class, 'arg2'], $instance->getConstructorArgs());
     }
 
     public function testItCallsSetterMethods()
@@ -225,7 +221,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class' => 'tests\mocks\ExampleClass',
+                        'class' => ExampleClass::class,
                         'methods' => [
                             'setValue' => ['the value'],
                         ],
@@ -250,7 +246,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class' => 'tests\mocks\ExampleClass',
+                        'class' => ExampleClass::class,
                         'methods' => [
                             'setValue' => ['config.arg'],
                         ],
@@ -274,9 +270,9 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class' => 'tests\mocks\ExampleClass',
+                        'class' => ExampleClass::class,
                         'methods' => [
-                            'setValue' => ['tests\mocks\ExampleClass'],
+                            'setValue' => [ExampleClass::class],
                         ],
                     ],
                 ],
@@ -289,6 +285,6 @@ trait SupportsServiceConfig
 
         $instance = $this->container->get('example_class');
 
-        $this->assertSame('tests\mocks\ExampleClass', $instance->getValue());
+        $this->assertSame(ExampleClass::class, $instance->getValue());
     }
 }

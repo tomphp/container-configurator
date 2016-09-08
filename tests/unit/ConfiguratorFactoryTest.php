@@ -3,9 +3,11 @@
 namespace tests\unit\TomPHP\ConfigServiceProvider;
 
 use PHPUnit_Framework_TestCase;
+use tests\mocks\ExampleContainerAdapter;
 use TomPHP\ConfigServiceProvider\ConfiguratorFactory;
 use tests\mocks\ExampleContainer;
 use tests\mocks\ExampleExtendedContainer;
+use TomPHP\ConfigServiceProvider\Exception\UnknownContainerException;
 
 final class ConfiguratorFactoryTest extends PHPUnit_Framework_TestCase
 {
@@ -17,14 +19,14 @@ final class ConfiguratorFactoryTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->subject = new ConfiguratorFactory([
-            'tests\mocks\ExampleContainer' => 'tests\mocks\ExampleContainerAdapter',
+            ExampleContainer::class => ExampleContainerAdapter::class,
         ]);
     }
 
     public function testItCreatesAnInstanceOfTheContainerAdapter()
     {
         $this->assertInstanceOf(
-            'tests\mocks\ExampleContainerAdapter',
+            ExampleContainerAdapter::class,
             $this->subject->create(new ExampleContainer())
         );
     }
@@ -32,14 +34,14 @@ final class ConfiguratorFactoryTest extends PHPUnit_Framework_TestCase
     public function testItCreatesAnInstanceOfTheConfiguratorForSubclassedContainer()
     {
         $this->assertInstanceOf(
-            'tests\mocks\ExampleContainerAdapter',
+            ExampleContainerAdapter::class,
             $this->subject->create(new ExampleExtendedContainer())
         );
     }
 
     public function testItThrowsIfContainerIsNotKnown()
     {
-        $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\UnknownContainerException');
+        $this->setExpectedException(UnknownContainerException::class);
 
         $this->subject->create(new \stdClass());
     }

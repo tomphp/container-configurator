@@ -2,22 +2,21 @@
 
 namespace tests\unit\TomPHP\ConfigServiceProvider\Exception;
 
+use LogicException;
 use PHPUnit_Framework_TestCase;
+use TomPHP\ConfigServiceProvider\Exception\Exception;
 use TomPHP\ConfigServiceProvider\Exception\InvalidConfigException;
 
 final class InvalidConfigExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItImplementsTheBaseExceptionType()
     {
-        $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\Exception\Exception',
-            new InvalidConfigException()
-        );
+        $this->assertInstanceOf(Exception::class, new InvalidConfigException());
     }
 
     public function testItIsALogicException()
     {
-        $this->assertInstanceOf('LogicException', new InvalidConfigException());
+        $this->assertInstanceOf(LogicException::class, new InvalidConfigException());
     }
 
     public function testItCanBeCreatedFromTheFileName()
