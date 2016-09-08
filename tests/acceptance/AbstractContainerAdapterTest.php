@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase;
 use tests\support\TestFileCreator;
 use TomPHP\ConfigServiceProvider\Configurator;
 
-abstract class AbstractContainerTest extends PHPUnit_Framework_TestCase
+abstract class AbstractContainerAdapterTest extends PHPUnit_Framework_TestCase
 {
     use SupportsApplicationConfig;
     use SupportsServiceConfig;
