@@ -3,8 +3,8 @@
 namespace tests\unit\TomPHP\ConfigServiceProvider;
 
 use PHPUnit_Framework_TestCase;
-use tests\support\TestFileCreator;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
+use tests\support\TestFileCreator;
 
 final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
 {
@@ -93,6 +93,13 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('valueA', $this->config['group1->keyA']);
     }
 
+    public function testItThrowsForAnEmptySeparatorOnConstruction()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $this->config = new ApplicationConfig([], '');
+    }
+
     public function testItCannotHaveAValueSet()
     {
         $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\ReadOnlyException');
@@ -133,5 +140,13 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
         $config->setSeparator('/');
 
         $this->assertSame('valueA', $config['group/keyA']);
+    }
+
+    public function testItThrowsForAnEmptySeparatorWhenSettingSeparator()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $this->config = new ApplicationConfig([]);
+        $this->config->setSeparator('');
     }
 }
