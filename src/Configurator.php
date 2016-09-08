@@ -125,7 +125,7 @@ final class Configurator
     {
         $this->config->setSeparator($this->settings['config_separator']);
 
-        $factory = new ConfiguratorFactory(self::CONTAINER_ADAPTERS);
+        $factory = new ContainerAdapterFactory(self::CONTAINER_ADAPTERS);
 
         $configurator = $factory->create($container);
 

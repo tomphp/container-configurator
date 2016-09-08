@@ -3,22 +3,22 @@
 namespace tests\unit\TomPHP\ConfigServiceProvider;
 
 use PHPUnit_Framework_TestCase;
-use tests\mocks\ExampleContainerAdapter;
-use TomPHP\ConfigServiceProvider\ConfiguratorFactory;
-use tests\mocks\ExampleContainer;
-use tests\mocks\ExampleExtendedContainer;
+use TomPHP\ConfigServiceProvider\ContainerAdapterFactory;
 use TomPHP\ConfigServiceProvider\Exception\UnknownContainerException;
+use tests\mocks\ExampleContainer;
+use tests\mocks\ExampleContainerAdapter;
+use tests\mocks\ExampleExtendedContainer;
 
-final class ConfiguratorFactoryTest extends PHPUnit_Framework_TestCase
+final class ContainerAdapterFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var ConfiguratorFactory
+     * @var ContainerAdapterFactory
      */
     private $subject;
 
     protected function setUp()
     {
-        $this->subject = new ConfiguratorFactory([
+        $this->subject = new ContainerAdapterFactory([
             ExampleContainer::class => ExampleContainerAdapter::class,
         ]);
     }
