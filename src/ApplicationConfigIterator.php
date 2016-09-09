@@ -36,7 +36,7 @@ final class ApplicationConfigIterator extends RecursiveIteratorIterator
 
     public function next()
     {
-        if ($this->hasChildren()) {
+        if ($this->callHasChildren()) {
             array_push($this->path, parent::key());
         }
 
