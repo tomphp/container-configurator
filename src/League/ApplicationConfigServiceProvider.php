@@ -3,6 +3,7 @@
 namespace TomPHP\ConfigServiceProvider\League;
 
 use Assert\Assertion;
+use InvalidArgumentException;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
 
@@ -21,6 +22,8 @@ final class ApplicationConfigServiceProvider extends AbstractServiceProvider
     /**
      * @param ApplicationConfig $config
      * @param string            $prefix
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(ApplicationConfig $config, $prefix)
     {

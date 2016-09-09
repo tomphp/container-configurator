@@ -4,6 +4,7 @@ namespace TomPHP\ConfigServiceProvider;
 
 use ArrayIterator;
 use Assert\Assertion;
+use InvalidArgumentException;
 use IteratorAggregate;
 
 final class ServiceConfig implements IteratorAggregate
@@ -16,6 +17,8 @@ final class ServiceConfig implements IteratorAggregate
     /**
      * @param array $config
      * @param bool  $singletonDefault
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(array $config, $singletonDefault = false)
     {

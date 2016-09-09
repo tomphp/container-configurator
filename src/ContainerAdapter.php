@@ -2,6 +2,8 @@
 
 namespace TomPHP\ConfigServiceProvider;
 
+use InvalidArgumentException;
+
 interface ContainerAdapter
 {
     /**
@@ -16,6 +18,8 @@ interface ContainerAdapter
      * @param string            $prefix
      *
      * @return void
+     *
+     * @throws InvalidArgumentException
      */
     public function addApplicationConfig(ApplicationConfig $config, $prefix = 'config');
 
