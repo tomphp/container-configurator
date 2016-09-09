@@ -30,7 +30,7 @@ final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
 
     public function testItThrowsIfFileDoesNotExist()
     {
-        $this->setExpectedException(FileNotFoundException::class);
+        $this->expectException(FileNotFoundException::class);
 
         $this->reader->read('file-which-does-not-exist');
     }
@@ -47,7 +47,7 @@ final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
 
     public function testItThrowsIfTheConfigIsInvalid()
     {
-        $this->setExpectedException(InvalidConfigException::class);
+        $this->expectException(InvalidConfigException::class);
 
         $code = '<?php return 123;';
         $this->createTestFile('config.php', $code);
