@@ -3,10 +3,11 @@
 namespace TomPHP\ConfigServiceProvider\Exception;
 
 use DomainException;
+use TomPHP\ExceptionConstructorTools;
 
 final class UnknownSettingException extends DomainException implements Exception
 {
-    use ExceptionFactory;
+    use ExceptionConstructorTools;
 
     /**
      * @param string   $setting
@@ -18,8 +19,7 @@ final class UnknownSettingException extends DomainException implements Exception
     {
         return self::create(
             'Setting "%s" is unknown; valid settings are %s.',
-            $setting,
-            self::optionsToString($knownSettings)
+            [$setting, self::listToString($knownSettings)]
         );
     }
 }

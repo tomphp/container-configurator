@@ -3,10 +3,11 @@
 namespace TomPHP\ConfigServiceProvider\Exception;
 
 use LogicException;
+use TomPHP\ExceptionConstructorTools;
 
 final class InvalidConfigException extends LogicException implements Exception
 {
-    use ExceptionFactory;
+    use ExceptionConstructorTools;
 
     /**
      * @param string $filename
@@ -15,7 +16,7 @@ final class InvalidConfigException extends LogicException implements Exception
      */
     public static function fromPHPFileError($filename)
     {
-        return self::create('"%s" does not return a PHP array.', $filename);
+        return self::create('"%s" does not return a PHP array.', [$filename]);
     }
 
     /**
@@ -26,6 +27,6 @@ final class InvalidConfigException extends LogicException implements Exception
      */
     public static function fromJSONFileError($filename, $message)
     {
-        return self::create('Invalid JSON in "%s": %s', $filename, $message);
+        return self::create('Invalid JSON in "%s": %s', [$filename, $message]);
     }
 }

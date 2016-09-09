@@ -3,10 +3,11 @@
 namespace TomPHP\ConfigServiceProvider\Exception;
 
 use LogicException;
+use TomPHP\ExceptionConstructorTools;
 
 final class NoMatchingFilesException extends LogicException implements Exception
 {
-    use ExceptionFactory;
+    use ExceptionConstructorTools;
 
     /**
      * @param string $pattern
@@ -15,6 +16,6 @@ final class NoMatchingFilesException extends LogicException implements Exception
      */
     public static function fromPattern($pattern)
     {
-        return self::create('No files found matching pattern: "%s".', $pattern);
+        return self::create('No files found matching pattern: "%s".', [$pattern]);
     }
 }

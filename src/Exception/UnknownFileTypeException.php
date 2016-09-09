@@ -3,10 +3,11 @@
 namespace TomPHP\ConfigServiceProvider\Exception;
 
 use DomainException;
+use TomPHP\ExceptionConstructorTools;
 
 final class UnknownFileTypeException extends DomainException implements Exception
 {
-    use ExceptionFactory;
+    use ExceptionConstructorTools;
 
     /**
      * @param string   $extension
@@ -18,8 +19,7 @@ final class UnknownFileTypeException extends DomainException implements Exceptio
     {
         return self::create(
             'No reader configured for "%s" files; readers are available for %s.',
-            $extension,
-            self::optionsToString($availableExtensions)
+            [$extension, self::listToString($availableExtensions)]
         );
     }
 }

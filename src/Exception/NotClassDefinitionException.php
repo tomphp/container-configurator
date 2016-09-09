@@ -3,10 +3,11 @@
 namespace TomPHP\ConfigServiceProvider\Exception;
 
 use LogicException;
+use TomPHP\ExceptionConstructorTools;
 
 final class NotClassDefinitionException extends LogicException implements Exception
 {
-    use ExceptionFactory;
+    use ExceptionConstructorTools;
 
     /**
      * @param string $name
@@ -17,7 +18,7 @@ final class NotClassDefinitionException extends LogicException implements Except
     {
         return self::create(
             'Service configuration for "%s" did not create a class definition.',
-            $name
+            [$name]
         );
     }
 }

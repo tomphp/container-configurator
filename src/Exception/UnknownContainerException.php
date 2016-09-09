@@ -3,10 +3,11 @@
 namespace TomPHP\ConfigServiceProvider\Exception;
 
 use LogicException;
+use TomPHP\ExceptionConstructorTools;
 
 final class UnknownContainerException extends LogicException implements Exception
 {
-    use ExceptionFactory;
+    use ExceptionConstructorTools;
 
     /**
      * @param string   $name
@@ -18,8 +19,7 @@ final class UnknownContainerException extends LogicException implements Exceptio
     {
         return self::create(
             'Container %s is unknown; known containers are %s.',
-            $name,
-            self::optionsToString($knownContainers)
+            [$name, self::listToString($knownContainers)]
         );
     }
 }

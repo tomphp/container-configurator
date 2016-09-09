@@ -3,9 +3,12 @@
 namespace TomPHP\ConfigServiceProvider\Exception;
 
 use LogicException;
+use TomPHP\ExceptionConstructorTools;
 
 final class UnsupportedFeatureException extends LogicException implements Exception
 {
+    use ExceptionConstructorTools;
+
     /**
      * @param string $containerName
      *
@@ -13,6 +16,6 @@ final class UnsupportedFeatureException extends LogicException implements Except
      */
     public static function forInflectors($containerName)
     {
-        return new self(sprintf('%s does not support inflectors.', $containerName));
+        return self::create('%s does not support inflectors.', [$containerName]);
     }
 }
