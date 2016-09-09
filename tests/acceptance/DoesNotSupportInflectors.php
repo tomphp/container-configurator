@@ -9,7 +9,7 @@ trait DoesNotSupportInflectors
 {
     public function testInflectorsAreUnsupported()
     {
-        $this->setExpectedException(UnsupportedFeatureException::class);
+        $this->expectException(UnsupportedFeatureException::class);
 
         $config = [
             'di' => [

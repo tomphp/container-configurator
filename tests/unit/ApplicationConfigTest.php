@@ -97,21 +97,21 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
 
     public function testItThrowsForAnEmptySeparatorOnConstruction()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $this->config = new ApplicationConfig([], '');
     }
 
     public function testItCannotHaveAValueSet()
     {
-        $this->setExpectedException(ReadOnlyException::class);
+        $this->expectException(ReadOnlyException::class);
 
         $this->config['key'] = 'value';
     }
 
     public function testItCannotHaveAValueRemoved()
     {
-        $this->setExpectedException(ReadOnlyException::class);
+        $this->expectException(ReadOnlyException::class);
 
         unset($this->config['keyA']);
     }
@@ -146,7 +146,7 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
 
     public function testItThrowsForAnEmptySeparatorWhenSettingSeparator()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $this->config = new ApplicationConfig([]);
         $this->config->setSeparator('');

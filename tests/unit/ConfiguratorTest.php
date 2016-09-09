@@ -14,14 +14,14 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
     public function testItThrowsAnExceptionWhenNoFilesAreNotFound()
     {
-        $this->setExpectedException(NoMatchingFilesException::class);
+        $this->expectException(NoMatchingFilesException::class);
 
         Configurator::apply()->configFromFiles($this->getTestPath('config.php'));
     }
 
     public function testItThrowsWhenAnUnknownSettingIsSet()
     {
-        $this->setExpectedException(UnknownSettingException::class);
+        $this->expectException(UnknownSettingException::class);
 
         Configurator::apply()->withSetting('unknown_setting', 'value');
     }

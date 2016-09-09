@@ -41,7 +41,7 @@ final class ContainerAdapterFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testItThrowsIfContainerIsNotKnown()
     {
-        $this->setExpectedException(UnknownContainerException::class);
+        $this->expectException(UnknownContainerException::class);
 
         $this->subject->create(new \stdClass());
     }

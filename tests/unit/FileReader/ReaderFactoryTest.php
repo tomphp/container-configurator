@@ -47,7 +47,7 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testItThrowsIfThereIsNoRegisteredReaderForGivenFileType()
     {
-        $this->setExpectedException(UnknownFileTypeException::class);
+        $this->expectException(UnknownFileTypeException::class);
 
         $this->factory->create('test.unknown');
     }
