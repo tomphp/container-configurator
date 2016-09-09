@@ -4,7 +4,7 @@ namespace TomPHP\ConfigServiceProvider;
 
 use TomPHP\ConfigServiceProvider\Exception\UnknownContainerException;
 
-final class ConfiguratorFactory
+final class ContainerAdapterFactory
 {
     /**
      * @var array
