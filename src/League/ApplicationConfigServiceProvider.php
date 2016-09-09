@@ -4,6 +4,8 @@ namespace TomPHP\ConfigServiceProvider\League;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
+use TomPHP\Transform as T;
+use const TomPHP\Transform\__;
 
 final class ApplicationConfigServiceProvider extends AbstractServiceProvider
 {
@@ -25,12 +27,7 @@ final class ApplicationConfigServiceProvider extends AbstractServiceProvider
     {
         $this->prefix   = $prefix;
         $this->config   = $config;
-        $this->provides = array_map(
-            function ($key) {
-                return $this->keyPrefix() . $key;
-            },
-            $config->getKeys()
-        );
+        $this->provides = array_map(T\concat($this->keyPrefix(), __), $config->getKeys());
     }
 
     public function register()

@@ -4,6 +4,7 @@ namespace TomPHP\ConfigServiceProvider;
 
 use ArrayIterator;
 use IteratorAggregate;
+use TomPHP\Transform as T;
 
 final class ServiceConfig implements IteratorAggregate
 {
@@ -28,12 +29,7 @@ final class ServiceConfig implements IteratorAggregate
      */
     public function getKeys()
     {
-        return array_map(
-            function (ServiceDefinition $definition) {
-                return $definition->getName();
-            },
-            $this->config
-        );
+        return array_map(T\callMethod('getName'), $this->config);
     }
 
     public function getIterator()
