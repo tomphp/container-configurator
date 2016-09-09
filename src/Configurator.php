@@ -2,14 +2,22 @@
 
 namespace TomPHP\ConfigServiceProvider;
 
-use TomPHP\ConfigServiceProvider\FileReader\FileLocator;
-use TomPHP\ConfigServiceProvider\FileReader\ReaderFactory;
 use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
 use TomPHP\ConfigServiceProvider\Exception\UnknownSettingException;
 use Assert\Assertion;
 
 final class Configurator
 {
+    const FILE_READERS = [
+        '.json' => FileReader\JSONFileReader::class,
+        '.php'  => FileReader\PHPFileReader::class,
+    ];
+
+    const CONTAINER_ADAPTERS = [
+        \League\Container\Container::class => League\LeagueContainerAdapter::class,
+        \Pimple\Container::class           => Pimple\PimpleContainerAdapter::class,
+    ];
+
     /**
      * @var ApplicationConfig
      */
@@ -66,18 +74,15 @@ final class Configurator
     {
         Assertion::string($pattern);
 
-        $locator = new FileLocator();
-
-        $factory = new ReaderFactory([
-            '.json' => 'TomPHP\ConfigServiceProvider\FileReader\JSONFileReader',
-            '.php'  => 'TomPHP\ConfigServiceProvider\FileReader\PHPFileReader',
-        ]);
+        $locator = new FileReader\FileLocator();
 
         $files = $locator->locate($pattern);
 
         if (count($files) === 0) {
             throw NoMatchingFilesException::fromPattern($pattern);
         }
+
+        $factory = new FileReader\ReaderFactory(self::FILE_READERS);
 
         foreach ($files as $filename) {
             $reader = $factory->create($filename);
@@ -120,10 +125,7 @@ final class Configurator
     {
         $this->config->setSeparator($this->settings['config_separator']);
 
-        $factory = new ConfiguratorFactory([
-            'League\Container\Container' => 'TomPHP\ConfigServiceProvider\League\LeagueContainerAdapter',
-            'Pimple\Container'           => 'TomPHP\ConfigServiceProvider\Pimple\PimpleContainerAdapter',
-        ]);
+        $factory = new ConfiguratorFactory(self::CONTAINER_ADAPTERS);
 
         $configurator = $factory->create($container);
 

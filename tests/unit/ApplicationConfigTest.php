@@ -2,9 +2,11 @@
 
 namespace tests\unit\TomPHP\ConfigServiceProvider;
 
+use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
 use tests\support\TestFileCreator;
+use TomPHP\ConfigServiceProvider\Exception\ReadOnlyException;
 
 final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
 {
@@ -95,21 +97,21 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
 
     public function testItThrowsForAnEmptySeparatorOnConstruction()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException(InvalidArgumentException::class);
 
         $this->config = new ApplicationConfig([], '');
     }
 
     public function testItCannotHaveAValueSet()
     {
-        $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\ReadOnlyException');
+        $this->setExpectedException(ReadOnlyException::class);
 
         $this->config['key'] = 'value';
     }
 
     public function testItCannotHaveAValueRemoved()
     {
-        $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\ReadOnlyException');
+        $this->setExpectedException(ReadOnlyException::class);
 
         unset($this->config['keyA']);
     }
@@ -144,7 +146,7 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
 
     public function testItThrowsForAnEmptySeparatorWhenSettingSeparator()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException(InvalidArgumentException::class);
 
         $this->config = new ApplicationConfig([]);
         $this->config->setSeparator('');

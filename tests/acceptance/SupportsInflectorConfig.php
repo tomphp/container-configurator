@@ -2,6 +2,8 @@
 
 namespace tests\acceptance;
 
+use tests\mocks\ExampleClass;
+use tests\mocks\ExampleInterface;
 use TomPHP\ConfigServiceProvider\Configurator;
 
 trait SupportsInflectorConfig
@@ -12,11 +14,11 @@ trait SupportsInflectorConfig
             'di' => [
                 'services' => [
                     'example' => [
-                        'class' => 'tests\mocks\ExampleClass',
+                        'class' => ExampleClass::class,
                     ],
                 ],
                 'inflectors' => [
-                    'tests\mocks\ExampleInterface' => [
+                    ExampleInterface::class => [
                         'setValue' => ['test_value'],
                     ],
                 ],
@@ -39,12 +41,12 @@ trait SupportsInflectorConfig
             'di' => [
                 'services' => [
                     'example' => [
-                        'class' => 'tests\mocks\ExampleClass',
+                        'class' => ExampleClass::class,
                     ],
                 ],
             ],
             'inflectors' => [
-                'tests\mocks\ExampleInterface' => [
+                ExampleInterface::class => [
                     'setValue' => ['test_value'],
                 ],
             ],

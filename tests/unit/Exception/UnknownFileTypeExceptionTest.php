@@ -2,22 +2,21 @@
 
 namespace tests\unit\TomPHP\ConfigServiceProvider\Exception;
 
+use DomainException;
 use PHPUnit_Framework_TestCase;
+use TomPHP\ConfigServiceProvider\Exception\Exception;
 use TomPHP\ConfigServiceProvider\Exception\UnknownFileTypeException;
 
 final class UnknownFileTypeExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItImplementsTheBaseExceptionType()
     {
-        $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\Exception\Exception',
-            new UnknownFileTypeException()
-        );
+        $this->assertInstanceOf(Exception::class, new UnknownFileTypeException());
     }
 
     public function testItIsADomainException()
     {
-        $this->assertInstanceOf('DomainException', new UnknownFileTypeException());
+        $this->assertInstanceOf(DomainException::class, new UnknownFileTypeException());
     }
 
     public function testItCanBeCreatedFromFileExtension()

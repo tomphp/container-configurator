@@ -2,22 +2,21 @@
 
 namespace tests\unit\TomPHP\ConfigServiceProvider\Exception;
 
+use LogicException;
 use PHPUnit_Framework_TestCase;
+use TomPHP\ConfigServiceProvider\Exception\Exception;
 use TomPHP\ConfigServiceProvider\Exception\NotClassDefinitionException;
 
 final class NotClassDefinitionExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItImplementsTheBaseExceptionType()
     {
-        $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\Exception\Exception',
-            new NotClassDefinitionException()
-        );
+        $this->assertInstanceOf(Exception::class, new NotClassDefinitionException());
     }
 
     public function testItIsALogicException()
     {
-        $this->assertInstanceOf('LogicException', new NotClassDefinitionException());
+        $this->assertInstanceOf(LogicException::class, new NotClassDefinitionException());
     }
 
     public function testItCanBeCreatedFromThePatterns()

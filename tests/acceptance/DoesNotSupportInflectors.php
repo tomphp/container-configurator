@@ -3,12 +3,13 @@
 namespace tests\acceptance;
 
 use TomPHP\ConfigServiceProvider\Configurator;
+use TomPHP\ConfigServiceProvider\Exception\UnsupportedFeatureException;
 
 trait DoesNotSupportInflectors
 {
     public function testInflectorsAreUnsupported()
     {
-        $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\UnsupportedFeatureException');
+        $this->setExpectedException(UnsupportedFeatureException::class);
 
         $config = [
             'di' => [

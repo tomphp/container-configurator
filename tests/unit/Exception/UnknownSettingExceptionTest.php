@@ -2,22 +2,21 @@
 
 namespace tests\unit\TomPHP\ConfigServiceProvider\Exception;
 
+use DomainException;
 use PHPUnit_Framework_TestCase;
+use TomPHP\ConfigServiceProvider\Exception\Exception;
 use TomPHP\ConfigServiceProvider\Exception\UnknownSettingException;
 
 final class UnknownSettingExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItImplementsTheBaseExceptionType()
     {
-        $this->assertInstanceOf(
-            'TomPHP\ConfigServiceProvider\Exception\Exception',
-            new UnknownSettingException()
-        );
+        $this->assertInstanceOf(Exception::class, new UnknownSettingException());
     }
 
     public function testItIsADomainException()
     {
-        $this->assertInstanceOf('DomainException', new UnknownSettingException());
+        $this->assertInstanceOf(DomainException::class, new UnknownSettingException());
     }
 
     public function testItCanBeCreatedFromSetting()
