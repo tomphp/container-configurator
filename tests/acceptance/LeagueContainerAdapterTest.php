@@ -4,7 +4,7 @@ namespace tests\acceptance;
 
 use League\Container\Container;
 
-final class LeagueContainerTest extends AbstractContainerTest
+final class LeagueContainerAdapterTest extends AbstractContainerAdapterTest
 {
     use SupportsInflectorConfig;
 

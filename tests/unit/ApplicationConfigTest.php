@@ -3,8 +3,8 @@
 namespace tests\unit\TomPHP\ConfigServiceProvider;
 
 use PHPUnit_Framework_TestCase;
-use tests\support\TestFileCreator;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
+use tests\support\TestFileCreator;
 
 final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
 {
@@ -93,6 +93,13 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('valueA', $this->config['group1->keyA']);
     }
 
+    public function testItThrowsForAnEmptySeparatorOnConstruction()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $this->config = new ApplicationConfig([], '');
+    }
+
     public function testItCannotHaveAValueSet()
     {
         $this->setExpectedException('TomPHP\ConfigServiceProvider\Exception\ReadOnlyException');
@@ -107,80 +114,39 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
         unset($this->config['keyA']);
     }
 
-    /**
-     * @group from_files_factory
-     */
-    public function testItCreatesFromParsingFiles()
+    public function testItMergesInNewConfig()
     {
-        $configData = [
-            'keyA' => 'valueA',
-            'keyB' => 'valueB',
-        ];
-
-        $this->createPHPConfigFile('config.php', $configData);
-
-        $config = ApplicationConfig::fromFiles([
-            $this->getTestPath('*'),
+        $config = new ApplicationConfig([
+            'group' => [
+                'keyA' => 'valueA',
+                'keyB' => 'valueX',
+            ],
         ]);
 
-        $this->assertEquals($configData, $config->asArray());
+        $config->merge(['group' => ['keyB' => 'valueB']]);
+
+        $this->assertSame('valueA', $config['group.keyA']);
+        $this->assertSame('valueB', $config['group.keyB']);
     }
 
-    /**
-     * @group from_files_factory
-     */
-    public function testItCanOverrideFromFilesDefaults()
+    public function testItUpdatesTheSeparator()
     {
-        $configData = [
+        $config = new ApplicationConfig([
             'group' => [
-                'key' => 'value',
+                'keyA' => 'valueA',
             ],
-        ];
+        ]);
 
-        $this->createPHPConfigFile('config.php', $configData);
+        $config->setSeparator('/');
 
-        $config = ApplicationConfig::fromFiles([ $this->getTestPath('*') ], '/');
-
-        $this->assertEquals(
-            [
-                'group'     => ['key' => 'value'],
-            ],
-            $config->asArray()
-        );
+        $this->assertSame('valueA', $config['group/keyA']);
     }
 
-    /**
-     * @group from_files_factory
-     */
-    public function testItMergesConfigsFromFiles()
+    public function testItThrowsForAnEmptySeparatorWhenSettingSeparator()
     {
-        $config1 = ['a' => 1, 'b' => 5];
-        $config2 = ['b' => 2, 'c' => 7];
-        $config3 = ['c' => 3, 'd' => 4];
+        $this->setExpectedException('InvalidArgumentException');
 
-        $this->createPHPConfigFile('config1.php', $config1);
-        $this->createPHPConfigFile('config2.php', $config2);
-        $this->createJSONConfigFile('config3.json', $config3);
-
-        $config = ApplicationConfig::fromFiles(
-            [ $this->getTestPath('*') ]
-        );
-
-        $this->assertEquals(
-            ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4],
-            $config->asArray()
-        );
-    }
-
-    /**
-     * @group from_files_factory
-     */
-    public function testItThrowsWhenCreatingFromFilesAndNoConfigFilesAreFound()
-    {
-        $this->setExpectedException(
-            'TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException'
-        );
-
-        ApplicationConfig::fromFiles([$this->getTestPath('*')]);
+        $this->config = new ApplicationConfig([]);
+        $this->config->setSeparator('');
     }
 }

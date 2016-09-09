@@ -2,21 +2,19 @@
 
 namespace TomPHP\ConfigServiceProvider\FileReader;
 
+use Assert\Assertion;
+
 final class FileLocator
 {
     /**
-     * @param array $patterns
+     * @param string $pattern
      *
      * @return string[]
      */
-    public function locate(array $patterns)
+    public function locate($pattern)
     {
-        $files = [];
+        Assertion::string($pattern);
 
-        foreach ($patterns as $pattern) {
-            $files = array_merge($files, glob($pattern, GLOB_BRACE));
-        }
-
-        return $files;
+        return glob($pattern, GLOB_BRACE);
     }
 }

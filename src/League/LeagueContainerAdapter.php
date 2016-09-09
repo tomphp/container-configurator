@@ -4,11 +4,11 @@ namespace TomPHP\ConfigServiceProvider\League;
 
 use League\Container\Container;
 use TomPHP\ConfigServiceProvider\ApplicationConfig;
-use TomPHP\ConfigServiceProvider\Configurator as ConfiguratorInterface;
+use TomPHP\ConfigServiceProvider\ContainerAdapter;
 use TomPHP\ConfigServiceProvider\InflectorConfig;
 use TomPHP\ConfigServiceProvider\ServiceConfig;
 
-final class Configurator implements ConfiguratorInterface
+final class LeagueContainerAdapter implements ContainerAdapter
 {
     /**
      * @var Container

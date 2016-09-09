@@ -9,15 +9,12 @@ final class NoMatchingFilesException extends LogicException implements Exception
     use ExceptionFactory;
 
     /**
-     * @param array $patterns
+     * @param string $pattern
      *
      * @return self
      */
-    public static function fromPatterns(array $patterns)
+    public static function fromPattern($pattern)
     {
-        return self::create(
-            'No files found matching patterns: %s.',
-            self::optionsToString($patterns)
-        );
+        return self::create('No files found matching pattern: "%s".', $pattern);
     }
 }

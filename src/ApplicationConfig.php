@@ -5,10 +5,7 @@ namespace TomPHP\ConfigServiceProvider;
 use ArrayAccess;
 use IteratorAggregate;
 use TomPHP\ConfigServiceProvider\Exception\EntryDoesNotExistException;
-use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
 use TomPHP\ConfigServiceProvider\Exception\ReadOnlyException;
-use TomPHP\ConfigServiceProvider\FileReader\FileLocator;
-use TomPHP\ConfigServiceProvider\FileReader\ReaderFactory;
 
 final class ApplicationConfig implements ArrayAccess, IteratorAggregate
 {
@@ -23,50 +20,31 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
     private $separator;
 
     /**
-     * @api
-     *
-     * @param array  $patterns
-     * @param string $separator
-     *
-     * @return ApplicationConfig
-     */
-    public static function fromFiles(array $patterns, $separator = '.')
-    {
-        $locator = new FileLocator();
-        $files   = $locator->locate($patterns);
-
-        if (empty($files)) {
-            throw NoMatchingFilesException::fromPatterns($patterns);
-        }
-
-        $factory = new ReaderFactory([
-            '.json' => 'TomPHP\ConfigServiceProvider\FileReader\JSONFileReader',
-            '.php'  => 'TomPHP\ConfigServiceProvider\FileReader\PHPFileReader',
-        ]);
-
-        $configs = array_map(
-            function ($filename) use ($factory) {
-                $reader = $factory->create($filename);
-
-                return $reader->read($filename);
-            },
-            $files
-        );
-
-        $config = call_user_func_array('array_replace_recursive', $configs);
-
-        return new self($config, $separator);
-    }
-
-    /**
-     * @api
-     *
      * @param array  $config
      * @param string $separator
      */
     public function __construct(array $config, $separator = '.')
     {
+        \Assert\that($separator)->string()->notEmpty();
+
         $this->config    = $config;
+        $this->separator = $separator;
+    }
+
+    public function merge(array $config)
+    {
+        $this->config = array_replace_recursive($this->config, $config);
+    }
+
+    /**
+     * @param string $separator
+     *
+     * @return void
+     */
+    public function setSeparator($separator)
+    {
+        \Assert\that($separator)->string()->notEmpty();
+
         $this->separator = $separator;
     }
 

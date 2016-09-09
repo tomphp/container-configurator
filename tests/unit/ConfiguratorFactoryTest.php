@@ -17,14 +17,14 @@ final class ConfiguratorFactoryTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->subject = new ConfiguratorFactory([
-            'tests\mocks\ExampleContainer' => 'tests\mocks\ExampleConfigurator',
+            'tests\mocks\ExampleContainer' => 'tests\mocks\ExampleContainerAdapter',
         ]);
     }
 
-    public function testItCreatesAnInstanceOfTheConfigurator()
+    public function testItCreatesAnInstanceOfTheContainerAdapter()
     {
         $this->assertInstanceOf(
-            'tests\mocks\ExampleConfigurator',
+            'tests\mocks\ExampleContainerAdapter',
             $this->subject->create(new ExampleContainer())
         );
     }
@@ -32,7 +32,7 @@ final class ConfiguratorFactoryTest extends PHPUnit_Framework_TestCase
     public function testItCreatesAnInstanceOfTheConfiguratorForSubclassedContainer()
     {
         $this->assertInstanceOf(
-            'tests\mocks\ExampleConfigurator',
+            'tests\mocks\ExampleContainerAdapter',
             $this->subject->create(new ExampleExtendedContainer())
         );
     }

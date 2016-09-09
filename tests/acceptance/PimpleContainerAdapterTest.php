@@ -4,7 +4,7 @@ namespace tests\acceptance;
 
 use Pimple\Container;
 
-final class PimpleContainerTest extends AbstractContainerTest
+final class PimpleContainerAdapterTest extends AbstractContainerAdapterTest
 {
     use DoesNotSupportInflectors;
 
