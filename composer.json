@@ -24,7 +24,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^1.10",
         "league/container": "^2.0.2",
-        "phpunit/phpunit": "^4.6.4",
+        "phpunit/phpunit": "^5.5.4",
         "pimple/pimple": "^3.0.0",
         "squizlabs/php_codesniffer": "*"
     },
