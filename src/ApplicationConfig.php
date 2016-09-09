@@ -72,16 +72,25 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
         return true;
     }
 
+    /**
+     * @throws EntryDoesNotExistException
+     */
     public function offsetGet($offset)
     {
         return $this->traverseConfig($this->getPath($offset));
     }
 
+    /**
+     * @throws ReadOnlyException
+     */
     public function offsetSet($offset, $value)
     {
         throw ReadOnlyException::fromClassName(__CLASS__);
     }
 
+    /**
+     * @throws ReadOnlyException
+     */
     public function offsetUnset($offset)
     {
         throw ReadOnlyException::fromClassName(__CLASS__);
@@ -108,6 +117,9 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
         return explode($this->separator, $offset);
     }
 
+    /**
+     * @throws EntryDoesNotExistException
+     */
     private function traverseConfig(array $path)
     {
         $pointer = &$this->config;

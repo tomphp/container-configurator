@@ -43,6 +43,9 @@ final class PimpleContainerAdapter implements ContainerAdapter
         }
     }
 
+    /**
+     * @throws UnsupportedFeatureException
+     */
     public function addInflectorConfig(InflectorConfig $config)
     {
         throw UnsupportedFeatureException::forInflectors('Pimple');
