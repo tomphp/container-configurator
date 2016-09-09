@@ -35,7 +35,7 @@ final class ReaderFactory
      */
     public function create($filename)
     {
-        Assertion::string($filename);
+        Assertion::file($filename);
 
         $readerClass = $this->getReaderClass($filename);
 

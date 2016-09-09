@@ -3,7 +3,6 @@
 namespace TomPHP\ConfigServiceProvider\FileReader;
 
 use Assert\Assertion;
-use TomPHP\ConfigServiceProvider\Exception\FileNotFoundException;
 use TomPHP\ConfigServiceProvider\Exception\InvalidConfigException;
 
 final class PHPFileReader implements FileReader
@@ -12,24 +11,15 @@ final class PHPFileReader implements FileReader
 
     public function read($filename)
     {
-        Assertion::string($filename);
+        Assertion::file($filename);
 
         $this->filename = $filename;
-
-        $this->assertFileExists();
 
         $config = include $this->filename;
 
         $this->assertConfigIsValid($config);
 
         return $config;
-    }
-
-    private function assertFileExists()
-    {
-        if (!file_exists($this->filename)) {
-            throw FileNotFoundException::fromFileName($this->filename);
-        }
     }
 
     private function assertConfigIsValid($config)

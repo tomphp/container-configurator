@@ -3,8 +3,8 @@
 namespace tests\unit\TomPHP\ConfigServiceProvider\FileReader;
 
 use PHPUnit_Framework_TestCase;
+use InvalidArgumentException;
 use tests\support\TestFileCreator;
-use TomPHP\ConfigServiceProvider\Exception\FileNotFoundException;
 use TomPHP\ConfigServiceProvider\Exception\InvalidConfigException;
 use TomPHP\ConfigServiceProvider\FileReader\FileReader;
 use TomPHP\ConfigServiceProvider\FileReader\JSONFileReader;
@@ -30,7 +30,7 @@ final class JSONFileReaderTest extends PHPUnit_Framework_TestCase
 
     public function testItThrowsIfFileDoesNotExist()
     {
-        $this->expectException(FileNotFoundException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $this->reader->read('file-which-does-not-exist');
     }
