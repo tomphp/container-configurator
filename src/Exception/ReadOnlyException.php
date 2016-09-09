@@ -3,10 +3,11 @@
 namespace TomPHP\ConfigServiceProvider\Exception;
 
 use LogicException;
+use TomPHP\ExceptionConstructorTools;
 
 final class ReadOnlyException extends LogicException implements Exception
 {
-    use ExceptionFactory;
+    use ExceptionConstructorTools;
 
     /**
      * @param string $name
@@ -15,6 +16,6 @@ final class ReadOnlyException extends LogicException implements Exception
      */
     public static function fromClassName($name)
     {
-        return self::create('"%s" is read only.', $name);
+        return self::create('"%s" is read only.', [$name]);
     }
 }

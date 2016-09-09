@@ -3,10 +3,11 @@
 namespace TomPHP\ConfigServiceProvider\Exception;
 
 use DomainException;
+use TomPHP\ExceptionConstructorTools;
 
 final class EntryDoesNotExistException extends DomainException implements Exception
 {
-    use ExceptionFactory;
+    use ExceptionConstructorTools;
 
     /**
      * @param string $key
@@ -15,6 +16,6 @@ final class EntryDoesNotExistException extends DomainException implements Except
      */
     public static function fromKey($key)
     {
-        return self::create('No entry found for "%s".', $key);
+        return self::create('No entry found for "%s".', [$key]);
     }
 }

@@ -3,10 +3,11 @@
 namespace TomPHP\ConfigServiceProvider\Exception;
 
 use LogicException;
+use TomPHP\ExceptionConstructorTools;
 
 final class FileNotFoundException extends LogicException implements Exception
 {
-    use ExceptionFactory;
+    use ExceptionConstructorTools;
 
     /**
      * @param string $filename
@@ -15,6 +16,6 @@ final class FileNotFoundException extends LogicException implements Exception
      */
     public static function fromFileName($filename)
     {
-        return self::create('"%s" does not exist', $filename);
+        return self::create('"%s" does not exist', [$filename]);
     }
 }
