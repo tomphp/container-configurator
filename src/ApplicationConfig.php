@@ -54,7 +54,7 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
     }
 
     /**
-     * @return array
+     * @return array<int|string>
      */
     public function getKeys()
     {
@@ -118,6 +118,8 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
     }
 
     /**
+     * @return mixed
+     *
      * @throws EntryDoesNotExistException
      */
     private function traverseConfig(array $path)
