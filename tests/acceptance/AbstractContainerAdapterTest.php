@@ -12,6 +12,19 @@ abstract class AbstractContainerAdapterTest extends PHPUnit_Framework_TestCase
     use SupportsServiceConfig;
     use TestFileCreator;
 
+    public function testItCanBeConfiguredFromAFile()
+    {
+        $config = ['example-key' => 'example-value'];
+
+        $this->createJSONConfigFile('config.json', $config);
+
+        Configurator::apply()
+            ->configFromFile($this->getTestPath('config.json'))
+            ->to($this->container);
+
+        $this->assertSame('example-value', $this->container->get('config.example-key'));
+    }
+
     public function testItCanBeConfiguredFromFiles()
     {
         $config = ['example-key' => 'example-value'];
