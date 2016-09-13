@@ -82,7 +82,7 @@ behave in the old way by using the following settings:
 ```php
 Configurator::apply()
     ->configFromArray($config)
-    ->withSetting('services_key', 'di')
-    ->withSetting('inflectors_key', 'inflectors')
+    ->withSetting(Configurator::SETTING_SERVICES_KEY, 'di')
+    ->withSetting(Configurator::SETTING_INFLECTORS_KEY, 'inflectors')
     ->to($container);
 ```

@@ -54,7 +54,7 @@ trait SupportsInflectorConfig
 
         Configurator::apply()
             ->configFromArray($config)
-            ->withSetting('inflectors_key', 'inflectors')
+            ->withSetting(Configurator::SETTING_INFLECTORS_KEY, 'inflectors')
             ->to($this->container);
 
         $this->assertEquals(

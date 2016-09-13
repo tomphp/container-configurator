@@ -8,6 +8,12 @@ use Assert\Assertion;
 
 final class Configurator
 {
+    const SETTING_PREFIX                     = 'config_prefix';
+    const SETTING_SEPARATOR                  = 'config_separator';
+    const SETTING_SERVICES_KEY               = 'services_key';
+    const SETTING_INFLECTORS_KEY             = 'inflectors_key';
+    const SETTING_DEFAULT_SINGLETON_SERVICES = 'default_singleton_services';
+
     const FILE_READERS = [
         '.json' => FileReader\JSONFileReader::class,
         '.php'  => FileReader\PHPFileReader::class,
@@ -32,11 +38,11 @@ final class Configurator
      * @var array
      */
     private $settings = [
-        'config_prefix'      => 'config',
-        'config_separator'   => '.',
-        'services_key'       => 'di.services',
-        'inflectors_key'     => 'di.inflectors',
-        'singleton_services' => false,
+        self::SETTING_PREFIX                     => 'config',
+        self::SETTING_SEPARATOR                  => '.',
+        self::SETTING_SERVICES_KEY               => 'di.services',
+        self::SETTING_INFLECTORS_KEY             => 'di.inflectors',
+        self::SETTING_DEFAULT_SINGLETON_SERVICES => false,
     ];
 
     /**
@@ -145,23 +151,25 @@ final class Configurator
      */
     public function to($container)
     {
-        $this->config->setSeparator($this->settings['config_separator']);
+        $this->config->setSeparator($this->settings[self::SETTING_SEPARATOR]);
 
         $factory = new ContainerAdapterFactory(self::CONTAINER_ADAPTERS);
 
         $configurator = $factory->create($container);
 
-        $configurator->addApplicationConfig($this->config, $this->settings['config_prefix']);
+        $configurator->addApplicationConfig($this->config, $this->settings[self::SETTING_PREFIX]);
 
-        if (isset($this->config[$this->settings['services_key']])) {
+        if (isset($this->config[$this->settings[self::SETTING_SERVICES_KEY]])) {
             $configurator->addServiceConfig(new ServiceConfig(
-                $this->config[$this->settings['services_key']],
-                $this->settings['singleton_services']
+                $this->config[$this->settings[self::SETTING_SERVICES_KEY]],
+                $this->settings[self::SETTING_DEFAULT_SINGLETON_SERVICES]
             ));
         }
 
-        if (isset($this->config[$this->settings['inflectors_key']])) {
-            $configurator->addInflectorConfig(new InflectorConfig($this->config[$this->settings['inflectors_key']]));
+        if (isset($this->config[$this->settings[self::SETTING_INFLECTORS_KEY]])) {
+            $configurator->addInflectorConfig(new InflectorConfig(
+                $this->config[$this->settings[self::SETTING_INFLECTORS_KEY]]
+            ));
         }
     }
 
