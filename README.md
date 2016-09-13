@@ -1,7 +1,7 @@
-# Config Service Provider
+# Container Configurator
 
-[![Build Status](https://api.travis-ci.org/tomphp/config-service-provider.svg)](https://api.travis-ci.org/tomphp/config-service-provider)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tomphp/config-service-provider/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tomphp/config-service-provider/?branch=master)
+[![Build Status](https://api.travis-ci.org/tomphp/container-configurator.svg)](https://api.travis-ci.org/tomphp/container-configurator)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tomphp/container-configurator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tomphp/container-configurator/?branch=master)
 
 This package enables you to configure your application and the Dependency
 Injection Container (DIC) via config arrays or files. Currently, supported
