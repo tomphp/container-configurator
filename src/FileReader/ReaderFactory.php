@@ -2,6 +2,8 @@
 
 namespace TomPHP\ConfigServiceProvider\FileReader;
 
+use Assert\Assertion;
+use InvalidArgumentException;
 use TomPHP\ConfigServiceProvider\Exception\UnknownFileTypeException;
 
 final class ReaderFactory
@@ -25,12 +27,16 @@ final class ReaderFactory
     }
 
     /**
-     * @param mixed $filename
+     * @param string $filename
      *
      * @return FileReader
+     *
+     * @throws InvalidArgumentException
      */
     public function create($filename)
     {
+        Assertion::file($filename);
+
         $readerClass = $this->getReaderClass($filename);
 
         if (!isset($this->readers[$readerClass])) {

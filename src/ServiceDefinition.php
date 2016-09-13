@@ -2,6 +2,9 @@
 
 namespace TomPHP\ConfigServiceProvider;
 
+use Assert\Assertion;
+use InvalidArgumentException;
+
 final class ServiceDefinition
 {
     /**
@@ -33,9 +36,14 @@ final class ServiceDefinition
      * @param string $name
      * @param array  $config
      * @param bool   $singletonDefault
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct($name, array $config, $singletonDefault = false)
     {
+        Assertion::string($name);
+        Assertion::boolean($singletonDefault);
+
         $this->name      = $name;
         $this->class     = isset($config['class']) ? $config['class'] : $name;
         $this->singleton = isset($config['singleton']) ? $config['singleton'] : $singletonDefault;

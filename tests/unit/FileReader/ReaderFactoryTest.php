@@ -2,7 +2,9 @@
 
 namespace tests\unit\TomPHP\ConfigServiceProvider\FileReader;
 
+use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
+use tests\support\TestFileCreator;
 use TomPHP\ConfigServiceProvider\Exception\UnknownFileTypeException;
 use TomPHP\ConfigServiceProvider\FileReader\JSONFileReader;
 use TomPHP\ConfigServiceProvider\FileReader\PHPFileReader;
@@ -10,6 +12,8 @@ use TomPHP\ConfigServiceProvider\FileReader\ReaderFactory;
 
 final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
 {
+    use TestFileCreator;
+
     /**
      * @var ReaderFactory
      */
@@ -25,30 +29,46 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testCreatesAReader()
     {
-        $reader = $this->factory->create('test.php');
+        $this->createTestFile('test.php');
+
+        $reader = $this->factory->create($this->getTestPath('test.php'));
 
         $this->assertInstanceOf(PHPFileReader::class, $reader);
     }
 
     public function testCreatesAnotherReader()
     {
-        $reader = $this->factory->create('test.json');
+        $this->createTestFile('test.json');
+
+        $reader = $this->factory->create($this->getTestPath('test.json'));
 
         $this->assertInstanceOf(JSONFileReader::class, $reader);
     }
 
     public function testReturnsTheSameReaderForTheSameFileType()
     {
-        $reader1 = $this->factory->create('test1.php');
-        $reader2 = $this->factory->create('test2.php');
+        $this->createTestFile('test1.php');
+        $this->createTestFile('test2.php');
+
+        $reader1 = $this->factory->create($this->getTestPath('test1.php'));
+        $reader2 = $this->factory->create($this->getTestPath('test2.php'));
 
         $this->assertSame($reader1, $reader2);
     }
 
+    public function testItThrowsIfTheArgumentIsNotAFileName()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->factory->create('missing-file.xxx');
+    }
+
     public function testItThrowsIfThereIsNoRegisteredReaderForGivenFileType()
     {
+        $this->createTestFile('test.unknown');
+
         $this->expectException(UnknownFileTypeException::class);
 
-        $this->factory->create('test.unknown');
+        $this->factory->create($this->getTestPath('test.unknown'));
     }
 }

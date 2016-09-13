@@ -2,9 +2,10 @@
 
 namespace TomPHP\ConfigServiceProvider;
 
+use Assert\Assertion;
+use InvalidArgumentException;
 use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
 use TomPHP\ConfigServiceProvider\Exception\UnknownSettingException;
-use Assert\Assertion;
 
 final class Configurator
 {
@@ -92,6 +93,7 @@ final class Configurator
      * @return Configurator
      *
      * @throws NoMatchingFilesException
+     * @throws InvalidArgumentException
      */
     public function configFromFiles($pattern)
     {
@@ -121,6 +123,7 @@ final class Configurator
      * @return Configurator
      *
      * @throws UnknownSettingException
+     * @throws InvalidArgumentException
      */
     public function withSetting($name, $value)
     {
