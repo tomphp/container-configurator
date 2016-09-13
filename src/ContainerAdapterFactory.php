@@ -16,6 +16,13 @@ final class ContainerAdapterFactory
         $this->config = $config;
     }
 
+    /**
+     * @param object $container
+     *
+     * @return void
+     *
+     * @throws UnknownContainerException
+     */
     public function create($container)
     {
         $class = '';
