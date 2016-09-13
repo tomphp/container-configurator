@@ -84,7 +84,7 @@ return a PHP array.
 ### Application Configuration
 
 All values in the config array are made accessible via the DIC with the keys
-separated by a separator (default: `.`) and prefixed with set string (default:
+separated by a separator (default: `.`) and prefixed with constant string (default:
 `config`).
 
 ##### Example
@@ -111,8 +111,7 @@ var_dump($container->get('config.db.name'));
 #### Accessing A Whole Sub-Array
 
 Whole sub-arrays are also made available for cases where you want them instead
-of individual values. Altering the previous example, this is also possible
-instead:
+of individual values.
 
 ##### Example
 
@@ -151,21 +150,23 @@ the config in the following format:
 ```php
 $config = [
     'di' => [
-        'logger' => [
-            'class'     => Logger::class,
-            'singleton' => true,
-            'arguments' => [
-                StdoutLogger::class
+        'services' => [
+            'logger' => [
+                'class'     => Logger::class,
+                'singleton' => true,
+                'arguments' => [
+                    StdoutLogger::class,
+                ],
+                'methods'   => [
+                    'setLogLevel' => [ 'info' ],
+                ],
             ],
-            'methods'   => [
-                'setLogLevel' => [ 'info' ]
+
+            StdoutLogger::class => [
+                'class' => StdoutLogger::class,
             ],
         ],
-
-        StdoutLogger::class => [
-            'class' => StdoutLogger::class
-        ]
-    ]
+    ],
 ];
 
 $container = new Container();
