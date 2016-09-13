@@ -24,6 +24,11 @@ final class Configurator
     private $config;
 
     /**
+     * @var FileReader\ReaderFactory
+     */
+    private $readerFactory;
+
+    /**
      * @var array
      */
     private $settings = [
@@ -66,6 +71,22 @@ final class Configurator
     /**
      * @api
      *
+     * @param string $filename
+     *
+     * @return Configurator
+     */
+    public function configFromFile($filename)
+    {
+        Assertion::file($filename);
+
+        $this->readFileAndMergeConfig($filename);
+
+        return $this;
+    }
+
+    /**
+     * @api
+     *
      * @param string $pattern
      *
      * @return Configurator
@@ -84,11 +105,8 @@ final class Configurator
             throw NoMatchingFilesException::fromPattern($pattern);
         }
 
-        $factory = new FileReader\ReaderFactory(self::FILE_READERS);
-
         foreach ($files as $filename) {
-            $reader = $factory->create($filename);
-            $this->config->merge($reader->read($filename));
+            $this->readFileAndMergeConfig($filename);
         }
 
         return $this;
@@ -145,5 +163,31 @@ final class Configurator
         if (isset($this->config[$this->settings['inflectors_key']])) {
             $configurator->addInflectorConfig(new InflectorConfig($this->config[$this->settings['inflectors_key']]));
         }
+    }
+
+    /**
+     * @param string $filename
+     *
+     * @return void
+     */
+    private function readFileAndMergeConfig($filename)
+    {
+        $reader = $this->getReaderFor($filename);
+
+        $this->config->merge($reader->read($filename));
+    }
+
+    /**
+     * @param string $filename
+     *
+     * @return FileReader\FileReader
+     */
+    private function getReaderFor($filename)
+    {
+        if (!$this->readerFactory) {
+            $this->readerFactory = new FileReader\ReaderFactory(self::FILE_READERS);
+        }
+
+        return $this->readerFactory->create($filename);
     }
 }

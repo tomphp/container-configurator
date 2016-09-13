@@ -60,11 +60,16 @@ file pattern matches to the `fromFiles` function.
 
 ```php
 Configurator::apply()
-    ->configFromFiles('config_dir/*.global.php')
+    ->configFromFile('config_dir/config.global.php')
     ->configFromFiles('json_dir/*.json')
     ->configFromFiles('config_dir/*.local.php')
     ->to($container);
 ```
+
+`configFromFile(string $filename)` reads config in from a single file.
+
+`configFromFiles(string $pattern)` reads config from multiple files using
+globbing patterns.
 
 #### Merging
 
