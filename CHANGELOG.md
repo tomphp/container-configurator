@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## 0.5.0 - 2016-09-13
 ### Added
   * `TomPHP\ContainerConfigurator\Configurator` as the main API
   * If `class` is left out of the config for a service, then the service name
