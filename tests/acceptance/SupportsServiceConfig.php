@@ -39,7 +39,7 @@ trait SupportsServiceConfig
 
         Configurator::apply()
             ->configFromArray($config)
-            ->withSetting('services_key', 'di')
+            ->withSetting(Configurator::SETTING_SERVICES_KEY, 'di')
             ->to($this->container);
 
         $this->assertInstanceOf(ExampleClass::class, $this->container->get('example_class'));
@@ -105,7 +105,7 @@ trait SupportsServiceConfig
 
         Configurator::apply()
             ->configFromArray($config)
-            ->withSetting('singleton_services', true)
+            ->withSetting(Configurator::SETTING_DEFAULT_SINGLETON_SERVICES, true)
             ->to($this->container);
 
         $instance1 = $this->container->get('example_class');
@@ -129,7 +129,7 @@ trait SupportsServiceConfig
 
         Configurator::apply()
             ->configFromArray($config)
-            ->withSetting('singleton_services', true)
+            ->withSetting(Configurator::SETTING_DEFAULT_SINGLETON_SERVICES, true)
             ->to($this->container);
 
         $instance1 = $this->container->get('example_class');

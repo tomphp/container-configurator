@@ -203,17 +203,17 @@ The behaviour of the `Configurator` can be adjusted by using the
 ```php
 Configurator::apply()
     ->configFromFiles('*.cfg.php'),
-    ->withSetting('config_prefix', 'settings')
-    ->withSetting('config_separator', '/')
+    ->withSetting(Configurator::SETTING_PREFIX, 'settings')
+    ->withSetting(Configurator::SETTING_SEPARATOR, '/')
     ->to($container);
 ```
 
 Available settings are:
 
-| Name               | Description                                     | Default         |
-|--------------------|-------------------------------------------------|-----------------|
-| config_prefix      | Sets prefix name for config value keys.         | `config`        |
-| config_separator   | Sets the separator for config key.              | `.`             |
-| services_key       | Where the config for the services is.           | `di.services`   |
-| inflectors_key     | Where the config for the inflectors is.         | `di.inflectors` |
-| singleton_services | Sets whether services are singleton by default. | `false`         |
+| Name                              | Description                                     | Default         |
+|-----------------------------------|-------------------------------------------------|-----------------|
+| SETTING_PREFIX                     | Sets prefix name for config value keys.         | `config`        |
+| SETTING_SEPARATOR                  | Sets the separator for config key.              | `.`             |
+| SETTING_SERVICES_KEY               | Where the config for the services is.           | `di.services`   |
+| SETTING_INFLECTORS_KEY             | Where the config for the inflectors is.         | `di.inflectors` |
+| SETTING_DEFAULT_SINGLETON_SERVICES | Sets whether services are singleton by default. | `false`         |

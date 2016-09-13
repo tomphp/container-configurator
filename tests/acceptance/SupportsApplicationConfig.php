@@ -41,7 +41,7 @@ trait SupportsApplicationConfig
     {
         Configurator::apply()
             ->configFromArray(['keyA' => 'valueA'])
-            ->withSetting('config_separator', '/')
+            ->withSetting(Configurator::SETTING_SEPARATOR, '/')
             ->to($this->container);
 
         $this->assertEquals('valueA', $this->container->get('config/keyA'));
@@ -51,7 +51,7 @@ trait SupportsApplicationConfig
     {
         Configurator::apply()
             ->configFromArray(['keyA' => 'valueA'])
-            ->withSetting('config_prefix', 'settings')
+            ->withSetting(Configurator::SETTING_PREFIX, 'settings')
             ->to($this->container);
 
         $this->assertEquals('valueA', $this->container->get('settings.keyA'));
@@ -61,7 +61,7 @@ trait SupportsApplicationConfig
     {
         Configurator::apply()
             ->configFromArray(['keyA' => 'valueA'])
-            ->withSetting('config_prefix', '')
+            ->withSetting(Configurator::SETTING_PREFIX, '')
             ->to($this->container);
 
         $this->assertEquals('valueA', $this->container->get('keyA'));
