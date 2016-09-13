@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\unit\TomPHP\ConfigServiceProvider\FileReader;
+namespace tests\unit\TomPHP\ContainerConfigurator\FileReader;
 
-use PHPUnit_Framework_TestCase;
 use InvalidArgumentException;
+use PHPUnit_Framework_TestCase;
+use TomPHP\ContainerConfigurator\Exception\InvalidConfigException;
+use TomPHP\ContainerConfigurator\FileReader\FileReader;
+use TomPHP\ContainerConfigurator\FileReader\JSONFileReader;
 use tests\support\TestFileCreator;
-use TomPHP\ConfigServiceProvider\Exception\InvalidConfigException;
-use TomPHP\ConfigServiceProvider\FileReader\FileReader;
-use TomPHP\ConfigServiceProvider\FileReader\JSONFileReader;
 
 final class JSONFileReaderTest extends PHPUnit_Framework_TestCase
 {

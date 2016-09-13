@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\unit\TomPHP\ConfigServiceProvider;
+namespace tests\unit\TomPHP\ContainerConfigurator;
 
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 use tests\support\TestFileCreator;
-use TomPHP\ConfigServiceProvider\Configurator;
-use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
-use TomPHP\ConfigServiceProvider\Exception\UnknownSettingException;
+use TomPHP\ContainerConfigurator\Configurator;
+use TomPHP\ContainerConfigurator\Exception\NoMatchingFilesException;
+use TomPHP\ContainerConfigurator\Exception\UnknownSettingException;
 
 final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 {

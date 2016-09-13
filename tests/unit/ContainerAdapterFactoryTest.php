@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\unit\TomPHP\ConfigServiceProvider;
+namespace tests\unit\TomPHP\ContainerConfigurator;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\ContainerAdapterFactory;
-use TomPHP\ConfigServiceProvider\Exception\UnknownContainerException;
+use TomPHP\ContainerConfigurator\ContainerAdapterFactory;
+use TomPHP\ContainerConfigurator\Exception\UnknownContainerException;
 use tests\mocks\ExampleContainer;
 use tests\mocks\ExampleContainerAdapter;
 use tests\mocks\ExampleExtendedContainer;

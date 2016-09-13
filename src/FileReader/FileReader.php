@@ -1,9 +1,9 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider\FileReader;
+namespace TomPHP\ContainerConfigurator\FileReader;
 
 use InvalidArgumentException;
-use TomPHP\ConfigServiceProvider\Exception\InvalidConfigException;
+use TomPHP\ContainerConfigurator\Exception\InvalidConfigException;
 
 interface FileReader
 {

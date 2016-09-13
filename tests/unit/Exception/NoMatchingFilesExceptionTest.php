@@ -1,11 +1,11 @@
 <?php
 
-namespace tests\unit\TomPHP\ConfigServiceProvider\Exception;
+namespace tests\unit\TomPHP\ContainerConfigurator\Exception;
 
 use LogicException;
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\Exception\Exception;
-use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
+use TomPHP\ContainerConfigurator\Exception\Exception;
+use TomPHP\ContainerConfigurator\Exception\NoMatchingFilesException;
 
 final class NoMatchingFilesExceptionTest extends PHPUnit_Framework_TestCase
 {

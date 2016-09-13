@@ -1,6 +1,6 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider;
+namespace TomPHP\ContainerConfigurator;
 
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;

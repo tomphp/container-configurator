@@ -1,11 +1,11 @@
 <?php
 
-namespace tests\unit\TomPHP\ConfigServiceProvider\Exception;
+namespace tests\unit\TomPHP\ContainerConfigurator\Exception;
 
 use DomainException;
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\Exception\Exception;
-use TomPHP\ConfigServiceProvider\Exception\UnknownFileTypeException;
+use TomPHP\ContainerConfigurator\Exception\Exception;
+use TomPHP\ContainerConfigurator\Exception\UnknownFileTypeException;
 
 final class UnknownFileTypeExceptionTest extends PHPUnit_Framework_TestCase
 {

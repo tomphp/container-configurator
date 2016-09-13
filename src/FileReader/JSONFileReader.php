@@ -1,9 +1,9 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider\FileReader;
+namespace TomPHP\ContainerConfigurator\FileReader;
 
 use Assert\Assertion;
-use TomPHP\ConfigServiceProvider\Exception\InvalidConfigException;
+use TomPHP\ContainerConfigurator\Exception\InvalidConfigException;
 
 final class JSONFileReader implements FileReader
 {

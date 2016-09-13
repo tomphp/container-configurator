@@ -4,7 +4,7 @@ namespace tests\acceptance;
 
 use tests\mocks\ExampleClass;
 use tests\mocks\ExampleClassWithArgs;
-use TomPHP\ConfigServiceProvider\Configurator;
+use TomPHP\ContainerConfigurator\Configurator;
 
 trait SupportsServiceConfig
 {

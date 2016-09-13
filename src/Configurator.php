@@ -1,11 +1,11 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider;
+namespace TomPHP\ContainerConfigurator;
 
 use Assert\Assertion;
 use InvalidArgumentException;
-use TomPHP\ConfigServiceProvider\Exception\NoMatchingFilesException;
-use TomPHP\ConfigServiceProvider\Exception\UnknownSettingException;
+use TomPHP\ContainerConfigurator\Exception\NoMatchingFilesException;
+use TomPHP\ContainerConfigurator\Exception\UnknownSettingException;
 
 final class Configurator
 {

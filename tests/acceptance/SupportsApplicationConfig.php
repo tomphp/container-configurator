@@ -2,7 +2,7 @@
 
 namespace tests\acceptance;
 
-use TomPHP\ConfigServiceProvider\Configurator;
+use TomPHP\ContainerConfigurator\Configurator;
 
 trait SupportsApplicationConfig
 {

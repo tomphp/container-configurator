@@ -2,10 +2,10 @@
 
 namespace tests\mocks;
 
-use TomPHP\ConfigServiceProvider\ApplicationConfig;
-use TomPHP\ConfigServiceProvider\ContainerAdapter;
-use TomPHP\ConfigServiceProvider\InflectorConfig;
-use TomPHP\ConfigServiceProvider\ServiceConfig;
+use TomPHP\ContainerConfigurator\ApplicationConfig;
+use TomPHP\ContainerConfigurator\ContainerAdapter;
+use TomPHP\ContainerConfigurator\InflectorConfig;
+use TomPHP\ContainerConfigurator\ServiceConfig;
 
 final class ExampleContainerAdapter implements ContainerAdapter
 {

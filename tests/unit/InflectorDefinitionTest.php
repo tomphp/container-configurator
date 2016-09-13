@@ -1,9 +1,9 @@
 <?php
 
-namespace tests\unit\TomPHP\ConfigServiceProvider;
+namespace tests\unit\TomPHP\ContainerConfigurator;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\InflectorDefinition;
+use TomPHP\ContainerConfigurator\InflectorDefinition;
 
 final class InflectorDefinitionTest extends PHPUnit_Framework_TestCase
 {

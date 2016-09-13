@@ -1,11 +1,11 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider\League;
+namespace TomPHP\ContainerConfigurator\League;
 
 use Assert\Assertion;
 use InvalidArgumentException;
 use League\Container\ServiceProvider\AbstractServiceProvider;
-use TomPHP\ConfigServiceProvider\ApplicationConfig;
+use TomPHP\ContainerConfigurator\ApplicationConfig;
 
 final class ApplicationConfigServiceProvider extends AbstractServiceProvider
 {

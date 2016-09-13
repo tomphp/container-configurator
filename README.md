@@ -15,7 +15,7 @@ containers are:
 Installation can be done easily using composer:
 
 ```
-$ composer require tomphp/config-service-provider
+$ composer require tomphp/container-configurator
 ```
 
 ## Example Usage
@@ -24,7 +24,7 @@ $ composer require tomphp/config-service-provider
 <?php
 
 use League\Container\Container; // or Pimple\Container
-use TomPHP\ConfigServiceProvider\Configurator;
+use TomPHP\ContainerConfigurator\Configurator;
 
 $config = [
     'db' => [

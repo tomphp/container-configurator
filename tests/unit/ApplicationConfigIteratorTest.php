@@ -1,9 +1,9 @@
 <?php
 
-namespace tests\unit\TomPHP\ConfigServiceProvider;
+namespace tests\unit\TomPHP\ContainerConfigurator;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\ApplicationConfig;
+use TomPHP\ContainerConfigurator\ApplicationConfig;
 
 final class ApplicationConfigIteratorTest extends PHPUnit_Framework_TestCase
 {

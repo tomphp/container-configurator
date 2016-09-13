@@ -1,9 +1,9 @@
 <?php
 
-namespace tests\unit\TomPHP\ConfigServiceProvider;
+namespace tests\unit\TomPHP\ContainerConfigurator;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\ServiceDefinition;
+use TomPHP\ContainerConfigurator\ServiceDefinition;
 
 final class ServiceDefinitionTest extends PHPUnit_Framework_TestCase
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace tests\unit\TomPHP\ConfigServiceProvider\Exception;
+namespace tests\unit\TomPHP\ContainerConfigurator\Exception;
 
 use DomainException;
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\Exception\EntryDoesNotExistException;
-use TomPHP\ConfigServiceProvider\Exception\Exception;
+use TomPHP\ContainerConfigurator\Exception\EntryDoesNotExistException;
+use TomPHP\ContainerConfigurator\Exception\Exception;
 
 final class EntryDoesNotExistExceptionTest extends PHPUnit_Framework_TestCase
 {
