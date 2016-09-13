@@ -2,7 +2,28 @@
 
 ## v0.4.\* -> v0.5.\*
 
-There are two major changes which occurred in this update:
+There are three major changes which occurred in this update:
+
+### Package Renamed
+
+This package is now called **Container Configurator**. It's not installed with
+the command:
+
+```
+composer require tomphp/container-configurator
+```
+
+For existing projects, you can fix this by running:
+
+```
+composer remove tomphp/config-service-provider && composer require tomphp/container-configurator
+```
+
+To require it in your project you need to:
+
+```
+use TomPHP\ContainerConfigurator\Configurator;
+```
 
 ### New API
 

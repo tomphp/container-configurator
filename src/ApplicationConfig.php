@@ -1,11 +1,11 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider;
+namespace TomPHP\ContainerConfigurator;
 
 use ArrayAccess;
 use IteratorAggregate;
-use TomPHP\ConfigServiceProvider\Exception\EntryDoesNotExistException;
-use TomPHP\ConfigServiceProvider\Exception\ReadOnlyException;
+use TomPHP\ContainerConfigurator\Exception\EntryDoesNotExistException;
+use TomPHP\ContainerConfigurator\Exception\ReadOnlyException;
 
 final class ApplicationConfig implements ArrayAccess, IteratorAggregate
 {

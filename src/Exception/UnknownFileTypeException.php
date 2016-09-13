@@ -1,6 +1,6 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider\Exception;
+namespace TomPHP\ContainerConfigurator\Exception;
 
 use DomainException;
 use TomPHP\ExceptionConstructorTools;

@@ -1,6 +1,6 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider;
+namespace TomPHP\ContainerConfigurator;
 
 use Assert\Assertion;
 use InvalidArgumentException;

@@ -1,15 +1,15 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider\Pimple;
+namespace TomPHP\ContainerConfigurator\Pimple;
 
 use Assert\Assertion;
 use Pimple\Container;
-use TomPHP\ConfigServiceProvider\ApplicationConfig;
-use TomPHP\ConfigServiceProvider\ContainerAdapter;
-use TomPHP\ConfigServiceProvider\Exception\UnsupportedFeatureException;
-use TomPHP\ConfigServiceProvider\InflectorConfig;
-use TomPHP\ConfigServiceProvider\ServiceConfig;
-use TomPHP\ConfigServiceProvider\ServiceDefinition;
+use TomPHP\ContainerConfigurator\ApplicationConfig;
+use TomPHP\ContainerConfigurator\ContainerAdapter;
+use TomPHP\ContainerConfigurator\Exception\UnsupportedFeatureException;
+use TomPHP\ContainerConfigurator\InflectorConfig;
+use TomPHP\ContainerConfigurator\ServiceConfig;
+use TomPHP\ContainerConfigurator\ServiceDefinition;
 
 final class PimpleContainerAdapter implements ContainerAdapter
 {

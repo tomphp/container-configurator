@@ -1,11 +1,11 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider\League;
+namespace TomPHP\ContainerConfigurator\League;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
-use TomPHP\ConfigServiceProvider\InflectorConfig;
-use TomPHP\ConfigServiceProvider\InflectorDefinition;
+use TomPHP\ContainerConfigurator\InflectorConfig;
+use TomPHP\ContainerConfigurator\InflectorDefinition;
 
 final class InflectorServiceProvider extends AbstractServiceProvider implements BootableServiceProviderInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider\FileReader;
+namespace TomPHP\ContainerConfigurator\FileReader;
 
 use Assert\Assertion;
 use InvalidArgumentException;

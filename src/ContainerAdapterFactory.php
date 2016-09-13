@@ -1,8 +1,8 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider;
+namespace TomPHP\ContainerConfigurator;
 
-use TomPHP\ConfigServiceProvider\Exception\UnknownContainerException;
+use TomPHP\ContainerConfigurator\Exception\UnknownContainerException;
 
 final class ContainerAdapterFactory
 {

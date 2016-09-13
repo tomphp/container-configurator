@@ -1,10 +1,10 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider\FileReader;
+namespace TomPHP\ContainerConfigurator\FileReader;
 
 use Assert\Assertion;
 use InvalidArgumentException;
-use TomPHP\ConfigServiceProvider\Exception\UnknownFileTypeException;
+use TomPHP\ContainerConfigurator\Exception\UnknownFileTypeException;
 
 final class ReaderFactory
 {

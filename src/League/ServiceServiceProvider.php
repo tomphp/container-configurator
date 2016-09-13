@@ -1,12 +1,12 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider\League;
+namespace TomPHP\ContainerConfigurator\League;
 
 use League\Container\Definition\ClassDefinition;
 use League\Container\ServiceProvider\AbstractServiceProvider;
-use TomPHP\ConfigServiceProvider\Exception\NotClassDefinitionException;
-use TomPHP\ConfigServiceProvider\ServiceConfig;
-use TomPHP\ConfigServiceProvider\ServiceDefinition;
+use TomPHP\ContainerConfigurator\Exception\NotClassDefinitionException;
+use TomPHP\ContainerConfigurator\ServiceConfig;
+use TomPHP\ContainerConfigurator\ServiceDefinition;
 
 final class ServiceServiceProvider extends AbstractServiceProvider
 {

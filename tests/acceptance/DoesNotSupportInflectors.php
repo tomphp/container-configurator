@@ -2,8 +2,8 @@
 
 namespace tests\acceptance;
 
-use TomPHP\ConfigServiceProvider\Configurator;
-use TomPHP\ConfigServiceProvider\Exception\UnsupportedFeatureException;
+use TomPHP\ContainerConfigurator\Configurator;
+use TomPHP\ContainerConfigurator\Exception\UnsupportedFeatureException;
 
 trait DoesNotSupportInflectors
 {

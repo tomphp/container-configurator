@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\unit\TomPHP\ConfigServiceProvider\FileReader;
+namespace tests\unit\TomPHP\ContainerConfigurator\FileReader;
 
 use PHPUnit_Framework_TestCase;
 use tests\support\TestFileCreator;
-use TomPHP\ConfigServiceProvider\FileReader\FileLocator;
+use TomPHP\ContainerConfigurator\FileReader\FileLocator;
 
 final class FileLocatorTest extends PHPUnit_Framework_TestCase
 {

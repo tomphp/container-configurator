@@ -4,17 +4,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-  * `TomPHP\ConfigServiceProvider\ConfigureContainer` as the main API
+  * `TomPHP\ContainerConfigurator\Configurator` as the main API
   * If `class` is left out of the config for a service, then the service name
     is assumed to be the name of the class.
   * Services can be set as singleton by default.
-  * All exceptions implement `TomPHP\ConfigServiceProvider\Exception\Exception`.
+  * All exceptions implement `TomPHP\ContainerConfigurator\Exception\Exception`.
   * Support for Pimple.
 
 ### Changed
+  * The composer package has been renamed to `container-configurator`.
+  * The package namespace has changed to `TomPHP\ContainerConfigurator`.
   * Minimum supported PHP version is now `5.6`.
   * Exception base-classes have been updated.
-  * File reader classes have moved to `TomPHP\ConfigServiceProvider\FileReader`.
+  * File reader classes have moved to `TomPHP\ContainerConfigurator\FileReader`.
 
 ### Removed
   * `TomPHP\ConfigServiceProvider\ConfigServiceProvider`

@@ -1,6 +1,6 @@
 <?php
 
-namespace TomPHP\ConfigServiceProvider;
+namespace TomPHP\ContainerConfigurator;
 
 use ArrayIterator;
 use Assert\Assertion;

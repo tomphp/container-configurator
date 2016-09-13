@@ -1,12 +1,12 @@
 <?php
 
-namespace tests\unit\TomPHP\ConfigServiceProvider;
+namespace tests\unit\TomPHP\ContainerConfigurator;
 
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
-use TomPHP\ConfigServiceProvider\ApplicationConfig;
+use TomPHP\ContainerConfigurator\ApplicationConfig;
 use tests\support\TestFileCreator;
-use TomPHP\ConfigServiceProvider\Exception\ReadOnlyException;
+use TomPHP\ContainerConfigurator\Exception\ReadOnlyException;
 
 final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
 {

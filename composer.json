@@ -1,6 +1,6 @@
 {
-    "name": "tomphp/config-service-provider",
-    "description": "This package enables you to configure The League Container or Pimple via config arrays and files.",
+    "name": "tomphp/container-configurator",
+    "description": "Configure your application and the Dependency Injection Container (DIC) via config arrays or config files.",
     "license": "MIT",
     "type": "library",
     "homepage": "https://github.com/tomphp/config-service-provider",
@@ -31,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "TomPHP\\ConfigServiceProvider\\": "src/"
+            "TomPHP\\ContainerConfigurator\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "tests\\unit\\TomPHP\\ConfigServiceProvider\\": "tests/unit/",
+            "tests\\unit\\TomPHP\\ContainerConfigurator\\": "tests/unit/",
             "tests\\acceptance\\": "tests/acceptance/",
             "tests\\support\\": "tests/support/",
             "tests\\mocks\\": "tests/mocks/"
