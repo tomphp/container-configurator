@@ -34,4 +34,12 @@ final class InvalidConfigExceptionTest extends PHPUnit_Framework_TestCase
             InvalidConfigException::fromJSONFileError('example.json', 'JSON Error Message')->getMessage()
         );
     }
+
+    public function testItCanBeCreatedFromYAMLFileError()
+    {
+        $this->assertSame(
+            'Invalid YAML in "example.yml": YAML Error Message',
+            InvalidConfigException::fromYAMLFileError('example.yml', 'YAML Error Message')->getMessage()
+        );
+    }
 }

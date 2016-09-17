@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5.* - TBD
+### Added
+  * `TomPHP\ContainerConfigurator\FileReader\YAMLFileReader` for reading
+     YAML files (requires `symfony/yaml` to be installed)
+
 ## 0.5.0 - 2016-09-13
 ### Added
   * `TomPHP\ContainerConfigurator\Configurator` as the main API

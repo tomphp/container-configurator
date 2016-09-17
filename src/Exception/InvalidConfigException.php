@@ -29,4 +29,15 @@ final class InvalidConfigException extends LogicException implements Exception
     {
         return self::create('Invalid JSON in "%s": %s', [$filename, $message]);
     }
+
+    /**
+     * @param string $filename
+     * @param string $message
+     *
+     * @return self
+     */
+    public static function fromYAMLFileError($filename, $message)
+    {
+        return self::create('Invalid YAML in "%s": %s', [$filename, $message]);
+    }
 }
