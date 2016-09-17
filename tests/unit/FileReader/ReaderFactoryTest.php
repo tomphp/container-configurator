@@ -19,7 +19,7 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
      */
     private $factory;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->factory = new ReaderFactory([
             '.php'  => PHPFileReader::class,
