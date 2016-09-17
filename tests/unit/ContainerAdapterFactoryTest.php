@@ -3,11 +3,11 @@
 namespace tests\unit\TomPHP\ContainerConfigurator;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\ContainerConfigurator\ContainerAdapterFactory;
-use TomPHP\ContainerConfigurator\Exception\UnknownContainerException;
 use tests\mocks\ExampleContainer;
 use tests\mocks\ExampleContainerAdapter;
 use tests\mocks\ExampleExtendedContainer;
+use TomPHP\ContainerConfigurator\ContainerAdapterFactory;
+use TomPHP\ContainerConfigurator\Exception\UnknownContainerException;
 
 final class ContainerAdapterFactoryTest extends PHPUnit_Framework_TestCase
 {

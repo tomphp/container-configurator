@@ -7,6 +7,7 @@ return Symfony\CS\Config\Config::create()
     ->fixers([
         'multiline_array_trailing_comma',
         'new_with_braces',
+        'ordered_use',
         'phpdoc_params',
         'phpdoc_scalar',
         'phpdoc_trim',

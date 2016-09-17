@@ -4,10 +4,10 @@ namespace tests\unit\TomPHP\ContainerConfigurator\FileReader;
 
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
+use tests\support\TestFileCreator;
 use TomPHP\ContainerConfigurator\Exception\InvalidConfigException;
 use TomPHP\ContainerConfigurator\FileReader\FileReader;
 use TomPHP\ContainerConfigurator\FileReader\PHPFileReader;
-use tests\support\TestFileCreator;
 
 final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
 {

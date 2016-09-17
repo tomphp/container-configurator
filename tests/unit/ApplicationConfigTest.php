@@ -4,8 +4,8 @@ namespace tests\unit\TomPHP\ContainerConfigurator;
 
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
-use TomPHP\ContainerConfigurator\ApplicationConfig;
 use tests\support\TestFileCreator;
+use TomPHP\ContainerConfigurator\ApplicationConfig;
 use TomPHP\ContainerConfigurator\Exception\ReadOnlyException;
 
 final class ApplicationConfigTest extends PHPUnit_Framework_TestCase

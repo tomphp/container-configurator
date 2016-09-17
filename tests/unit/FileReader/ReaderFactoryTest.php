@@ -4,11 +4,11 @@ namespace tests\unit\TomPHP\ContainerConfigurator\FileReader;
 
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
+use tests\support\TestFileCreator;
 use TomPHP\ContainerConfigurator\Exception\UnknownFileTypeException;
 use TomPHP\ContainerConfigurator\FileReader\JSONFileReader;
 use TomPHP\ContainerConfigurator\FileReader\PHPFileReader;
 use TomPHP\ContainerConfigurator\FileReader\ReaderFactory;
-use tests\support\TestFileCreator;
 
 final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
 {
