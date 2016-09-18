@@ -42,4 +42,12 @@ final class InvalidConfigExceptionTest extends PHPUnit_Framework_TestCase
             InvalidConfigException::fromYAMLFileError('example.yml', 'YAML Error Message')->getMessage()
         );
     }
+
+    public function testItCanBeCreatedFromNameWhenClassAndFactoryAreSpecified()
+    {
+        assertSame(
+            'Both "class" and "factory" are specified for service "example"; these cannot be used together.',
+            InvalidConfigException::fromNameWhenClassAndFactorySpecified('example')->getMessage()
+        );
+    }
 }

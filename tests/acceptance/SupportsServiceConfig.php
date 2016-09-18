@@ -4,6 +4,7 @@ namespace tests\acceptance;
 
 use tests\mocks\ExampleClass;
 use tests\mocks\ExampleClassWithArgs;
+use tests\mocks\ExampleFactory;
 use TomPHP\ContainerConfigurator\Configurator;
 
 trait SupportsServiceConfig
@@ -286,5 +287,32 @@ trait SupportsServiceConfig
         $instance = $this->container->get('example_class');
 
         assertSame(ExampleClass::class, $instance->getValue());
+    }
+
+    public function testIsCreatesAServiceThroughAFactoryClass()
+    {
+        $config = [
+            'class_name' => ExampleClassWithArgs::class,
+            'di' => [
+                'services' => [
+                    'example_service' => [
+                        'factory'   => ExampleFactory::class,
+                        'arguments' => [
+                            'config.class_name',
+                            'example_argument',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        Configurator::apply()
+            ->configFromArray($config)
+            ->to($this->container);
+
+        $instance = $this->container->get('example_service');
+
+        assertInstanceOf(ExampleClassWithArgs::class, $instance);
+        assertSame(['example_argument'], $instance->getConstructorArgs());
     }
 }

@@ -3,6 +3,7 @@
 namespace tests\unit\TomPHP\ContainerConfigurator;
 
 use PHPUnit_Framework_TestCase;
+use TomPHP\ContainerConfigurator\Exception\InvalidConfigException;
 use TomPHP\ContainerConfigurator\ServiceDefinition;
 
 final class ServiceDefinitionTest extends PHPUnit_Framework_TestCase
@@ -20,6 +21,7 @@ final class ServiceDefinitionTest extends PHPUnit_Framework_TestCase
 
         assertEquals('service_name', $definition->getName());
         assertEquals(__CLASS__, $definition->getClass());
+        assertFalse($definition->isFactory());
         assertFalse($definition->isSingleton());
         assertEquals(['argument1', 'argument2'], $definition->getArguments());
         assertEquals(['setSomething' => ['value']], $definition->getMethods());
@@ -58,5 +60,20 @@ final class ServiceDefinitionTest extends PHPUnit_Framework_TestCase
         $definition = new ServiceDefinition('service_name', []);
 
         assertEquals([], $definition->getMethods());
+    }
+
+    public function testServiceFactoryDefinition()
+    {
+        $definition = new ServiceDefinition('service_name', ['factory' => __CLASS__]);
+
+        assertTrue($definition->isFactory());
+        assertSame(__CLASS__, $definition->getClass());
+    }
+
+    public function testItThrowIfClassAndFactoryAreDefined()
+    {
+        $this->expectException(InvalidConfigException::class);
+
+        new ServiceDefinition('service_name', ['class' => __CLASS__, 'factory' => __CLASS__]);
     }
 }

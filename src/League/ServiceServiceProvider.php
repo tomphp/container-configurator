@@ -42,6 +42,16 @@ final class ServiceServiceProvider extends AbstractServiceProvider
      */
     private function registerService(ServiceDefinition $definition)
     {
+        if ($definition->isFactory()) {
+            $this->getContainer()->add(
+                $definition->getName(),
+                $this->createFactoryFactory($definition),
+                $definition->isSingleton()
+            );
+
+            return;
+        }
+
         $service = $this->getContainer()->add(
             $definition->getName(),
             $definition->getClass(),
@@ -65,5 +75,39 @@ final class ServiceServiceProvider extends AbstractServiceProvider
         foreach ($definition->getMethods() as $method => $args) {
             $service->withMethodCall($method, $args);
         }
+    }
+
+    /**
+     * @param ServiceDefinition $definition
+     *
+     * @return \Closure
+     */
+    private function createFactoryFactory(ServiceDefinition $definition)
+    {
+        return function () use ($definition) {
+            $className = $definition->getClass();
+            $factory = new $className();
+
+            return $factory(...$this->resolveArguments($definition->getArguments()));
+        };
+    }
+
+    /**
+     * @param array $arguments
+     *
+     * @return array
+     */
+    private function resolveArguments(array $arguments)
+    {
+        return array_map(
+            function ($argument) {
+                if ($this->container->has($argument)) {
+                    return $this->container->get($argument);
+                }
+
+                return $argument;
+            },
+            $arguments
+        );
     }
 }
