@@ -32,7 +32,6 @@ $config = [
         'username' => 'dbuser',
         'password' => 'dbpass',
     ],
-
     'di' => [
         'services' => [
             'database_connection' => [
@@ -170,7 +169,6 @@ $config = [
                     'setLogLevel' => [ 'info' ],
                 ],
             ],
-
             StdoutLogger::class => [
                 'class' => StdoutLogger::class,
             ],
