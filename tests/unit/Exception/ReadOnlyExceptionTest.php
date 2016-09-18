@@ -11,17 +11,17 @@ final class ReadOnlyExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItImplementsTheBaseExceptionType()
     {
-        $this->assertInstanceOf(Exception::class, new ReadOnlyException());
+        assertInstanceOf(Exception::class, new ReadOnlyException());
     }
 
     public function testItIsALogicException()
     {
-        $this->assertInstanceOf(LogicException::class, new ReadOnlyException());
+        assertInstanceOf(LogicException::class, new ReadOnlyException());
     }
 
     public function testItCanBeCreatedFromThePatterns()
     {
-        $this->assertSame(
+        assertSame(
             '"ClassName" is read only.',
             ReadOnlyException::fromClassName('ClassName')->getMessage()
         );

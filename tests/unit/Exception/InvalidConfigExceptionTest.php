@@ -11,17 +11,17 @@ final class InvalidConfigExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItImplementsTheBaseExceptionType()
     {
-        $this->assertInstanceOf(Exception::class, new InvalidConfigException());
+        assertInstanceOf(Exception::class, new InvalidConfigException());
     }
 
     public function testItIsALogicException()
     {
-        $this->assertInstanceOf(LogicException::class, new InvalidConfigException());
+        assertInstanceOf(LogicException::class, new InvalidConfigException());
     }
 
     public function testItCanBeCreatedFromTheFileName()
     {
-        $this->assertSame(
+        assertSame(
             '"example.cfg" does not return a PHP array.',
             InvalidConfigException::fromPHPFileError('example.cfg')->getMessage()
         );
@@ -29,7 +29,7 @@ final class InvalidConfigExceptionTest extends PHPUnit_Framework_TestCase
 
     public function testItCanBeCreatedWithAJSONFileError()
     {
-        $this->assertSame(
+        assertSame(
             'Invalid JSON in "example.json": JSON Error Message',
             InvalidConfigException::fromJSONFileError('example.json', 'JSON Error Message')->getMessage()
         );
@@ -37,7 +37,7 @@ final class InvalidConfigExceptionTest extends PHPUnit_Framework_TestCase
 
     public function testItCanBeCreatedFromYAMLFileError()
     {
-        $this->assertSame(
+        assertSame(
             'Invalid YAML in "example.yml": YAML Error Message',
             InvalidConfigException::fromYAMLFileError('example.yml', 'YAML Error Message')->getMessage()
         );

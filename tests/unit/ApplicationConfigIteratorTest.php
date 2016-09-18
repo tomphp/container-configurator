@@ -14,7 +14,7 @@ final class ApplicationConfigIteratorTest extends PHPUnit_Framework_TestCase
             'keyB'   => 'valueB',
         ]);
 
-        $this->assertEquals(
+        assertEquals(
             [
                 'keyA'   => 'valueA',
                 'keyB'   => 'valueB',
@@ -34,7 +34,7 @@ final class ApplicationConfigIteratorTest extends PHPUnit_Framework_TestCase
             ],
         ]);
 
-        $this->assertEquals(
+        assertEquals(
             [
                 'group1' => [
                     'keyA' => 'valueA',
@@ -60,7 +60,7 @@ final class ApplicationConfigIteratorTest extends PHPUnit_Framework_TestCase
             ],
         ]);
 
-        $this->assertEquals(
+        assertEquals(
             [
                 'group1' => [
                     'keyA' => 'valueA',
@@ -92,7 +92,7 @@ final class ApplicationConfigIteratorTest extends PHPUnit_Framework_TestCase
         next($iterator);
         next($iterator);
 
-        $this->assertEquals(
+        assertEquals(
             [
                 'group1' => [
                     'keyA'   => 'valueA',
@@ -115,7 +115,7 @@ final class ApplicationConfigIteratorTest extends PHPUnit_Framework_TestCase
             ],
         ], '->');
 
-        $this->assertEquals(
+        assertEquals(
             [
                 'group1' => [
                     'keyA' => 'valueA',

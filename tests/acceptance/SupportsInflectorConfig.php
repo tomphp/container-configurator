@@ -29,7 +29,7 @@ trait SupportsInflectorConfig
             ->configFromArray($config)
             ->to($this->container);
 
-        $this->assertEquals(
+        assertEquals(
             'test_value',
             $this->container->get('example')->getValue()
         );
@@ -57,7 +57,7 @@ trait SupportsInflectorConfig
             ->withSetting(Configurator::SETTING_INFLECTORS_KEY, 'inflectors')
             ->to($this->container);
 
-        $this->assertEquals(
+        assertEquals(
             'test_value',
             $this->container->get('example')->getValue()
         );

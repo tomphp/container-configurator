@@ -24,7 +24,7 @@ trait SupportsServiceConfig
             ->configFromArray($config)
             ->to($this->container);
 
-        $this->assertInstanceOf(ExampleClass::class, $this->container->get('example_class'));
+        assertInstanceOf(ExampleClass::class, $this->container->get('example_class'));
     }
 
     public function testItAddsServicesToTheContainerForADifferentConfigKey()
@@ -42,7 +42,7 @@ trait SupportsServiceConfig
             ->withSetting(Configurator::SETTING_SERVICES_KEY, 'di')
             ->to($this->container);
 
-        $this->assertInstanceOf(ExampleClass::class, $this->container->get('example_class'));
+        assertInstanceOf(ExampleClass::class, $this->container->get('example_class'));
     }
 
     public function testItCreatesUniqueServiceInstancesByDefault()
@@ -65,7 +65,7 @@ trait SupportsServiceConfig
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
 
-        $this->assertNotSame($instance1, $instance2);
+        assertNotSame($instance1, $instance2);
     }
 
     public function testItCanCreateSingletonServiceInstances()
@@ -88,7 +88,7 @@ trait SupportsServiceConfig
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
 
-        $this->assertSame($instance1, $instance2);
+        assertSame($instance1, $instance2);
     }
 
     public function testItCanCreateSingletonServiceInstancesByDefault()
@@ -111,7 +111,7 @@ trait SupportsServiceConfig
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
 
-        $this->assertSame($instance1, $instance2);
+        assertSame($instance1, $instance2);
     }
 
     public function testItCanCreateUniqueServiceInstancesWhenSingletonIsDefault()
@@ -135,7 +135,7 @@ trait SupportsServiceConfig
         $instance1 = $this->container->get('example_class');
         $instance2 = $this->container->get('example_class');
 
-        $this->assertNotSame($instance1, $instance2);
+        assertNotSame($instance1, $instance2);
     }
 
     public function testItAddsConstructorArguments()
@@ -160,7 +160,7 @@ trait SupportsServiceConfig
 
         $instance = $this->container->get('example_class');
 
-        $this->assertEquals(['arg1', 'arg2'], $instance->getConstructorArgs());
+        assertEquals(['arg1', 'arg2'], $instance->getConstructorArgs());
     }
 
     public function testItResolvesConstructorArgumentsIfTheyAreServiceNames()
@@ -187,7 +187,7 @@ trait SupportsServiceConfig
 
         $instance = $this->container->get('example_class');
 
-        $this->assertEquals(['value1', 'value2'], $instance->getConstructorArgs());
+        assertEquals(['value1', 'value2'], $instance->getConstructorArgs());
     }
 
     public function testItUsesTheStringIfConstructorArgumentsAreClassNames()
@@ -212,7 +212,7 @@ trait SupportsServiceConfig
 
         $instance = $this->container->get('example_class');
 
-        $this->assertEquals([ExampleClass::class, 'arg2'], $instance->getConstructorArgs());
+        assertEquals([ExampleClass::class, 'arg2'], $instance->getConstructorArgs());
     }
 
     public function testItCallsSetterMethods()
@@ -236,7 +236,7 @@ trait SupportsServiceConfig
 
         $instance = $this->container->get('example_class');
 
-        $this->assertEquals('the value', $instance->getValue());
+        assertEquals('the value', $instance->getValue());
     }
 
     public function testItResolvesSetterMethodArgumentsIfTheyAreServiceNames()
@@ -261,7 +261,7 @@ trait SupportsServiceConfig
 
         $instance = $this->container->get('example_class');
 
-        $this->assertEquals('value', $instance->getValue());
+        assertEquals('value', $instance->getValue());
     }
 
     public function testItUsesTheStringIffSetterMethodArgumentsAreClassNames()
@@ -285,6 +285,6 @@ trait SupportsServiceConfig
 
         $instance = $this->container->get('example_class');
 
-        $this->assertSame(ExampleClass::class, $instance->getValue());
+        assertSame(ExampleClass::class, $instance->getValue());
     }
 }

@@ -30,37 +30,37 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
 
     public function testItProvidesAccessToSimpleScalarValues()
     {
-        $this->assertEquals('valueA', $this->config['keyA']);
+        assertEquals('valueA', $this->config['keyA']);
     }
 
     public function testItProvidesAccessToArrayValues()
     {
-        $this->assertEquals(['keyB' => 'valueB', 'null' => null], $this->config['group1']);
+        assertEquals(['keyB' => 'valueB', 'null' => null], $this->config['group1']);
     }
 
     public function testItProvidesToSubValuesUsingDotNotation()
     {
-        $this->assertEquals('valueB', $this->config['group1.keyB']);
+        assertEquals('valueB', $this->config['group1.keyB']);
     }
 
     public function testItSaysIfAnEntryIsSet()
     {
-        $this->assertTrue(isset($this->config['group1.keyB']));
+        assertTrue(isset($this->config['group1.keyB']));
     }
 
     public function testItSaysIfAnEntryIsNotSet()
     {
-        $this->assertFalse(isset($this->config['bad.entry']));
+        assertFalse(isset($this->config['bad.entry']));
     }
 
     public function testItSaysIfAnEntryIsSetIfItIsFalsey()
     {
-        $this->assertTrue(isset($this->config['group1.null']));
+        assertTrue(isset($this->config['group1.null']));
     }
 
     public function testItReturnsAllItsKeys()
     {
-        $this->assertEquals(
+        assertEquals(
             [
                 'keyA',
                 'group1',
@@ -73,7 +73,7 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
 
     public function testItCanBeConvertedToAnArray()
     {
-        $this->assertEquals(
+        assertEquals(
             [
                 'keyA'   => 'valueA',
                 'group1' => [
@@ -92,7 +92,7 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
                 'keyA' => 'valueA',
             ],
         ], '->');
-        $this->assertEquals('valueA', $this->config['group1->keyA']);
+        assertEquals('valueA', $this->config['group1->keyA']);
     }
 
     public function testItThrowsForAnEmptySeparatorOnConstruction()
@@ -127,8 +127,8 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
 
         $config->merge(['group' => ['keyB' => 'valueB']]);
 
-        $this->assertSame('valueA', $config['group.keyA']);
-        $this->assertSame('valueB', $config['group.keyB']);
+        assertSame('valueA', $config['group.keyA']);
+        assertSame('valueB', $config['group.keyB']);
     }
 
     public function testItUpdatesTheSeparator()
@@ -141,7 +141,7 @@ final class ApplicationConfigTest extends PHPUnit_Framework_TestCase
 
         $config->setSeparator('/');
 
-        $this->assertSame('valueA', $config['group/keyA']);
+        assertSame('valueA', $config['group/keyA']);
     }
 
     public function testItThrowsForAnEmptySeparatorWhenSettingSeparator()

@@ -11,19 +11,19 @@ final class UnknownSettingExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItImplementsTheBaseExceptionType()
     {
-        $this->assertInstanceOf(Exception::class, new UnknownSettingException());
+        assertInstanceOf(Exception::class, new UnknownSettingException());
     }
 
     public function testItIsADomainException()
     {
-        $this->assertInstanceOf(DomainException::class, new UnknownSettingException());
+        assertInstanceOf(DomainException::class, new UnknownSettingException());
     }
 
     public function testItCanBeCreatedFromSetting()
     {
         $exception = UnknownSettingException::fromSetting('unknown', ['setting_a', 'setting_b']);
 
-        $this->assertSame(
+        assertSame(
             'Setting "unknown" is unknown; valid settings are ["setting_a", "setting_b"].',
             $exception->getMessage()
         );

@@ -11,17 +11,17 @@ final class NotClassDefinitionExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItImplementsTheBaseExceptionType()
     {
-        $this->assertInstanceOf(Exception::class, new NotClassDefinitionException());
+        assertInstanceOf(Exception::class, new NotClassDefinitionException());
     }
 
     public function testItIsALogicException()
     {
-        $this->assertInstanceOf(LogicException::class, new NotClassDefinitionException());
+        assertInstanceOf(LogicException::class, new NotClassDefinitionException());
     }
 
     public function testItCanBeCreatedFromThePatterns()
     {
-        $this->assertSame(
+        assertSame(
             'Service configuration for "example-service" did not create a class definition.',
             NotClassDefinitionException::fromServiceName('example-service')->getMessage()
         );

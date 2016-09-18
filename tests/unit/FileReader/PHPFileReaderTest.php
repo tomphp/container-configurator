@@ -25,7 +25,7 @@ final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
 
     public function testItIsAFileReader()
     {
-        $this->assertInstanceOf(FileReader::class, $this->reader);
+        assertInstanceOf(FileReader::class, $this->reader);
     }
 
     public function testItThrowsIfFileDoesNotExist()
@@ -42,7 +42,7 @@ final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
 
         $this->createTestFile('config.php', $code);
 
-        $this->assertEquals($config, $this->reader->read($this->getTestPath('config.php')));
+        assertEquals($config, $this->reader->read($this->getTestPath('config.php')));
     }
 
     public function testItThrowsIfTheConfigIsInvalid()

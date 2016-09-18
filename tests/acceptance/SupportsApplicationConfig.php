@@ -14,7 +14,7 @@ trait SupportsApplicationConfig
             ->configFromArray($config)
             ->to($this->container);
 
-        $this->assertEquals('valueA', $this->container->get('config.keyA'));
+        assertEquals('valueA', $this->container->get('config.keyA'));
     }
 
     public function testItCascadeAddsConfigToTheContainer()
@@ -24,7 +24,7 @@ trait SupportsApplicationConfig
             ->configFromArray(['keyB' => 'valueB'])
             ->to($this->container);
 
-        $this->assertEquals('valueA', $this->container->get('config.keyA'));
+        assertEquals('valueA', $this->container->get('config.keyA'));
     }
 
     public function testItAddsGroupedConfigToTheContainer()
@@ -33,8 +33,8 @@ trait SupportsApplicationConfig
             ->configFromArray(['group1' => ['keyA' => 'valueA']])
             ->to($this->container);
 
-        $this->assertEquals(['keyA' => 'valueA'], $this->container->get('config.group1'));
-        $this->assertEquals('valueA', $this->container->get('config.group1.keyA'));
+        assertEquals(['keyA' => 'valueA'], $this->container->get('config.group1'));
+        assertEquals('valueA', $this->container->get('config.group1.keyA'));
     }
 
     public function testItAddsConfigToTheContainerWithAnAlternativeSeparator()
@@ -44,7 +44,7 @@ trait SupportsApplicationConfig
             ->withSetting(Configurator::SETTING_SEPARATOR, '/')
             ->to($this->container);
 
-        $this->assertEquals('valueA', $this->container->get('config/keyA'));
+        assertEquals('valueA', $this->container->get('config/keyA'));
     }
 
     public function testItAddsConfigToTheContainerWithAnAlternativePrefix()
@@ -54,7 +54,7 @@ trait SupportsApplicationConfig
             ->withSetting(Configurator::SETTING_PREFIX, 'settings')
             ->to($this->container);
 
-        $this->assertEquals('valueA', $this->container->get('settings.keyA'));
+        assertEquals('valueA', $this->container->get('settings.keyA'));
     }
 
     public function testItAddsConfigToTheContainerWithNoPrefix()
@@ -64,6 +64,6 @@ trait SupportsApplicationConfig
             ->withSetting(Configurator::SETTING_PREFIX, '')
             ->to($this->container);
 
-        $this->assertEquals('valueA', $this->container->get('keyA'));
+        assertEquals('valueA', $this->container->get('keyA'));
     }
 }

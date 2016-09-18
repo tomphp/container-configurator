@@ -22,7 +22,7 @@ abstract class AbstractContainerAdapterTest extends PHPUnit_Framework_TestCase
             ->configFromFile($this->getTestPath('config.json'))
             ->to($this->container);
 
-        $this->assertSame('example-value', $this->container->get('config.example-key'));
+        assertSame('example-value', $this->container->get('config.example-key'));
     }
 
     public function testItCanBeConfiguredFromFiles()
@@ -35,7 +35,7 @@ abstract class AbstractContainerAdapterTest extends PHPUnit_Framework_TestCase
             ->configFromFiles($this->getTestPath('*'))
             ->to($this->container);
 
-        $this->assertSame('example-value', $this->container->get('config.example-key'));
+        assertSame('example-value', $this->container->get('config.example-key'));
     }
 
     public function testItAddToConfigUsingFiles()
@@ -49,7 +49,7 @@ abstract class AbstractContainerAdapterTest extends PHPUnit_Framework_TestCase
             ->configFromFiles($this->getTestPath('*'))
             ->to($this->container);
 
-        $this->assertSame('valueA', $this->container->get('config.keyA'));
-        $this->assertSame('valueB', $this->container->get('config.keyB'));
+        assertSame('valueA', $this->container->get('config.keyA'));
+        assertSame('valueB', $this->container->get('config.keyB'));
     }
 }

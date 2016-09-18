@@ -11,17 +11,17 @@ final class MissingDependencyExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItImplementsTheBaseExceptionType()
     {
-        $this->assertInstanceOf(Exception::class, new MissingDependencyException());
+        assertInstanceOf(Exception::class, new MissingDependencyException());
     }
 
     public function testItIsALogicException()
     {
-        $this->assertInstanceOf(LogicException::class, new MissingDependencyException());
+        assertInstanceOf(LogicException::class, new MissingDependencyException());
     }
 
     public function testItCanBeCreatedFromPackageName()
     {
-        $this->assertSame(
+        assertSame(
             'The package "foo/bar" is missing. Please run "composer require foo/bar" to install it.',
             MissingDependencyException::fromPackageName('foo/bar')->getMessage()
         );

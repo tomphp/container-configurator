@@ -25,7 +25,7 @@ final class JSONFileReaderTest extends PHPUnit_Framework_TestCase
 
     public function testItIsAFileReader()
     {
-        $this->assertInstanceOf(FileReader::class, $this->reader);
+        assertInstanceOf(FileReader::class, $this->reader);
     }
 
     public function testItThrowsIfFileDoesNotExist()
@@ -41,7 +41,7 @@ final class JSONFileReaderTest extends PHPUnit_Framework_TestCase
 
         $this->createTestFile('config.json', json_encode($config));
 
-        $this->assertEquals($config, $this->reader->read($this->getTestPath('config.json')));
+        assertEquals($config, $this->reader->read($this->getTestPath('config.json')));
     }
 
     public function testItThrowsIfTheConfigIsInvalid()
