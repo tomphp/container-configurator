@@ -18,6 +18,8 @@ final class Configurator
     const FILE_READERS = [
         '.json' => FileReader\JSONFileReader::class,
         '.php'  => FileReader\PHPFileReader::class,
+        '.yaml' => FileReader\YAMLFileReader::class,
+        '.yml'  => FileReader\YAMLFileReader::class,
     ];
 
     const CONTAINER_ADAPTERS = [

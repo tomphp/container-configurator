@@ -9,6 +9,7 @@ use TomPHP\ContainerConfigurator\Exception\UnknownFileTypeException;
 use TomPHP\ContainerConfigurator\FileReader\JSONFileReader;
 use TomPHP\ContainerConfigurator\FileReader\PHPFileReader;
 use TomPHP\ContainerConfigurator\FileReader\ReaderFactory;
+use TomPHP\ContainerConfigurator\FileReader\YAMLFileReader;
 
 final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
 {
@@ -24,25 +25,46 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
         $this->factory = new ReaderFactory([
             '.php'  => PHPFileReader::class,
             '.json' => JSONFileReader::class,
+            '.yaml' => YAMLFileReader::class,
+            '.yml' => YAMLFileReader::class,
         ]);
     }
 
-    public function testCreatesAReader()
+    /**
+     * @dataProvider providerCreatesAppropriateFileReader
+     *
+     * @param string $extension
+     * @param string $fileReaderClass
+     */
+    public function testCreatesAppropriateFileReader($extension, $fileReaderClass)
     {
-        $this->createTestFile('test.php');
+        $filename = 'test' . $extension;
 
-        $reader = $this->factory->create($this->getTestPath('test.php'));
+        $this->createTestFile($filename);
 
-        $this->assertInstanceOf(PHPFileReader::class, $reader);
+        $reader = $this->factory->create($this->getTestPath($filename));
+
+        $this->assertInstanceOf($fileReaderClass, $reader);
     }
 
-    public function testCreatesAnotherReader()
+    /**
+     * @return \Generator
+     */
+    public function providerCreatesAppropriateFileReader()
     {
-        $this->createTestFile('test.json');
+        $extensions = [
+            '.json' => JSONFileReader::class,
+            '.php' => PHPFileReader::class,
+            '.yaml' => YAMLFileReader::class,
+            '.yml' => YAMLFileReader::class,
+        ];
 
-        $reader = $this->factory->create($this->getTestPath('test.json'));
-
-        $this->assertInstanceOf(JSONFileReader::class, $reader);
+        foreach ($extensions as $extension => $fileReaderClass) {
+            yield [
+                $extension,
+                $fileReaderClass,
+            ];
+        }
     }
 
     public function testReturnsTheSameReaderForTheSameFileType()

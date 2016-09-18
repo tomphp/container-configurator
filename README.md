@@ -78,8 +78,17 @@ read their config is merged in; overwriting any matching keys.
 
 #### Supported Formats
 
-Currently `.php` and `.json` files are supported. PHP config files **must**
-return a PHP array.
+Currently `.php` and `.json` files are supported out of the box. PHP 
+config files **must** return a PHP array. 
+
+`.yaml` and `.yml` files can be read when the package `symfony/yaml` is 
+available. Run
+
+```
+composer require symfony/yaml
+```
+
+to install it.
 
 ### Application Configuration
 

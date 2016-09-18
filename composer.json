@@ -15,7 +15,8 @@
     ],
     "suggest": {
         "league/container": "Small but powerful dependency injection container http://container.thephpleague.com",
-        "pimple/pimple": "A small PHP 5.3 dependency injection container http://pimple.sensiolabs.org"
+        "pimple/pimple": "A small PHP 5.3 dependency injection container http://pimple.sensiolabs.org",
+        "symfony/yaml": "For reading configuration from YAML files"
     },
     "require": {
         "php": "^5.6|^7.0",
@@ -27,7 +28,8 @@
         "league/container": "^2.0.2",
         "phpunit/phpunit": "^5.5.4",
         "pimple/pimple": "^3.0.0",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "symfony/yaml": "^3.1.4"
     },
     "autoload": {
         "psr-4": {
