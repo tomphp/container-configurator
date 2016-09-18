@@ -6,9 +6,9 @@ final class ExampleClassWithArgs
 {
     private $constructorArgs = [];
 
-    public function __construct()
+    public function __construct(...$constructorArgs)
     {
-        $this->constructorArgs = func_get_args();
+        $this->constructorArgs = $constructorArgs;
     }
 
     public function getConstructorArgs()
