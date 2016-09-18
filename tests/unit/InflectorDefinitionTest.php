@@ -22,12 +22,12 @@ final class InflectorDefinitionTest extends PHPUnit_Framework_TestCase
 
     public function testGetInterfaceReturnsTheInterfaceName()
     {
-        $this->assertEquals('interface_name', $this->subject->getInterface());
+        assertEquals('interface_name', $this->subject->getInterface());
     }
 
     public function testGetMethodsReturnsTheMethods()
     {
-        $this->assertEquals(
+        assertEquals(
             ['method1' => ['arg1', 'arg2']],
             $this->subject->getMethods()
         );

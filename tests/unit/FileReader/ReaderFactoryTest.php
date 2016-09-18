@@ -44,7 +44,7 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
 
         $reader = $this->factory->create($this->getTestPath($filename));
 
-        $this->assertInstanceOf($fileReaderClass, $reader);
+        assertInstanceOf($fileReaderClass, $reader);
     }
 
     /**
@@ -75,7 +75,7 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
         $reader1 = $this->factory->create($this->getTestPath('test1.php'));
         $reader2 = $this->factory->create($this->getTestPath('test2.php'));
 
-        $this->assertSame($reader1, $reader2);
+        assertSame($reader1, $reader2);
     }
 
     public function testItThrowsIfTheArgumentIsNotAFileName()

@@ -26,7 +26,7 @@ final class YAMLFileReaderTest extends PHPUnit_Framework_TestCase
 
     public function testItIsAFileReader()
     {
-        $this->assertInstanceOf(FileReader::class, $this->reader);
+        assertInstanceOf(FileReader::class, $this->reader);
     }
 
     public function testItThrowsIfFileDoesNotExist()
@@ -42,7 +42,7 @@ final class YAMLFileReaderTest extends PHPUnit_Framework_TestCase
 
         $this->createTestFile('config.yml', Yaml\Yaml::dump($config));
 
-        $this->assertEquals($config, $this->reader->read($this->getTestPath('config.yml')));
+        assertEquals($config, $this->reader->read($this->getTestPath('config.yml')));
     }
 
     public function testItThrowsIfTheConfigIsInvalid()

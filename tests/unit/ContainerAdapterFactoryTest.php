@@ -25,7 +25,7 @@ final class ContainerAdapterFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testItCreatesAnInstanceOfTheContainerAdapter()
     {
-        $this->assertInstanceOf(
+        assertInstanceOf(
             ExampleContainerAdapter::class,
             $this->subject->create(new ExampleContainer())
         );
@@ -33,7 +33,7 @@ final class ContainerAdapterFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testItCreatesAnInstanceOfTheConfiguratorForSubclassedContainer()
     {
-        $this->assertInstanceOf(
+        assertInstanceOf(
             ExampleContainerAdapter::class,
             $this->subject->create(new ExampleExtendedContainer())
         );
@@ -51,6 +51,6 @@ final class ContainerAdapterFactoryTest extends PHPUnit_Framework_TestCase
         $container = new ExampleContainer();
         $configurator = $this->subject->create($container);
 
-        $this->assertSame($container, $configurator->getContainer());
+        assertSame($container, $configurator->getContainer());
     }
 }

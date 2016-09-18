@@ -15,7 +15,7 @@ final class InflectorConfigTest extends PHPUnit_Framework_TestCase
 
         $subject = new InflectorConfig([$interface => $methods]);
 
-        $this->assertEquals(
+        assertEquals(
             [new InflectorDefinition($interface, $methods)],
             iterator_to_array($subject)
         );

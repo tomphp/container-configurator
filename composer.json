@@ -42,7 +42,10 @@
             "tests\\acceptance\\": "tests/acceptance/",
             "tests\\support\\": "tests/support/",
             "tests\\mocks\\": "tests/mocks/"
-        }
+        },
+        "files": [
+            "vendor/phpunit/phpunit/src/Framework/Assert/Functions.php"
+        ]
     },
     "config": {
         "sort-packages": true

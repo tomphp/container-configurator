@@ -11,17 +11,17 @@ final class NoMatchingFilesExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItImplementsTheBaseExceptionType()
     {
-        $this->assertInstanceOf(Exception::class, new NoMatchingFilesException());
+        assertInstanceOf(Exception::class, new NoMatchingFilesException());
     }
 
     public function testItIsALogicException()
     {
-        $this->assertInstanceOf(LogicException::class, new NoMatchingFilesException());
+        assertInstanceOf(LogicException::class, new NoMatchingFilesException());
     }
 
     public function testItCanBeCreatedFromThePattern()
     {
-        $this->assertSame(
+        assertSame(
             'No files found matching pattern: "*.json".',
             NoMatchingFilesException::fromPattern('*.json')->getMessage()
         );

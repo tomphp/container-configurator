@@ -11,17 +11,17 @@ final class UnsupportedFeatureExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testItIsAnInstanceOfTheBaseException()
     {
-        $this->assertInstanceOf(Exception::class, new UnsupportedFeatureException());
+        assertInstanceOf(Exception::class, new UnsupportedFeatureException());
     }
 
     public function testItIsALogicException()
     {
-        $this->assertInstanceOf(LogicException::class, new UnsupportedFeatureException());
+        assertInstanceOf(LogicException::class, new UnsupportedFeatureException());
     }
 
     public function testItCanBeCreatedForInflectors()
     {
-        $this->assertEquals(
+        assertEquals(
             'container-name does not support inflectors.',
             UnsupportedFeatureException::forInflectors('container-name')->getMessage()
         );
