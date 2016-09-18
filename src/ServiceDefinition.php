@@ -4,6 +4,7 @@ namespace TomPHP\ContainerConfigurator;
 
 use Assert\Assertion;
 use InvalidArgumentException;
+use TomPHP\ContainerConfigurator\Exception\InvalidConfigException;
 
 final class ServiceDefinition
 {
@@ -20,7 +21,12 @@ final class ServiceDefinition
     /**
      * @var bool
      */
-    private $singleton;
+    private $isSingleton;
+
+    /**
+     * @var bool
+     */
+    private $isFactory;
 
     /**
      * @var array
@@ -38,17 +44,19 @@ final class ServiceDefinition
      * @param bool   $singletonDefault
      *
      * @throws InvalidArgumentException
+     * @throws InvalidConfigException
      */
     public function __construct($name, array $config, $singletonDefault = false)
     {
         Assertion::string($name);
         Assertion::boolean($singletonDefault);
 
-        $this->name      = $name;
-        $this->class     = isset($config['class']) ? $config['class'] : $name;
-        $this->singleton = isset($config['singleton']) ? $config['singleton'] : $singletonDefault;
-        $this->arguments = isset($config['arguments']) ? $config['arguments'] : [];
-        $this->methods   = isset($config['methods']) ? $config['methods'] : [];
+        $this->name        = $name;
+        $this->class       = $this->className($name, $config);
+        $this->isSingleton = isset($config['singleton']) ? $config['singleton'] : $singletonDefault;
+        $this->isFactory   = isset($config['factory']);
+        $this->arguments   = isset($config['arguments']) ? $config['arguments'] : [];
+        $this->methods     = isset($config['methods']) ? $config['methods'] : [];
     }
 
     /**
@@ -72,7 +80,15 @@ final class ServiceDefinition
      */
     public function isSingleton()
     {
-        return $this->singleton;
+        return $this->isSingleton;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFactory()
+    {
+        return $this->isFactory;
     }
 
     /**
@@ -89,5 +105,30 @@ final class ServiceDefinition
     public function getMethods()
     {
         return $this->methods;
+    }
+
+    /**
+     * @param string $name
+     * @param array  $config
+     *
+     * @return string
+     *
+     * @throws InvalidConfigException
+     */
+    private function className($name, array $config)
+    {
+        if (isset($config['class']) && isset($config['factory'])) {
+            throw InvalidConfigException::fromNameWhenClassAndFactorySpecified($name);
+        }
+
+        if (isset($config['class'])) {
+            return $config['class'];
+        }
+
+        if (isset($config['factory'])) {
+            return $config['factory'];
+        }
+
+        return $name;
     }
 }

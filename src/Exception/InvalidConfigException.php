@@ -40,4 +40,17 @@ final class InvalidConfigException extends LogicException implements Exception
     {
         return self::create('Invalid YAML in "%s": %s', [$filename, $message]);
     }
+
+    /**
+     * @param string $name
+     *
+     * @return self
+     */
+    public static function fromNameWhenClassAndFactorySpecified($name)
+    {
+        return self::create(
+            'Both "class" and "factory" are specified for service "%s"; these cannot be used together.',
+            [$name]
+        );
+    }
 }

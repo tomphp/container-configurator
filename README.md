@@ -184,6 +184,58 @@ Configurator::apply()->configFromArray($config)->to($container);
 $logger = $container->get('logger'));
 ```
 
+#### Service Factories
+
+If you require some addition additional logic when creating a service, you can
+define a Service Factory. A service factory is simply an invokable class which
+can take a list of arguments and returns the service instance.
+
+Services are added to the container by using the `factory` key instead of the
+`class` key.
+
+##### Example Config
+```php
+$appConfig = [
+    'db' => [
+        'host'     => 'localhost',
+        'database' => 'example_db',
+        'username' => 'example_user',
+        'password' => 'example_password',
+    ],
+    'di' => [
+        'services' => [
+            'database' => [
+                'factory'   => MySQLPDOFactory::class,
+                'singleton' => true,
+                'arguments' => [
+                    'config.db.host',
+                    'config.db.database',
+                    'config.db.username',
+                    'config.db.password',
+                ],
+            ],
+        ],
+    ],
+];
+```
+
+##### Example Service Factory
+```php
+<?php
+
+class MySQLPDOFactory
+{
+    public function __invoke($host, $database, $username, $password)
+    {
+        $dsn = "mysql:host=$host;dbname=$database";
+        $pdo = new PDO($dsn, $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        return $pdo;
+    }
+}
+```
+
 ### Configuring Inflectors
 
 **Currently only supported by the League Container.**

@@ -56,7 +56,50 @@ final class PimpleContainerAdapter implements ContainerAdapter
 
     private function addServiceToContainer(ServiceDefinition $definition)
     {
-        $factory = function () use ($definition) {
+        $factory = $this->createFactory($definition);
+
+        if (!$definition->isSingleton()) {
+            $factory = $this->container->factory($factory);
+        }
+
+        $this->container[$definition->getName()] = $factory;
+    }
+
+    /**
+     * @param ServiceDefinition $definition
+     *
+     * @return \Closure
+     */
+    private function createFactory(ServiceDefinition $definition)
+    {
+        return $definition->isFactory()
+            ? $this->createFactoryFactory($definition)
+            : $this->createInstanceFactory($definition);
+    }
+
+    /**
+     * @param ServiceDefinition $definition
+     *
+     * @return \Closure
+     */
+    private function createFactoryFactory(ServiceDefinition $definition)
+    {
+        return function () use ($definition) {
+            $className = $definition->getClass();
+            $factory = new $className();
+
+            return $factory(...$this->resolveArguments($definition->getArguments()));
+        };
+    }
+
+    /**
+     * @param ServiceDefinition $definition
+     *
+     * @return \Closure
+     */
+    private function createInstanceFactory(ServiceDefinition $definition)
+    {
+        return function () use ($definition) {
             $className = $definition->getClass();
             $instance = new $className(...$this->resolveArguments($definition->getArguments()));
 
@@ -66,14 +109,13 @@ final class PimpleContainerAdapter implements ContainerAdapter
 
             return $instance;
         };
-
-        if (!$definition->isSingleton()) {
-            $factory = $this->container->factory($factory);
-        }
-
-        $this->container[$definition->getName()] = $factory;
     }
 
+    /**
+     * @param array $arguments
+     *
+     * @return array
+     */
     private function resolveArguments(array $arguments)
     {
         return array_map(

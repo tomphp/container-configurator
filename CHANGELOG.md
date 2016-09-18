@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
   * `TomPHP\ContainerConfigurator\FileReader\YAMLFileReader` for reading
      YAML files (requires `symfony/yaml` to be installed)
+  * Service factories
 
 ## 0.5.0 - 2016-09-13
 ### Added
