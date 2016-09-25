@@ -120,6 +120,10 @@ final class PimpleContainerAdapter implements ContainerAdapter
     {
         return array_map(
             function ($argument) {
+                if (!is_string($argument)) {
+                    return $argument;
+                }
+
                 if (isset($this->container[$argument])) {
                     return $this->container[$argument];
                 }

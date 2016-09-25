@@ -216,6 +216,31 @@ trait SupportsServiceConfig
         assertEquals([ExampleClass::class, 'arg2'], $instance->getConstructorArgs());
     }
 
+    public function testItUsesComplexConstructorArguments()
+    {
+        $config = [
+            'di' => [
+                'services' => [
+                    'example_class' => [
+                        'class' => ExampleClassWithArgs::class,
+                        'arguments' => [
+                            ['example_array'],
+                            new \stdClass(),
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        Configurator::apply()
+            ->configFromArray($config)
+            ->to($this->container);
+
+        $instance = $this->container->get('example_class');
+
+        assertEquals([['example_array'], new \stdClass()], $instance->getConstructorArgs());
+    }
+
     public function testItCallsSetterMethods()
     {
         $config = [
