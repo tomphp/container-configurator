@@ -145,7 +145,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class' => ExampleClassWithArgs::class,
+                        'class'     => ExampleClassWithArgs::class,
                         'arguments' => [
                             'arg1',
                             'arg2',
@@ -169,10 +169,10 @@ trait SupportsServiceConfig
         $config = [
             'arg1' => 'value1',
             'arg2' => 'value2',
-            'di' => [
+            'di'   => [
                 'services' => [
                     'example_class' => [
-                        'class' => ExampleClassWithArgs::class,
+                        'class'     => ExampleClassWithArgs::class,
                         'arguments' => [
                             'config.arg1',
                             'config.arg2',
@@ -197,7 +197,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class' => ExampleClassWithArgs::class,
+                        'class'     => ExampleClassWithArgs::class,
                         'arguments' => [
                             ExampleClass::class,
                             'arg2',
@@ -222,7 +222,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class' => ExampleClassWithArgs::class,
+                        'class'     => ExampleClassWithArgs::class,
                         'arguments' => [
                             ['example_array'],
                             new \stdClass(),
@@ -247,7 +247,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class' => ExampleClass::class,
+                        'class'   => ExampleClass::class,
                         'methods' => [
                             'setValue' => ['the value'],
                         ],
@@ -269,10 +269,10 @@ trait SupportsServiceConfig
     {
         $config = [
             'arg' => 'value',
-            'di' => [
+            'di'  => [
                 'services' => [
                     'example_class' => [
-                        'class' => ExampleClass::class,
+                        'class'   => ExampleClass::class,
                         'methods' => [
                             'setValue' => ['config.arg'],
                         ],
@@ -296,7 +296,7 @@ trait SupportsServiceConfig
             'di' => [
                 'services' => [
                     'example_class' => [
-                        'class' => ExampleClass::class,
+                        'class'   => ExampleClass::class,
                         'methods' => [
                             'setValue' => [ExampleClass::class],
                         ],
@@ -318,7 +318,7 @@ trait SupportsServiceConfig
     {
         $config = [
             'class_name' => ExampleClassWithArgs::class,
-            'di' => [
+            'di'         => [
                 'services' => [
                     'example_service' => [
                         'factory'   => ExampleFactory::class,

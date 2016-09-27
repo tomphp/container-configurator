@@ -26,7 +26,7 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
             '.php'  => PHPFileReader::class,
             '.json' => JSONFileReader::class,
             '.yaml' => YAMLFileReader::class,
-            '.yml' => YAMLFileReader::class,
+            '.yml'  => YAMLFileReader::class,
         ]);
     }
 
@@ -54,9 +54,9 @@ final class ReaderFactoryTest extends PHPUnit_Framework_TestCase
     {
         $extensions = [
             '.json' => JSONFileReader::class,
-            '.php' => PHPFileReader::class,
+            '.php'  => PHPFileReader::class,
             '.yaml' => YAMLFileReader::class,
-            '.yml' => YAMLFileReader::class,
+            '.yml'  => YAMLFileReader::class,
         ];
 
         foreach ($extensions as $extension => $fileReaderClass) {

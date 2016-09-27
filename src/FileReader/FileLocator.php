@@ -10,9 +10,9 @@ final class FileLocator
     /**
      * @param string $pattern
      *
-     * @return string[]
-     *
      * @throws InvalidArgumentException
+     *
+     * @return string[]
      */
     public function locate($pattern)
     {

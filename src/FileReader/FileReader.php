@@ -10,10 +10,10 @@ interface FileReader
     /**
      * @param string $filename
      *
-     * @return array
-     *
      * @throws InvalidConfigException
      * @throws InvalidArgumentException
+     *
+     * @return array
      */
     public function read($filename);
 }

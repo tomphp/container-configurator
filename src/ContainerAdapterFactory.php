@@ -19,9 +19,9 @@ final class ContainerAdapterFactory
     /**
      * @param object $container
      *
-     * @return void
-     *
      * @throws UnknownContainerException
+     *
+     * @return void
      */
     public function create($container)
     {

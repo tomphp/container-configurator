@@ -29,9 +29,9 @@ final class ReaderFactory
     /**
      * @param string $filename
      *
-     * @return FileReader
-     *
      * @throws InvalidArgumentException
+     *
+     * @return FileReader
      */
     public function create($filename)
     {

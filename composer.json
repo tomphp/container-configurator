@@ -24,7 +24,7 @@
         "tomphp/exception-constructor-tools": "^1.0.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^1.10",
+        "friendsofphp/php-cs-fixer": "2.0.0-alpha",
         "league/container": "^2.0.2",
         "phpunit/phpunit": "^5.5.4",
         "pimple/pimple": "^3.0.0",

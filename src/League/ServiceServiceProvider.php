@@ -36,9 +36,9 @@ final class ServiceServiceProvider extends AbstractServiceProvider
     /**
      * @param ServiceDefinition $definition
      *
-     * @return void
-     *
      * @throws NotClassDefinitionException
+     *
+     * @return void
      */
     private function registerService(ServiceDefinition $definition)
     {
@@ -86,7 +86,7 @@ final class ServiceServiceProvider extends AbstractServiceProvider
     {
         return function () use ($definition) {
             $className = $definition->getClass();
-            $factory = new $className();
+            $factory   = new $className();
 
             return $factory(...$this->resolveArguments($definition->getArguments()));
         };

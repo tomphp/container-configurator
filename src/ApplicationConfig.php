@@ -118,9 +118,9 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
     }
 
     /**
-     * @return mixed
-     *
      * @throws EntryDoesNotExistException
+     *
+     * @return mixed
      */
     private function traverseConfig(array $path)
     {

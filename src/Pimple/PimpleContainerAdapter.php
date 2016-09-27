@@ -86,7 +86,7 @@ final class PimpleContainerAdapter implements ContainerAdapter
     {
         return function () use ($definition) {
             $className = $definition->getClass();
-            $factory = new $className();
+            $factory   = new $className();
 
             return $factory(...$this->resolveArguments($definition->getArguments()));
         };
@@ -101,7 +101,7 @@ final class PimpleContainerAdapter implements ContainerAdapter
     {
         return function () use ($definition) {
             $className = $definition->getClass();
-            $instance = new $className(...$this->resolveArguments($definition->getArguments()));
+            $instance  = new $className(...$this->resolveArguments($definition->getArguments()));
 
             foreach ($definition->getMethods() as $name => $args) {
                 $instance->$name(...$this->resolveArguments($args));

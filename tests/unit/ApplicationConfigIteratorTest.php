@@ -40,7 +40,7 @@ final class ApplicationConfigIteratorTest extends PHPUnit_Framework_TestCase
                     'keyA' => 'valueA',
                 ],
                 'group1.keyA' => 'valueA',
-                'group2' => [
+                'group2'      => [
                     'keyB' => 'valueB',
                 ],
                 'group2.keyB' => 'valueB',
@@ -63,12 +63,12 @@ final class ApplicationConfigIteratorTest extends PHPUnit_Framework_TestCase
         assertEquals(
             [
                 'group1' => [
-                    'keyA' => 'valueA',
+                    'keyA'   => 'valueA',
                     'group2' => [
                         'keyB'   => 'valueB',
                     ],
                 ],
-                'group1.keyA' => 'valueA',
+                'group1.keyA'   => 'valueA',
                 'group1.group2' => [
                     'keyB' => 'valueB',
                 ],

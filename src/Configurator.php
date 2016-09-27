@@ -98,10 +98,10 @@ final class Configurator
      *
      * @param string $pattern
      *
-     * @return Configurator
-     *
      * @throws NoMatchingFilesException
      * @throws InvalidArgumentException
+     *
+     * @return Configurator
      */
     public function configFromFiles($pattern)
     {
@@ -128,10 +128,10 @@ final class Configurator
      * @param string $name
      * @param mixed  $value
      *
-     * @return Configurator
-     *
      * @throws UnknownSettingException
      * @throws InvalidArgumentException
+     *
+     * @return Configurator
      */
     public function withSetting($name, $value)
     {
