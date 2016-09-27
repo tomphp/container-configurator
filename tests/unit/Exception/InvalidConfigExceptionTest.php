@@ -50,4 +50,20 @@ final class InvalidConfigExceptionTest extends PHPUnit_Framework_TestCase
             InvalidConfigException::fromNameWhenClassAndFactorySpecified('example')->getMessage()
         );
     }
+
+    public function testItCanBeCreatedFromNameWhenClassAndServiceAreSpecified()
+    {
+        assertSame(
+            'Both "class" and "service" are specified for service "example"; these cannot be used together.',
+            InvalidConfigException::fromNameWhenClassAndServiceSpecified('example')->getMessage()
+        );
+    }
+
+    public function testItCanBeCreatedFromNameWhenFactoryAndServiceAreSpecified()
+    {
+        assertSame(
+            'Both "factory" and "service" are specified for service "example"; these cannot be used together.',
+            InvalidConfigException::fromNameWhenFactoryAndServiceSpecified('example')->getMessage()
+        );
+    }
 }

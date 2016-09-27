@@ -67,6 +67,16 @@ final class ServiceDefinitionTest extends PHPUnit_Framework_TestCase
         $definition = new ServiceDefinition('service_name', ['factory' => __CLASS__]);
 
         assertTrue($definition->isFactory());
+        assertFalse($definition->isAlias());
+        assertSame(__CLASS__, $definition->getClass());
+    }
+
+    public function testServiceAliasDefinition()
+    {
+        $definition = new ServiceDefinition('service_name', ['service' => __CLASS__]);
+
+        assertTrue($definition->isAlias());
+        assertFalse($definition->isFactory());
         assertSame(__CLASS__, $definition->getClass());
     }
 
@@ -75,5 +85,19 @@ final class ServiceDefinitionTest extends PHPUnit_Framework_TestCase
         $this->expectException(InvalidConfigException::class);
 
         new ServiceDefinition('service_name', ['class' => __CLASS__, 'factory' => __CLASS__]);
+    }
+
+    public function testItThrowIfClassAndServiceAreDefined()
+    {
+        $this->expectException(InvalidConfigException::class);
+
+        new ServiceDefinition('service_name', ['class' => __CLASS__, 'service' => __CLASS__]);
+    }
+
+    public function testItThrowIfFactoryAndServiceAreDefined()
+    {
+        $this->expectException(InvalidConfigException::class);
+
+        new ServiceDefinition('service_name', ['factory' => __CLASS__, 'service' => __CLASS__]);
     }
 }

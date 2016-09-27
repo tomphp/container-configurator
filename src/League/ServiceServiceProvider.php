@@ -52,6 +52,15 @@ final class ServiceServiceProvider extends AbstractServiceProvider
             return;
         }
 
+        if ($definition->isAlias()) {
+            $this->getContainer()->add(
+                $definition->getName(),
+                $this->createAliasFactory($definition)
+            );
+
+            return;
+        }
+
         $service = $this->getContainer()->add(
             $definition->getName(),
             $definition->getClass(),
@@ -75,6 +84,18 @@ final class ServiceServiceProvider extends AbstractServiceProvider
         foreach ($definition->getMethods() as $method => $args) {
             $service->withMethodCall($method, $args);
         }
+    }
+
+    /**
+     * @param ServiceDefinition $definition
+     *
+     * @return \Closure
+     */
+    private function createAliasFactory(ServiceDefinition $definition)
+    {
+        return function () use ($definition) {
+            return $this->getContainer()->get($definition->getClass());
+        };
     }
 
     /**

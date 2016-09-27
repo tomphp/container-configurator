@@ -169,9 +169,7 @@ $config = [
                     'setLogLevel' => [ 'info' ],
                 ],
             ],
-            StdoutLogger::class => [
-                'class' => StdoutLogger::class,
-            ],
+            StdoutLogger::class => [],
         ],
     ],
 ];
@@ -180,6 +178,32 @@ $container = new Container();
 Configurator::apply()->configFromArray($config)->to($container);
 
 $logger = $container->get('logger'));
+```
+
+#### Service Aliases
+
+You can create an alias to another service by using the `service` keyword
+instead of `class`:
+
+```php
+$config = [
+    'database' => [ /* ... */ ],
+    'di' => [
+        'services' => [
+            DatabaseConnection::class => [
+                'service' => MySQLDatabaseConnection::class,
+            ],
+            MySQLDatabaseConnection::class => [
+                'arguments' => [
+                    'config.database.host',
+                    'config.database.username',
+                    'config.database.password',
+                    'config.database.dbname',
+                ],
+            ],
+        ],
+    ],
+];
 ```
 
 #### Service Factories

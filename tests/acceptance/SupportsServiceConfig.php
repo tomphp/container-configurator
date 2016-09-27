@@ -340,4 +340,27 @@ trait SupportsServiceConfig
         assertInstanceOf(ExampleClassWithArgs::class, $instance);
         assertSame(['example_argument'], $instance->getConstructorArgs());
     }
+
+    public function testItCanCreateAServiceAlias()
+    {
+        $config = [
+            'di' => [
+                'services' => [
+                    'example_class' => [
+                        'class'     => ExampleClass::class,
+                        'singleton' => true,
+                    ],
+                    'example_alias' => [
+                        'service' => 'example_class',
+                    ],
+                ],
+            ],
+        ];
+
+        Configurator::apply()
+            ->configFromArray($config)
+            ->to($this->container);
+
+        assertSame($this->container->get('example_class'), $this->container->get('example_alias'));
+    }
 }

@@ -53,4 +53,30 @@ final class InvalidConfigException extends LogicException implements Exception
             [$name]
         );
     }
+
+    /**
+     * @param string $name
+     *
+     * @return self
+     */
+    public static function fromNameWhenClassAndServiceSpecified($name)
+    {
+        return self::create(
+            'Both "class" and "service" are specified for service "%s"; these cannot be used together.',
+            [$name]
+        );
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return self
+     */
+    public static function fromNameWhenFactoryAndServiceSpecified($name)
+    {
+        return self::create(
+            'Both "factory" and "service" are specified for service "%s"; these cannot be used together.',
+            [$name]
+        );
+    }
 }
