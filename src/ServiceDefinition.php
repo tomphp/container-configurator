@@ -111,9 +111,9 @@ final class ServiceDefinition
      * @param string $name
      * @param array  $config
      *
-     * @return string
-     *
      * @throws InvalidConfigException
+     *
+     * @return string
      */
     private function className($name, array $config)
     {

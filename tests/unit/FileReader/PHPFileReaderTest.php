@@ -38,7 +38,7 @@ final class PHPFileReaderTest extends PHPUnit_Framework_TestCase
     public function testReadsAPHPConfigFile()
     {
         $config = ['key' => 'value'];
-        $code = '<?php return ' . var_export($config, true) . ';';
+        $code   = '<?php return ' . var_export($config, true) . ';';
 
         $this->createTestFile('config.php', $code);
 

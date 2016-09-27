@@ -11,7 +11,7 @@ final class InflectorConfigTest extends PHPUnit_Framework_TestCase
     public function testItMapsTheConfigArrayToInflectorDefinitions()
     {
         $interface = 'example_interface';
-        $methods = ['method1' => ['arg1', 'arg2']];
+        $methods   = ['method1' => ['arg1', 'arg2']];
 
         $subject = new InflectorConfig([$interface => $methods]);
 

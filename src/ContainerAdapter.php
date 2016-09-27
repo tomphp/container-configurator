@@ -17,9 +17,9 @@ interface ContainerAdapter
      * @param ApplicationConfig $config
      * @param string            $prefix
      *
-     * @return void
-     *
      * @throws InvalidArgumentException
+     *
+     * @return void
      */
     public function addApplicationConfig(ApplicationConfig $config, $prefix = 'config');
 

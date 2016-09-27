@@ -23,6 +23,7 @@ final class InflectorDefinition
         $this->interface = $interface;
         $this->methods   = $methods;
     }
+
     /**
      * @return string
      */

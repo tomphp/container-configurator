@@ -48,7 +48,7 @@ final class ContainerAdapterFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testItSetsTheContainerOnTheConfigurator()
     {
-        $container = new ExampleContainer();
+        $container    = new ExampleContainer();
         $configurator = $this->subject->create($container);
 
         assertSame($container, $configurator->getContainer());
