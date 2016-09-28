@@ -3,18 +3,21 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased - TBD
+### Added
+  * Service aliases.
+
 ### Fixed
   * Non-string arguments can be provided to Pimple services.
 
 ## 0.5.1 - 2016-09-18
 ### Added
   * `TomPHP\ContainerConfigurator\FileReader\YAMLFileReader` for reading
-     YAML files (requires `symfony/yaml` to be installed)
-  * Service factories
+     YAML files (requires `symfony/yaml` to be installed).
+  * Service factories.
 
 ## 0.5.0 - 2016-09-13
 ### Added
-  * `TomPHP\ContainerConfigurator\Configurator` as the main API
+  * `TomPHP\ContainerConfigurator\Configurator` as the main API.
   * If `class` is left out of the config for a service, then the service name
     is assumed to be the name of the class.
   * Services can be set as singleton by default.

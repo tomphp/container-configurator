@@ -72,9 +72,15 @@ final class PimpleContainerAdapter implements ContainerAdapter
      */
     private function createFactory(ServiceDefinition $definition)
     {
-        return $definition->isFactory()
-            ? $this->createFactoryFactory($definition)
-            : $this->createInstanceFactory($definition);
+        if ($definition->isFactory()) {
+            return $this->createFactoryFactory($definition);
+        }
+
+        if ($definition->isAlias()) {
+            return $this->createAliasFactory($definition);
+        }
+
+        return $this->createInstanceFactory($definition);
     }
 
     /**
@@ -89,6 +95,18 @@ final class PimpleContainerAdapter implements ContainerAdapter
             $factory   = new $className();
 
             return $factory(...$this->resolveArguments($definition->getArguments()));
+        };
+    }
+
+    /**
+     * @param ServiceDefinition $definition
+     *
+     * @return \Closure
+     */
+    private function createAliasFactory(ServiceDefinition $definition)
+    {
+        return function () use ($definition) {
+            return $this->container[$definition->getClass()];
         };
     }
 
