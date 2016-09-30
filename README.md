@@ -262,7 +262,7 @@ class MySQLPDOFactory
 }
 ```
 
-##### Injecting The Container
+#### Injecting The Container
 
 In the rare case that you want to inject the container in as a dependency to
 one of your services, you can use `Configurator::container()` as the name
