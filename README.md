@@ -2,6 +2,10 @@
 
 [![Build Status](https://api.travis-ci.org/tomphp/container-configurator.svg)](https://api.travis-ci.org/tomphp/container-configurator)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tomphp/container-configurator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tomphp/container-configurator/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/tomphp/container-configurator/v/stable)](https://packagist.org/packages/tomphp/container-configurator)
+[![Total Downloads](https://poser.pugx.org/tomphp/container-configurator/downloads)](https://packagist.org/packages/tomphp/container-configurator)
+[![Latest Unstable Version](https://poser.pugx.org/tomphp/container-configurator/v/unstable)](https://packagist.org/packages/tomphp/container-configurator)
+[![License](https://poser.pugx.org/tomphp/container-configurator/license)](https://packagist.org/packages/tomphp/container-configurator)
 
 This package enables you to configure your application and the Dependency
 Injection Container (DIC) via config arrays or files. Currently, supported
