@@ -6,7 +6,9 @@ use PHPUnit_Framework_TestCase;
 use tests\mocks\ExampleContainer;
 use tests\mocks\ExampleContainerAdapter;
 use tests\mocks\ExampleExtendedContainer;
+use tests\mocks\NotContainerAdapter;
 use TomPHP\ContainerConfigurator\ContainerAdapterFactory;
+use TomPHP\ContainerConfigurator\Exception\NotContainerAdapterException;
 use TomPHP\ContainerConfigurator\Exception\UnknownContainerException;
 
 final class ContainerAdapterFactoryTest extends PHPUnit_Framework_TestCase
@@ -44,6 +46,17 @@ final class ContainerAdapterFactoryTest extends PHPUnit_Framework_TestCase
         $this->expectException(UnknownContainerException::class);
 
         $this->subject->create(new \stdClass());
+    }
+
+    public function testItThrowsIfNotAContainerAdapter()
+    {
+        $this->subject = new ContainerAdapterFactory([
+            ExampleContainer::class => NotContainerAdapter::class,
+        ]);
+
+        $this->expectException(NotContainerAdapterException::class);
+
+        $this->subject->create(new ExampleContainer());
     }
 
     public function testItSetsTheContainerOnTheConfigurator()

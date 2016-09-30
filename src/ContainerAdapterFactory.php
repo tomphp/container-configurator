@@ -2,6 +2,7 @@
 
 namespace TomPHP\ContainerConfigurator;
 
+use TomPHP\ContainerConfigurator\Exception\NotContainerAdapterException;
 use TomPHP\ContainerConfigurator\Exception\UnknownContainerException;
 
 final class ContainerAdapterFactory
@@ -20,6 +21,7 @@ final class ContainerAdapterFactory
      * @param object $container
      *
      * @throws UnknownContainerException
+     * @throws NotContainerAdapterException
      *
      * @return void
      */
@@ -42,6 +44,11 @@ final class ContainerAdapterFactory
         }
 
         $instance = new $class();
+
+        if (!$instance instanceof ContainerAdapter) {
+            throw NotContainerAdapterException::fromClassName($class);
+        }
+
         $instance->setContainer($container);
 
         return $instance;
