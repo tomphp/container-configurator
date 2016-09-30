@@ -5,6 +5,7 @@ namespace TomPHP\ContainerConfigurator\Pimple;
 use Assert\Assertion;
 use Pimple\Container;
 use TomPHP\ContainerConfigurator\ApplicationConfig;
+use TomPHP\ContainerConfigurator\Configurator;
 use TomPHP\ContainerConfigurator\ContainerAdapter;
 use TomPHP\ContainerConfigurator\Exception\UnsupportedFeatureException;
 use TomPHP\ContainerConfigurator\InflectorConfig;
@@ -140,6 +141,10 @@ final class PimpleContainerAdapter implements ContainerAdapter
             function ($argument) {
                 if (!is_string($argument)) {
                     return $argument;
+                }
+
+                if ($argument === Configurator::container()) {
+                    return $this->container;
                 }
 
                 if (isset($this->container[$argument])) {

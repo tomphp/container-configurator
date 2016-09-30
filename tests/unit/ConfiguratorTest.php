@@ -33,4 +33,9 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
         Configurator::apply()->withSetting('unknown_setting', 'value');
     }
+
+    public function testTheContainerIdentifierStringIsAlwaysTheSame()
+    {
+        assertSame(Configurator::container(), Configurator::container());
+    }
 }

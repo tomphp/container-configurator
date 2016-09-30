@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased - TBD
 ### Added
   * Service aliases.
+  * Container injection using `Configurator::container()`.
 
 ### Fixed
   * Non-string arguments can be provided to Pimple services.
