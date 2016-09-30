@@ -2,6 +2,7 @@
 
 namespace tests\acceptance;
 
+use Interop\Container\ContainerInterface;
 use PHPUnit_Framework_TestCase;
 use tests\support\TestFileCreator;
 use TomPHP\ContainerConfigurator\Configurator;
@@ -11,6 +12,11 @@ abstract class AbstractContainerAdapterTest extends PHPUnit_Framework_TestCase
     use SupportsApplicationConfig;
     use SupportsServiceConfig;
     use TestFileCreator;
+
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
 
     public function testItCanBeConfiguredFromAFile()
     {
