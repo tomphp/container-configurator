@@ -3,6 +3,7 @@
 namespace TomPHP\ContainerConfigurator;
 
 use ArrayAccess;
+use InvalidArgumentException;
 use IteratorAggregate;
 use TomPHP\ContainerConfigurator\Exception\EntryDoesNotExistException;
 use TomPHP\ContainerConfigurator\Exception\ReadOnlyException;
@@ -22,6 +23,8 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
     /**
      * @param array  $config
      * @param string $separator
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(array $config, $separator = '.')
     {
@@ -38,6 +41,8 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
 
     /**
      * @param string $separator
+     *
+     * @throws InvalidArgumentException
      *
      * @return void
      */
@@ -73,7 +78,11 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
     }
 
     /**
+     * @param mixed $offset
+     *
      * @throws EntryDoesNotExistException
+     *
+     * @return mixed
      */
     public function offsetGet($offset)
     {
@@ -81,6 +90,9 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
     }
 
     /**
+     * @param mixed $offset
+     * @param mixed $value
+     *
      * @throws ReadOnlyException
      */
     public function offsetSet($offset, $value)
@@ -89,6 +101,8 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
     }
 
     /**
+     * @param mixed $offset
+     *
      * @throws ReadOnlyException
      */
     public function offsetUnset($offset)
@@ -112,12 +126,19 @@ final class ApplicationConfig implements ArrayAccess, IteratorAggregate
         return $this->separator;
     }
 
+    /**
+     * @param string $offset
+     *
+     * @return array
+     */
     private function getPath($offset)
     {
         return explode($this->separator, $offset);
     }
 
     /**
+     * @param array $path
+     *
      * @throws EntryDoesNotExistException
      *
      * @return mixed

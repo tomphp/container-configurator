@@ -48,6 +48,8 @@ final class PimpleContainerAdapter implements ContainerAdapter
     }
 
     /**
+     * @param InflectorConfig $config
+     *
      * @throws UnsupportedFeatureException
      */
     public function addInflectorConfig(InflectorConfig $config)
