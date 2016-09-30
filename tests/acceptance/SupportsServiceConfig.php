@@ -363,4 +363,76 @@ trait SupportsServiceConfig
 
         assertSame($this->container->get('example_class'), $this->container->get('example_alias'));
     }
+
+    public function testItInjectsTheContainerAsAConstructorDependency()
+    {
+        $config = [
+            'di' => [
+                'services' => [
+                    'example_service' => [
+                        'class'     => ExampleClassWithArgs::class,
+                        'arguments' => [Configurator::container()],
+                    ],
+                ],
+            ],
+        ];
+
+        Configurator::apply()
+            ->configFromArray($config)
+            ->to($this->container);
+
+        $instance = $this->container->get('example_service');
+
+        assertSame([$this->container], $instance->getConstructorArgs());
+    }
+
+    public function testItInjectsTheContainerAsAMethodDependency()
+    {
+        $config = [
+            'di' => [
+                'services' => [
+                    'example_service' => [
+                        'class'   => ExampleClass::class,
+                        'methods' => [
+                            'setValue' => [Configurator::container()],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        Configurator::apply()
+            ->configFromArray($config)
+            ->to($this->container);
+
+        $instance = $this->container->get('example_service');
+
+        assertSame($this->container, $instance->getValue());
+    }
+
+    public function testItInjectsTheContainerAsFactoryDependency()
+    {
+        $config = [
+            'class_name' => ExampleClassWithArgs::class,
+            'di'         => [
+                'services' => [
+                    'example_service' => [
+                        'factory'   => ExampleFactory::class,
+                        'arguments' => [
+                            'config.class_name',
+                            Configurator::container(),
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        Configurator::apply()
+            ->configFromArray($config)
+            ->to($this->container);
+
+        $instance = $this->container->get('example_service');
+
+        assertSame([$this->container], $instance->getConstructorArgs());
+    }
 }

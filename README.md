@@ -262,6 +262,25 @@ class MySQLPDOFactory
 }
 ```
 
+##### Injecting The Container
+
+In the rare case that you want to inject the container in as a dependency to
+one of your services, you can use `Configurator::container()` as the name
+of the injected dependency. This will only work in PHP config files, it's not
+available with YAML or JSON.
+
+```php
+$config = [
+    'di' => [
+        'services' => [
+            ContainerAwareService::class => [
+                'arguments' => [Configurator::container()],
+            ],
+        ],
+    ],
+];
+```
+
 ### Configuring Inflectors
 
 **Currently only supported by the League Container.**

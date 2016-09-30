@@ -49,6 +49,11 @@ final class Configurator
     ];
 
     /**
+     * @var string
+     */
+    private static $containerIdentifier;
+
+    /**
      * @api
      *
      * @return Configurator
@@ -61,6 +66,20 @@ final class Configurator
     private function __construct()
     {
         $this->config = new ApplicationConfig([]);
+    }
+
+    /**
+     * @api
+     *
+     * @return string
+     */
+    public static function container()
+    {
+        if (!self::$containerIdentifier) {
+            self::$containerIdentifier = uniqid(__CLASS__ . '::CONTAINER_ID::');
+        }
+
+        return self::$containerIdentifier;
     }
 
     /**
