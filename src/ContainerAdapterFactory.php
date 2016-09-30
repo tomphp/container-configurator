@@ -21,7 +21,7 @@ final class ContainerAdapterFactory
      *
      * @throws UnknownContainerException
      *
-     * @return void
+     * @return ContainerAdapter
      */
     public function create($container)
     {
