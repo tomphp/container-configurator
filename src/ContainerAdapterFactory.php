@@ -30,7 +30,7 @@ final class ContainerAdapterFactory
         $class = '';
 
         foreach ($this->config as $containerClass => $configuratorClass) {
-            if (is_a($container, $containerClass)) {
+            if ($container instanceof $containerClass) {
                 $class = $configuratorClass;
                 break;
             }
