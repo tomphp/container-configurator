@@ -68,6 +68,11 @@ final class Configurator
         $this->config = new ApplicationConfig([]);
     }
 
+    /**
+     * @api
+     *
+     * @return string
+     */
     public static function container()
     {
         if (!self::$containerIdentifier) {
