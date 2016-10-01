@@ -101,6 +101,8 @@ final class Configurator
      *
      * @param string $filename
      *
+     * @throws InvalidArgumentException
+     *
      * @return Configurator
      */
     public function configFromFile($filename)

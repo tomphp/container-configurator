@@ -49,6 +49,8 @@ final class ReaderFactory
     /**
      * @param string $filename
      *
+     * @throws UnknownFileTypeException
+     *
      * @return string
      */
     private function getReaderClass($filename)
