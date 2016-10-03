@@ -67,6 +67,34 @@ trait SupportsInflectorConfig
         );
     }
 
+    public function testItResolvesInflectorArguments()
+    {
+        $config = [
+            'argument' => 'test_value',
+            'di'       => [
+                'services' => [
+                    'example' => [
+                        'class' => ExampleClass::class,
+                    ],
+                ],
+                'inflectors' => [
+                    ExampleInterface::class => [
+                        'setValue' => ['config.argument'],
+                    ],
+                ],
+            ],
+        ];
+
+        Configurator::apply()
+            ->configFromArray($config)
+            ->to($this->container);
+
+        assertEquals(
+            'test_value',
+            $this->container->get('example')->getValue()
+        );
+    }
+
     public function testItSetsUpAnInflectorUsingCustomInflectorsKey()
     {
         $config = [

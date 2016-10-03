@@ -144,9 +144,7 @@ final class PimpleContainerAdapter implements ContainerAdapter
     {
         return function ($subject) use ($definition) {
             foreach ($definition->getMethods() as $method => $arguments) {
-                // @todo - method does not exist
-
-                $subject->$method(...$arguments);
+                $subject->$method(...$this->resolveArguments($arguments));
             }
         };
     }
