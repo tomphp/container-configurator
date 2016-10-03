@@ -283,8 +283,6 @@ $config = [
 
 ### Configuring Inflectors
 
-**Currently only supported by the League Container.**
-
 It is also possible to set up
 [Inflectors](http://container.thephpleague.com/inflectors/) by adding an
 `inflectors` key to the `di` section of the config.

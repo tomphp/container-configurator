@@ -11,6 +11,7 @@ abstract class AbstractContainerAdapterTest extends PHPUnit_Framework_TestCase
 {
     use SupportsApplicationConfig;
     use SupportsServiceConfig;
+    use SupportsInflectorConfig;
     use TestFileCreator;
 
     /**

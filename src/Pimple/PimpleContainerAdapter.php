@@ -3,12 +3,14 @@
 namespace TomPHP\ContainerConfigurator\Pimple;
 
 use Assert\Assertion;
+use Closure;
 use Pimple\Container;
 use TomPHP\ContainerConfigurator\ApplicationConfig;
 use TomPHP\ContainerConfigurator\Configurator;
 use TomPHP\ContainerConfigurator\ContainerAdapter;
 use TomPHP\ContainerConfigurator\Exception\UnsupportedFeatureException;
 use TomPHP\ContainerConfigurator\InflectorConfig;
+use TomPHP\ContainerConfigurator\InflectorDefinition;
 use TomPHP\ContainerConfigurator\ServiceConfig;
 use TomPHP\ContainerConfigurator\ServiceDefinition;
 
@@ -18,6 +20,11 @@ final class PimpleContainerAdapter implements ContainerAdapter
      * @var Container
      */
     private $container;
+
+    /**
+     * @var Closure
+     */
+    private $inflectors = [];
 
     /**
      * @param Container $container
@@ -54,7 +61,9 @@ final class PimpleContainerAdapter implements ContainerAdapter
      */
     public function addInflectorConfig(InflectorConfig $config)
     {
-        throw UnsupportedFeatureException::forInflectors('Pimple');
+        foreach ($config as $definition) {
+            $this->inflectors[$definition->getInterface()] = $this->createInflector($definition);
+        }
     }
 
     private function addServiceToContainer(ServiceDefinition $definition)
@@ -71,25 +80,25 @@ final class PimpleContainerAdapter implements ContainerAdapter
     /**
      * @param ServiceDefinition $definition
      *
-     * @return \Closure
+     * @return Closure
      */
     private function createFactory(ServiceDefinition $definition)
     {
         if ($definition->isFactory()) {
-            return $this->createFactoryFactory($definition);
+            return $this->applyInflectors($this->createFactoryFactory($definition));
         }
 
         if ($definition->isAlias()) {
             return $this->createAliasFactory($definition);
         }
 
-        return $this->createInstanceFactory($definition);
+        return $this->applyInflectors($this->createInstanceFactory($definition));
     }
 
     /**
      * @param ServiceDefinition $definition
      *
-     * @return \Closure
+     * @return Closure
      */
     private function createFactoryFactory(ServiceDefinition $definition)
     {
@@ -104,7 +113,7 @@ final class PimpleContainerAdapter implements ContainerAdapter
     /**
      * @param ServiceDefinition $definition
      *
-     * @return \Closure
+     * @return Closure
      */
     private function createAliasFactory(ServiceDefinition $definition)
     {
@@ -116,7 +125,7 @@ final class PimpleContainerAdapter implements ContainerAdapter
     /**
      * @param ServiceDefinition $definition
      *
-     * @return \Closure
+     * @return Closure
      */
     private function createInstanceFactory(ServiceDefinition $definition)
     {
@@ -126,6 +135,42 @@ final class PimpleContainerAdapter implements ContainerAdapter
 
             foreach ($definition->getMethods() as $name => $args) {
                 $instance->$name(...$this->resolveArguments($args));
+            }
+
+            return $instance;
+        };
+    }
+
+    /**
+     * @param InflectorDefinition $definition
+     *
+     * @return Closure
+     */
+    private function createInflector(InflectorDefinition $definition)
+    {
+        return function ($subject) use ($definition) {
+            foreach ($definition->getMethods() as $method => $arguments) {
+                // @todo - method does not exist
+
+                $subject->$method(...$arguments);
+            }
+        };
+    }
+
+    /**
+     * @param Closure $factory
+     *
+     * @return Closure
+     */
+    private function applyInflectors(Closure $factory)
+    {
+        return function () use ($factory) {
+            $instance = $factory();
+
+            foreach ($this->inflectors as $interface => $inflector) {
+                if ($instance instanceof $interface) {
+                    $inflector($instance);
+                }
             }
 
             return $instance;
