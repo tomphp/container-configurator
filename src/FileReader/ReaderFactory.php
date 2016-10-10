@@ -6,6 +6,9 @@ use Assert\Assertion;
 use InvalidArgumentException;
 use TomPHP\ContainerConfigurator\Exception\UnknownFileTypeException;
 
+/**
+ * @internal
+ */
 final class ReaderFactory
 {
     /**

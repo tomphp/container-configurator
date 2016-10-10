@@ -9,6 +9,9 @@ use TomPHP\ContainerConfigurator\Exception\NotClassDefinitionException;
 use TomPHP\ContainerConfigurator\ServiceConfig;
 use TomPHP\ContainerConfigurator\ServiceDefinition;
 
+/**
+ * @internal
+ */
 final class ServiceServiceProvider extends AbstractServiceProvider
 {
     /**

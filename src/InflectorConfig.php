@@ -5,6 +5,9 @@ namespace TomPHP\ContainerConfigurator;
 use ArrayIterator;
 use IteratorAggregate;
 
+/**
+ * @internal
+ */
 final class InflectorConfig implements IteratorAggregate
 {
     /**

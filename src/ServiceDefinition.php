@@ -6,6 +6,9 @@ use Assert\Assertion;
 use InvalidArgumentException;
 use TomPHP\ContainerConfigurator\Exception\InvalidConfigException;
 
+/**
+ * @internal
+ */
 final class ServiceDefinition
 {
     /**

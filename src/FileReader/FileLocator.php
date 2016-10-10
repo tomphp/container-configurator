@@ -5,6 +5,9 @@ namespace TomPHP\ContainerConfigurator\FileReader;
 use Assert\Assertion;
 use InvalidArgumentException;
 
+/**
+ * @internal
+ */
 final class FileLocator
 {
     /**

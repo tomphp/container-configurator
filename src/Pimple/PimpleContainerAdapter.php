@@ -13,6 +13,9 @@ use TomPHP\ContainerConfigurator\InflectorDefinition;
 use TomPHP\ContainerConfigurator\ServiceConfig;
 use TomPHP\ContainerConfigurator\ServiceDefinition;
 
+/**
+ * @internal
+ */
 final class PimpleContainerAdapter implements ContainerAdapter
 {
     /**

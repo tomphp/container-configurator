@@ -7,6 +7,9 @@ use Symfony\Component\Yaml;
 use TomPHP\ContainerConfigurator\Exception\InvalidConfigException;
 use TomPHP\ContainerConfigurator\Exception\MissingDependencyException;
 
+/**
+ * @internal
+ */
 final class YAMLFileReader implements FileReader
 {
     /**

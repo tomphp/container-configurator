@@ -5,6 +5,9 @@ namespace TomPHP\ContainerConfigurator\FileReader;
 use InvalidArgumentException;
 use TomPHP\ContainerConfigurator\Exception\InvalidConfigException;
 
+/**
+ * @api
+ */
 interface FileReader
 {
     /**

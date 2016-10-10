@@ -2,6 +2,9 @@
 
 namespace TomPHP\ContainerConfigurator;
 
+/**
+ * @internal
+ */
 final class InflectorDefinition
 {
     /**

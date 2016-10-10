@@ -7,6 +7,9 @@ use InvalidArgumentException;
 use TomPHP\ContainerConfigurator\Exception\NoMatchingFilesException;
 use TomPHP\ContainerConfigurator\Exception\UnknownSettingException;
 
+/**
+ * @api
+ */
 final class Configurator
 {
     const SETTING_PREFIX                     = 'config_prefix';
@@ -64,8 +67,6 @@ final class Configurator
     private static $containerIdentifier;
 
     /**
-     * @api
-     *
      * @return Configurator
      */
     public static function apply()
@@ -79,8 +80,6 @@ final class Configurator
     }
 
     /**
-     * @api
-     *
      * @return string
      */
     public static function container()
@@ -93,8 +92,6 @@ final class Configurator
     }
 
     /**
-     * @api
-     *
      * @param array $config
      *
      * @return $this
@@ -107,8 +104,6 @@ final class Configurator
     }
 
     /**
-     * @api
-     *
      * @param string $filename
      *
      * @throws InvalidArgumentException
@@ -125,8 +120,6 @@ final class Configurator
     }
 
     /**
-     * @api
-     *
      * @param string $pattern
      *
      * @throws NoMatchingFilesException
@@ -154,8 +147,6 @@ final class Configurator
     }
 
     /**
-     * @api
-     *
      * @param string $name
      * @param mixed  $value
      *

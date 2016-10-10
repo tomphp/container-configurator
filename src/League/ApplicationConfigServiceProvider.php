@@ -7,6 +7,9 @@ use InvalidArgumentException;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use TomPHP\ContainerConfigurator\ApplicationConfig;
 
+/**
+ * @internal
+ */
 final class ApplicationConfigServiceProvider extends AbstractServiceProvider
 {
     /**
