@@ -174,6 +174,17 @@ final class Configurator
     }
 
     /**
+     * @param $extension string
+     * @param $className string
+     */
+    public function withFileReader($extension, $className)
+    {
+        $this->fileReaders[$extension] = $className;
+
+        return $this;
+    }
+
+    /**
      * @api
      *
      * @param object $container
