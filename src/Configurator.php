@@ -49,6 +49,11 @@ final class Configurator
     ];
 
     /**
+     * @var array
+     */
+    private $fileReaders = self::FILE_READERS;
+
+    /**
      * @var string
      */
     private static $containerIdentifier;
@@ -219,7 +224,7 @@ final class Configurator
     private function getReaderFor($filename)
     {
         if (!$this->readerFactory) {
-            $this->readerFactory = new FileReader\ReaderFactory(self::FILE_READERS);
+            $this->readerFactory = new FileReader\ReaderFactory($this->fileReaders);
         }
 
         return $this->readerFactory->create($filename);
