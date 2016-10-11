@@ -20,14 +20,6 @@ final class CustomFileReader implements FileReader
         return self::$reads;
     }
 
-    /**
-     * @param string $filename
-     *
-     * @throws InvalidConfigException
-     * @throws InvalidArgumentException
-     *
-     * @return array
-     */
     public function read($filename)
     {
         self::$reads[] = $filename;

@@ -92,7 +92,7 @@ final class Configurator
      *
      * @param array $config
      *
-     * @return Configurator
+     * @return $this
      */
     public function configFromArray(array $config)
     {
@@ -108,7 +108,7 @@ final class Configurator
      *
      * @throws InvalidArgumentException
      *
-     * @return Configurator
+     * @return $this
      */
     public function configFromFile($filename)
     {
@@ -127,7 +127,7 @@ final class Configurator
      * @throws NoMatchingFilesException
      * @throws InvalidArgumentException
      *
-     * @return Configurator
+     * @return $this
      */
     public function configFromFiles($pattern)
     {
@@ -157,7 +157,7 @@ final class Configurator
      * @throws UnknownSettingException
      * @throws InvalidArgumentException
      *
-     * @return Configurator
+     * @return $this
      */
     public function withSetting($name, $value)
     {
@@ -174,10 +174,10 @@ final class Configurator
     }
 
     /**
-     * @param $extension string
-     * @param $className string
+     * @param string $extension
+     * @param string $className
      *
-     * @return Configurator
+     * @return $this
      */
     public function withFileReader($extension, $className)
     {
