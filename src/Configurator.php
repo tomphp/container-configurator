@@ -38,7 +38,7 @@ final class Configurator
     private $readerFactory;
 
     /**
-     * @var array
+     * @var mixed[]
      */
     private $settings = [
         self::SETTING_PREFIX                     => 'config',
@@ -49,7 +49,7 @@ final class Configurator
     ];
 
     /**
-     * @var array
+     * @var string[]
      */
     private $fileReaders = self::FILE_READERS;
 
@@ -176,6 +176,8 @@ final class Configurator
     /**
      * @param $extension string
      * @param $className string
+     *
+     * @return Configurator
      */
     public function withFileReader($extension, $className)
     {

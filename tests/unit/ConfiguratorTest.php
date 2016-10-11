@@ -43,9 +43,9 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
 
     public function testItCanAcceptADifferentFileReader()
     {
+        $container = new Container();
         $this->createTestFile('custom.xxx');
         CustomFileReader::reset();
-        $container    = new Container();
 
         $configFile = $this->getTestPath('custom.xxx');
         Configurator::apply()
