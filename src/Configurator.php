@@ -38,7 +38,7 @@ final class Configurator
     private $readerFactory;
 
     /**
-     * @var array
+     * @var mixed[]
      */
     private $settings = [
         self::SETTING_PREFIX                     => 'config',
@@ -47,6 +47,11 @@ final class Configurator
         self::SETTING_INFLECTORS_KEY             => 'di.inflectors',
         self::SETTING_DEFAULT_SINGLETON_SERVICES => false,
     ];
+
+    /**
+     * @var string[]
+     */
+    private $fileReaders = self::FILE_READERS;
 
     /**
      * @var string
@@ -87,7 +92,7 @@ final class Configurator
      *
      * @param array $config
      *
-     * @return Configurator
+     * @return $this
      */
     public function configFromArray(array $config)
     {
@@ -103,7 +108,7 @@ final class Configurator
      *
      * @throws InvalidArgumentException
      *
-     * @return Configurator
+     * @return $this
      */
     public function configFromFile($filename)
     {
@@ -122,7 +127,7 @@ final class Configurator
      * @throws NoMatchingFilesException
      * @throws InvalidArgumentException
      *
-     * @return Configurator
+     * @return $this
      */
     public function configFromFiles($pattern)
     {
@@ -152,7 +157,7 @@ final class Configurator
      * @throws UnknownSettingException
      * @throws InvalidArgumentException
      *
-     * @return Configurator
+     * @return $this
      */
     public function withSetting($name, $value)
     {
@@ -164,6 +169,19 @@ final class Configurator
         }
 
         $this->settings[$name] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param string $extension
+     * @param string $className
+     *
+     * @return $this
+     */
+    public function withFileReader($extension, $className)
+    {
+        $this->fileReaders[$extension] = $className;
 
         return $this;
     }
@@ -219,7 +237,7 @@ final class Configurator
     private function getReaderFor($filename)
     {
         if (!$this->readerFactory) {
-            $this->readerFactory = new FileReader\ReaderFactory(self::FILE_READERS);
+            $this->readerFactory = new FileReader\ReaderFactory($this->fileReaders);
         }
 
         return $this->readerFactory->create($filename);
