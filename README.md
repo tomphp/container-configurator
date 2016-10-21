@@ -321,3 +321,22 @@ Available settings are:
 | SETTING_SERVICES_KEY               | Where the config for the services is.           | `di.services`   |
 | SETTING_INFLECTORS_KEY             | Where the config for the inflectors is.         | `di.inflectors` |
 | SETTING_DEFAULT_SINGLETON_SERVICES | Sets whether services are singleton by default. | `false`         |
+
+## Advanced Customisation
+
+### Adding A Custom File Reader
+
+You can create your own custom file reader by implementing the
+`TomPHP\ContainerConfigurator\FileReader\FileReader` interface. Once you have
+created your file reader, you can the
+`withFileReader(string $extension, string $readerClassName)` method to enable
+the reader.
+
+**IMPORTANT**: `withFileReader()` must be called before calling
+`configFromFile()` or `configFromFiles()`!
+
+```php
+Configurator::apply()
+    ->withFileReader('.xml', MyCustomXMLFileReader::class)
+    ->configFromFile('config.xml'),
+    ->to($container);
