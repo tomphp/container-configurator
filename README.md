@@ -56,7 +56,7 @@ Configurator::apply()->configFromArray($config)->to($container);
 $db = $container->get('database_connection');
 ```
 
-### Reading Files From Disk
+## Reading Files From Disk
 
 Instead of providing the config as an array, you can also provide a list of
 file pattern matches to the `fromFiles` function.
@@ -74,12 +74,12 @@ Configurator::apply()
 `configFromFiles(string $pattern)` reads config from multiple files using
 globbing patterns.
 
-#### Merging
+### Merging
 
 The reader matches files in the order they are specified. As files are
 read their config is merged in; overwriting any matching keys.
 
-#### Supported Formats
+### Supported Formats
 
 Currently `.php` and `.json` files are supported out of the box. PHP 
 config files **must** return a PHP array. 
@@ -93,13 +93,13 @@ composer require symfony/yaml
 
 to install it.
 
-### Application Configuration
+## Application Configuration
 
 All values in the config array are made accessible via the DIC with the keys
 separated by a separator (default: `.`) and prefixed with constant string (default:
 `config`).
 
-##### Example
+#### Example
 
 ```php
 $config = [
@@ -120,12 +120,12 @@ var_dump($container->get('config.db.name'));
  */
 ```
 
-#### Accessing A Whole Sub-Array
+### Accessing A Whole Sub-Array
 
 Whole sub-arrays are also made available for cases where you want them instead
 of individual values.
 
-##### Example
+#### Example
 
 ```php
 $config = [
@@ -153,7 +153,7 @@ var_dump($container->get('config.db'));
  */
 ```
 
-### Configuring Services
+## Configuring Services
 
 Another feature is the ability to add services to your container via the
 config. By default, this is done by adding a `services` key under a `di` key in
@@ -184,7 +184,7 @@ Configurator::apply()->configFromArray($config)->to($container);
 $logger = $container->get('logger'));
 ```
 
-#### Service Aliases
+### Service Aliases
 
 You can create an alias to another service by using the `service` keyword
 instead of `class`:
@@ -210,7 +210,7 @@ $config = [
 ];
 ```
 
-#### Service Factories
+### Service Factories
 
 If you require some addition additional logic when creating a service, you can
 define a Service Factory. A service factory is simply an invokable class which
@@ -219,7 +219,7 @@ can take a list of arguments and returns the service instance.
 Services are added to the container by using the `factory` key instead of the
 `class` key.
 
-##### Example Config
+#### Example Config
 ```php
 $appConfig = [
     'db' => [
@@ -245,7 +245,7 @@ $appConfig = [
 ];
 ```
 
-##### Example Service Factory
+#### Example Service Factory
 ```php
 <?php
 
@@ -262,7 +262,7 @@ class MySQLPDOFactory
 }
 ```
 
-#### Injecting The Container
+### Injecting The Container
 
 In the rare case that you want to inject the container in as a dependency to
 one of your services, you can use `Configurator::container()` as the name
@@ -299,7 +299,7 @@ $appConfig = [
 ];
 ```
 
-### Extra Settings
+## Extra Settings
 
 The behaviour of the `Configurator` can be adjusted by using the
 `withSetting(string $name, $value` method:
@@ -314,8 +314,8 @@ Configurator::apply()
 
 Available settings are:
 
-| Name                              | Description                                     | Default         |
-|-----------------------------------|-------------------------------------------------|-----------------|
+| Name                               | Description                                     | Default         |
+|------------------------------------|-------------------------------------------------|-----------------|
 | SETTING_PREFIX                     | Sets prefix name for config value keys.         | `config`        |
 | SETTING_SEPARATOR                  | Sets the separator for config key.              | `.`             |
 | SETTING_SERVICES_KEY               | Where the config for the services is.           | `di.services`   |
