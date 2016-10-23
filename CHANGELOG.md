@@ -2,9 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] - TDB
+## 1.0.0 - TBD
 ### Added
   * Inflector support for Pimple.
+  * Custom file readers with `withFileReader(string $extension, string $readerClass);`.
 
 ## 0.5.2 - 2016-09-30
 ### Added
