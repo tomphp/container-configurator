@@ -13,6 +13,8 @@ final class NoMatchingFilesException extends LogicException implements Exception
     use ExceptionConstructorTools;
 
     /**
+     * @internal
+     *
      * @param string $pattern
      *
      * @return self

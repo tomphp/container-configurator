@@ -13,6 +13,8 @@ final class UnknownFileTypeException extends DomainException implements Exceptio
     use ExceptionConstructorTools;
 
     /**
+     * @internal
+     *
      * @param string   $extension
      * @param string[] $availableExtensions
      *

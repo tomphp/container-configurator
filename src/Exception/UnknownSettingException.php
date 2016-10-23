@@ -13,6 +13,8 @@ final class UnknownSettingException extends DomainException implements Exception
     use ExceptionConstructorTools;
 
     /**
+     * @internal
+     *
      * @param string   $setting
      * @param string[] $knownSettings
      *
