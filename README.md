@@ -328,9 +328,9 @@ Available settings are:
 
 You can create your own custom file reader by implementing the
 `TomPHP\ContainerConfigurator\FileReader\FileReader` interface. Once you have
-created your file reader, you can the
+created it, you can use the
 `withFileReader(string $extension, string $readerClassName)` method to enable
-the reader.
+the it
 
 **IMPORTANT**: `withFileReader()` must be called before calling
 `configFromFile()` or `configFromFiles()`!
