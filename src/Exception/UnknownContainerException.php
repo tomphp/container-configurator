@@ -5,6 +5,9 @@ namespace TomPHP\ContainerConfigurator\Exception;
 use LogicException;
 use TomPHP\ExceptionConstructorTools;
 
+/**
+ * @api
+ */
 final class UnknownContainerException extends LogicException implements Exception
 {
     use ExceptionConstructorTools;
