@@ -5,6 +5,8 @@ namespace tests\unit\TomPHP\ContainerConfigurator;
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 use Pimple\Container;
+use tests\mocks\ExampleContainer;
+use tests\mocks\ExampleContainerAdapter;
 use tests\mocks\FileReader\CustomFileReader;
 use tests\support\TestFileCreator;
 use TomPHP\ContainerConfigurator\Configurator;
@@ -54,5 +56,18 @@ final class ConfiguratorTest extends PHPUnit_Framework_TestCase
             ->to($container);
 
         assertSame([$configFile], CustomFileReader::getReads());
+    }
+
+    public function testItCanUseDifferentContainerAdapters()
+    {
+        $container = new ExampleContainer();
+        ExampleContainerAdapter::reset();
+
+        Configurator::apply()
+            ->withContainerAdapter(ExampleContainer::class, ExampleContainerAdapter::class)
+            ->configFromArray([])
+            ->to($container);
+
+        assertSame(1, ExampleContainerAdapter::getNumberOfInstances());
     }
 }

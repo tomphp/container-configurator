@@ -54,6 +54,11 @@ final class Configurator
     private $fileReaders = self::FILE_READERS;
 
     /**
+     * @var string[]
+     */
+    private $containerAdapters = self::CONTAINER_ADAPTERS;
+
+    /**
      * @var string
      */
     private static $containerIdentifier;
@@ -187,6 +192,19 @@ final class Configurator
     }
 
     /**
+     * @param string $containerName
+     * @param string $adapterName
+     *
+     * @return $this
+     */
+    public function withContainerAdapter($containerName, $adapterName)
+    {
+        $this->containerAdapters[$containerName] = $adapterName;
+
+        return $this;
+    }
+
+    /**
      * @api
      *
      * @param object $container
@@ -197,7 +215,7 @@ final class Configurator
     {
         $this->config->setSeparator($this->settings[self::SETTING_SEPARATOR]);
 
-        $factory = new ContainerAdapterFactory(self::CONTAINER_ADAPTERS);
+        $factory = new ContainerAdapterFactory($this->containerAdapters);
 
         $configurator = $factory->create($container);
 

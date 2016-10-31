@@ -9,7 +9,24 @@ use TomPHP\ContainerConfigurator\ServiceConfig;
 
 final class ExampleContainerAdapter implements ContainerAdapter
 {
+    private static $instanceCount = 0;
+
     private $container;
+
+    public function __construct()
+    {
+        self::$instanceCount++;
+    }
+
+    public static function reset()
+    {
+        self::$instanceCount = 0;
+    }
+
+    public static function getNumberOfInstances()
+    {
+        return self::$instanceCount;
+    }
 
     public function setContainer($container)
     {
