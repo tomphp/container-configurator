@@ -7,9 +7,6 @@ use InvalidArgumentException;
 use TomPHP\ContainerConfigurator\Exception\NoMatchingFilesException;
 use TomPHP\ContainerConfigurator\Exception\UnknownSettingException;
 
-/**
- * @api
- */
 final class Configurator
 {
     const SETTING_PREFIX                     = 'config_prefix';
@@ -196,8 +193,6 @@ final class Configurator
     }
 
     /**
-     * @api
-     *
      * @param object $container
      *
      * @return void

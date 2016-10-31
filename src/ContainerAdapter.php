@@ -4,9 +4,6 @@ namespace TomPHP\ContainerConfigurator;
 
 use InvalidArgumentException;
 
-/**
- * @api
- */
 interface ContainerAdapter
 {
     /**

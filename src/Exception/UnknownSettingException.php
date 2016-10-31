@@ -5,9 +5,6 @@ namespace TomPHP\ContainerConfigurator\Exception;
 use DomainException;
 use TomPHP\ExceptionConstructorTools;
 
-/**
- * @api
- */
 final class UnknownSettingException extends DomainException implements Exception
 {
     use ExceptionConstructorTools;

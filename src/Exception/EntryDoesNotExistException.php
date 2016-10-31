@@ -5,9 +5,6 @@ namespace TomPHP\ContainerConfigurator\Exception;
 use DomainException;
 use TomPHP\ExceptionConstructorTools;
 
-/**
- * @api
- */
 final class EntryDoesNotExistException extends DomainException implements Exception
 {
     use ExceptionConstructorTools;

@@ -18,8 +18,6 @@ final class InflectorServiceProvider extends AbstractServiceProvider implements 
     private $config;
 
     /**
-     * @api
-     *
      * @param InflectorConfig $config
      */
     public function __construct(InflectorConfig $config)

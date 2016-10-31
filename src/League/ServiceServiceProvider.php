@@ -20,8 +20,6 @@ final class ServiceServiceProvider extends AbstractServiceProvider
     private $config;
 
     /**
-     * @api
-     *
      * @param ServiceConfig $config
      */
     public function __construct(ServiceConfig $config)

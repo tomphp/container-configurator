@@ -5,9 +5,6 @@ namespace TomPHP\ContainerConfigurator\Exception;
 use LogicException;
 use TomPHP\ExceptionConstructorTools;
 
-/**
- * @api
- */
 final class MissingDependencyException extends LogicException implements Exception
 {
     use ExceptionConstructorTools;
