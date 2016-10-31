@@ -10,6 +10,8 @@ final class EntryDoesNotExistException extends DomainException implements Except
     use ExceptionConstructorTools;
 
     /**
+     * @internal
+     *
      * @param string $key
      *
      * @return self

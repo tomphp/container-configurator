@@ -5,6 +5,9 @@ namespace TomPHP\ContainerConfigurator;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 
+/**
+ * @internal
+ */
 final class ApplicationConfigIterator extends RecursiveIteratorIterator
 {
     /**

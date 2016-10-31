@@ -8,6 +8,9 @@ use IteratorAggregate;
 use TomPHP\ContainerConfigurator\Exception\EntryDoesNotExistException;
 use TomPHP\ContainerConfigurator\Exception\ReadOnlyException;
 
+/**
+ * @internal
+ */
 final class ApplicationConfig implements ArrayAccess, IteratorAggregate
 {
     /**

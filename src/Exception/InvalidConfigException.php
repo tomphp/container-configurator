@@ -10,6 +10,8 @@ final class InvalidConfigException extends LogicException implements Exception
     use ExceptionConstructorTools;
 
     /**
+     * @internal
+     *
      * @param string $filename
      *
      * @return self
@@ -20,6 +22,8 @@ final class InvalidConfigException extends LogicException implements Exception
     }
 
     /**
+     * @internal
+     *
      * @param string $filename
      * @param string $message
      *
@@ -31,6 +35,8 @@ final class InvalidConfigException extends LogicException implements Exception
     }
 
     /**
+     * @internal
+     *
      * @param string $filename
      * @param string $message
      *
@@ -42,6 +48,8 @@ final class InvalidConfigException extends LogicException implements Exception
     }
 
     /**
+     * @internal
+     *
      * @param string $name
      *
      * @return self
@@ -55,6 +63,8 @@ final class InvalidConfigException extends LogicException implements Exception
     }
 
     /**
+     * @internal
+     *
      * @param string $name
      *
      * @return self
@@ -68,6 +78,8 @@ final class InvalidConfigException extends LogicException implements Exception
     }
 
     /**
+     * @internal
+     *
      * @param string $name
      *
      * @return self

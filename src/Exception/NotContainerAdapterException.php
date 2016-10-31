@@ -10,6 +10,8 @@ final class NotContainerAdapterException extends LogicException implements Excep
     use ExceptionConstructorTools;
 
     /**
+     * @internal
+     *
      * @param string $name
      *
      * @return self

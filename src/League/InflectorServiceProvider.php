@@ -7,6 +7,9 @@ use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use TomPHP\ContainerConfigurator\InflectorConfig;
 use TomPHP\ContainerConfigurator\InflectorDefinition;
 
+/**
+ * @internal
+ */
 final class InflectorServiceProvider extends AbstractServiceProvider implements BootableServiceProviderInterface
 {
     /**
@@ -15,8 +18,6 @@ final class InflectorServiceProvider extends AbstractServiceProvider implements 
     private $config;
 
     /**
-     * @api
-     *
      * @param InflectorConfig $config
      */
     public function __construct(InflectorConfig $config)

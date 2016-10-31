@@ -10,6 +10,8 @@ final class NotClassDefinitionException extends LogicException implements Except
     use ExceptionConstructorTools;
 
     /**
+     * @internal
+     *
      * @param string $name
      *
      * @return self

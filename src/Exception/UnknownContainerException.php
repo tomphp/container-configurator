@@ -10,6 +10,8 @@ final class UnknownContainerException extends LogicException implements Exceptio
     use ExceptionConstructorTools;
 
     /**
+     * @internal
+     *
      * @param string   $name
      * @param string[] $knownContainers
      *

@@ -5,6 +5,9 @@ namespace TomPHP\ContainerConfigurator;
 use TomPHP\ContainerConfigurator\Exception\NotContainerAdapterException;
 use TomPHP\ContainerConfigurator\Exception\UnknownContainerException;
 
+/**
+ * @internal
+ */
 final class ContainerAdapterFactory
 {
     /**

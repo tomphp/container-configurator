@@ -10,6 +10,8 @@ final class MissingDependencyException extends LogicException implements Excepti
     use ExceptionConstructorTools;
 
     /**
+     * @internal
+     *
      * @param string $packageName
      *
      * @return self

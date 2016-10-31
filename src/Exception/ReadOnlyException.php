@@ -10,6 +10,8 @@ final class ReadOnlyException extends LogicException implements Exception
     use ExceptionConstructorTools;
 
     /**
+     * @internal
+     *
      * @param string $name
      *
      * @return self

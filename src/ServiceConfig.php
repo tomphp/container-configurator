@@ -7,6 +7,9 @@ use Assert\Assertion;
 use InvalidArgumentException;
 use IteratorAggregate;
 
+/**
+ * @internal
+ */
 final class ServiceConfig implements IteratorAggregate
 {
     /**

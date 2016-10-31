@@ -9,6 +9,9 @@ use TomPHP\ContainerConfigurator\ContainerAdapter;
 use TomPHP\ContainerConfigurator\InflectorConfig;
 use TomPHP\ContainerConfigurator\ServiceConfig;
 
+/**
+ * @internal
+ */
 final class LeagueContainerAdapter implements ContainerAdapter
 {
     /**

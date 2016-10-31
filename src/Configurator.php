@@ -64,8 +64,6 @@ final class Configurator
     private static $containerIdentifier;
 
     /**
-     * @api
-     *
      * @return Configurator
      */
     public static function apply()
@@ -79,8 +77,6 @@ final class Configurator
     }
 
     /**
-     * @api
-     *
      * @return string
      */
     public static function container()
@@ -93,8 +89,6 @@ final class Configurator
     }
 
     /**
-     * @api
-     *
      * @param array $config
      *
      * @return $this
@@ -107,8 +101,6 @@ final class Configurator
     }
 
     /**
-     * @api
-     *
      * @param string $filename
      *
      * @throws InvalidArgumentException
@@ -125,8 +117,6 @@ final class Configurator
     }
 
     /**
-     * @api
-     *
      * @param string $pattern
      *
      * @throws NoMatchingFilesException
@@ -154,8 +144,6 @@ final class Configurator
     }
 
     /**
-     * @api
-     *
      * @param string $name
      * @param mixed  $value
      *
@@ -205,8 +193,6 @@ final class Configurator
     }
 
     /**
-     * @api
-     *
      * @param object $container
      *
      * @return void
