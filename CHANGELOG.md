@@ -2,10 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.0.0 - TBD
+## 1.0.0 - 2015-19-31
 ### Added
   * Inflector support for Pimple.
   * Custom file readers with `withFileReader(string $extension, string $readerClass);`.
+  * Custom container adapters with `withContainerAdapter(string $containerName, string $adapterName);`.
 
 ## 0.5.2 - 2016-09-30
 ### Added
