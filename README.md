@@ -330,7 +330,7 @@ You can create your own custom file reader by implementing the
 `TomPHP\ContainerConfigurator\FileReader\FileReader` interface. Once you have
 created it, you can use the
 `withFileReader(string $extension, string $readerClassName)` method to enable
-the it
+the it.
 
 **IMPORTANT**: `withFileReader()` must be called before calling
 `configFromFile()` or `configFromFiles()`!
@@ -340,3 +340,20 @@ Configurator::apply()
     ->withFileReader('.xml', MyCustomXMLFileReader::class)
     ->configFromFile('config.xml'),
     ->to($container);
+```
+
+### Adding A Custom Container Adapter
+
+You can create your own container adapter so that you can configure other
+containers. This is done by implementing the
+`TomPHP\ContainerConfigurator\FileReader\ContainerAdapter` interface. Once you
+have created your adapter, you can use the
+`withContainerAdapter(string $containerName, string $adapterName)` method to
+enable the it:
+
+```php
+Configurator::apply()
+    ->withContainerAdapter(MyContainer::class, MyContainerAdapter::class)
+    ->configFromArray($appConfig),
+    ->to($container);
+```
