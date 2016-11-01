@@ -10,7 +10,7 @@ final class CustomFileReader implements FileReader
 
     public static function reset()
     {
-        $reads = [];
+        self::$reads = [];
     }
 
     public static function getReads()
