@@ -28,7 +28,7 @@
         "league/container": "^2.0.2",
         "phpunit/phpunit": "^5.5.4",
         "pimple/pimple": "^3.0.0",
-        "squizlabs/php_codesniffer": "*",
+        "squizlabs/php_codesniffer": "^2.8.0",
         "symfony/yaml": "^3.1.4"
     },
     "autoload": {
