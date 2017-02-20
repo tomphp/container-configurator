@@ -60,7 +60,6 @@
             "php-cs-fixer fix --dry-run --verbose"
         ],
         "test": [
-            "@cs:check",
             "phpunit --colors=always"
         ]
     }

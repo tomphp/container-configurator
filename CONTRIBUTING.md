@@ -21,7 +21,11 @@ Then the tests can be run using the following command:
 $ composer test
 ```
 
-This will also check for the PSR-2 Coding Standard compliance.
+Then the checks for the PSR-2 Coding Standard compliance can be run using the following command:
+
+```
+$ composer cs:check
+```
 
 ## Travis
 
