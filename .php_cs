@@ -5,9 +5,16 @@ $finder = PhpCsFixer\Finder::create()->in(__DIR__);
 return PhpCsFixer\Config::create()
     ->setRules([
         '@PSR2'                                       => true,
-        'align_double_arrow'                          => true,
-        'align_equals'                                => true,
-        'concat_with_spaces'                          => true,
+        'array_syntax'                                => [
+            'syntax' => 'short',
+        ],
+        'binary_operator_spaces'                      => [
+            'align_double_arrow' => true,
+            'align_equals' => true,
+        ],
+        'concat_space'                                => [
+            'spacing' => 'one',
+        ],
         'function_typehint_space'                     => true,
         'hash_to_slash_comment'                       => true,
         'include'                                     => true,
@@ -28,7 +35,7 @@ return PhpCsFixer\Config::create()
         'no_multiline_whitespace_before_semicolons'   => true,
         'no_short_bool_cast'                          => true,
         'no_singleline_whitespace_before_semicolons'  => true,
-        'no_spaces_inside_offset'                     => true,
+        'no_spaces_around_offset'                     => true,
         'no_trailing_comma_in_list_call'              => true,
         'no_trailing_comma_in_singleline_array'       => true,
         'no_unreachable_default_argument_value'       => true,
@@ -42,19 +49,19 @@ return PhpCsFixer\Config::create()
         'phpdoc_indent'                               => true,
         'phpdoc_inline_tag'                           => true,
         'phpdoc_no_access'                            => true,
+        'phpdoc_no_alias_tag'                         => [
+            'type' => 'var',
+        ],
         'phpdoc_no_package'                           => true,
         'phpdoc_order'                                => true,
-        'phpdoc_property'                             => true,
         'phpdoc_scalar'                               => true,
         'phpdoc_separation'                           => true,
         'phpdoc_single_line_var_spacing'              => true,
         'phpdoc_summary'                              => true,
         'phpdoc_to_comment'                           => true,
         'phpdoc_trim'                                 => true,
-        'phpdoc_type_to_var'                          => true,
         'phpdoc_types'                                => true,
         'self_accessor'                               => true,
-        'short_array_syntax'                          => true,
         'short_scalar_cast'                           => true,
         'single_blank_line_before_namespace'          => true,
         'single_quote'                                => true,
@@ -65,6 +72,6 @@ return PhpCsFixer\Config::create()
         'unary_operator_spaces'                       => true,
         'whitespace_after_comma_in_array'             => true,
     ])
+    ->setRiskyAllowed(true)
     ->setUsingCache(true)
-    ->setUsingLinter(true)
-    ->finder($finder);
+    ->setFinder($finder);
