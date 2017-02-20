@@ -15,18 +15,6 @@ final class Configurator
     const SETTING_INFLECTORS_KEY             = 'inflectors_key';
     const SETTING_DEFAULT_SINGLETON_SERVICES = 'default_singleton_services';
 
-    const FILE_READERS = [
-        '.json' => FileReader\JSONFileReader::class,
-        '.php'  => FileReader\PHPFileReader::class,
-        '.yaml' => FileReader\YAMLFileReader::class,
-        '.yml'  => FileReader\YAMLFileReader::class,
-    ];
-
-    const CONTAINER_ADAPTERS = [
-        \League\Container\Container::class => League\LeagueContainerAdapter::class,
-        \Pimple\Container::class           => Pimple\PimpleContainerAdapter::class,
-    ];
-
     /**
      * @var ApplicationConfig
      */
@@ -51,12 +39,20 @@ final class Configurator
     /**
      * @var string[]
      */
-    private $fileReaders = self::FILE_READERS;
+    private $fileReaders = [
+        '.json' => FileReader\JSONFileReader::class,
+        '.php'  => FileReader\PHPFileReader::class,
+        '.yaml' => FileReader\YAMLFileReader::class,
+        '.yml'  => FileReader\YAMLFileReader::class,
+    ];
 
     /**
      * @var string[]
      */
-    private $containerAdapters = self::CONTAINER_ADAPTERS;
+    private $containerAdapters = [
+        \League\Container\Container::class => League\LeagueContainerAdapter::class,
+        \Pimple\Container::class           => Pimple\PimpleContainerAdapter::class,
+    ];
 
     /**
      * @var string
